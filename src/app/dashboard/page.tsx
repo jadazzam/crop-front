@@ -1,11 +1,18 @@
-import Image from "next/image";
+"use client";
+import React from "react";
+import { Button } from "../../components/button";
 
-export default function Home() {
-    return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-               <p>We are in dashboard folder</p>
-            </div>
-        </main>
-    );
-}
+const Dashboard: React.FC = () => {
+  const handleClick = () => {
+    console.log("hello");
+    return "hello";
+  };
+  return (
+    <>
+      <p>We are in dashboard folder</p>
+      <Button onClick={handleClick}>Click me!</Button>{" "}
+    </>
+  );
+};
+
+export default Dashboard;

@@ -1,5 +1,10 @@
-import { defineConfig } from "@pandacss/dev";
-
+import { defineConfig, defineGlobalStyles } from "@pandacss/dev";
+const globalCss = defineGlobalStyles({
+  "html, body": {
+    color: "#008000",
+    lineHeight: "1.5",
+  },
+});
 export default defineConfig({
   // Whether to use css reset
   preflight: true,
@@ -17,4 +22,6 @@ export default defineConfig({
 
   // The output directory for your css system
   outdir: "styled-system",
+
+  globalCss,
 });
