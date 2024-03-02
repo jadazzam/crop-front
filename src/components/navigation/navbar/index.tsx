@@ -7,8 +7,8 @@ const Navbar = () => {
   return (
     <div
       className={hstack({
-        backgroundColor: "#38785F",
-        color: "white",
+        backgroundColor: "infinum.100",
+        color: "infinum.0",
       })}
     >
       <Logo />
@@ -20,12 +20,12 @@ const Navbar = () => {
         >
           <li>
             <Link href="/about">
-              <p>About Nav</p>
+              <p>About</p>
             </Link>
           </li>
           <li>
             <Link href="/services">
-              <p>Services Nav</p>
+              <p>Services</p>
             </Link>
           </li>
           <li>

@@ -17,7 +17,18 @@ export default defineConfig({
 
   // Useful for theme customization
   theme: {
-    extend: {},
+    extend: {
+      tokens: {
+        colors: {
+          infinum: {
+            0: { value: "#FFFFFF" },
+            50: { value: "#FFBA08" },
+            100: { value: "#38785F" },
+            200: { value: "#000000" },
+          },
+        },
+      },
+    },
   },
 
   // The output directory for your css system

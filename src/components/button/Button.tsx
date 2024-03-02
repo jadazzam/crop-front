@@ -6,7 +6,7 @@ export const Button = ({ onClick, children }: any) => {
   const buttonStyle = css({
     // Define your styled-system CSS properties here
     backgroundColor: "#138785F",
-    color: "white",
+    color: "infinum.0",
     py: "2",
     px: "4",
     rounded: "md",
