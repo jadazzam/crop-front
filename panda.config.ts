@@ -1,7 +1,7 @@
 import { defineConfig, defineGlobalStyles } from "@pandacss/dev";
 const globalCss = defineGlobalStyles({
   "html, body": {
-    color: "#008000",
+    color: "infinum.100",
     lineHeight: "1.5",
   },
 });

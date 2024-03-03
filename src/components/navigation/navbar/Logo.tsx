@@ -1,10 +1,8 @@
 "use client";
 import Image from "next/image";
-import { css } from "../../../../styled-system/css";
+import { css } from "@/panda/css";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Button } from "../../button/Button";
-import logo from "../../../../public/crop.svg";
 const Logo = () => {
   //update the size of the logo when the size of the screen changes
   const [width, setWidth] = useState(0);

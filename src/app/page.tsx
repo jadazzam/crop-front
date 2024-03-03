@@ -1,5 +1,5 @@
-import { css } from "../../styled-system/css";
-import { Container } from "../../styled-system/jsx";
+import { css } from "@/panda/css";
+import { Container } from "@/panda/jsx";
 export default function Home() {
   return (
     <Container>
