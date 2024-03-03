@@ -1,7 +1,7 @@
 import { defineConfig, defineGlobalStyles } from "@pandacss/dev";
 const globalCss = defineGlobalStyles({
   "html, body": {
-    color: "#008000",
+    color: "infinum.100",
     lineHeight: "1.5",
   },
 });
@@ -17,11 +17,45 @@ export default defineConfig({
 
   // Useful for theme customization
   theme: {
-    extend: {},
+    extend: {
+      tokens: {
+        colors: {
+          infinum: {
+            0: { value: "#FFFFFF" },
+            50: { value: "#FFBA08" },
+            100: { value: "#38785F" },
+            200: { value: "#000000" },
+          },
+        },
+      },
+    },
+  },
+  patterns: {
+    extend: {
+      container: {
+        transform(props) {
+          // TODO descructuring props.centerContent is not working @panda
+          delete props.centerContent;
+
+          return Object.assign(
+            {
+              position: "relative",
+              width: "100%",
+              maxWidth: "7xl",
+              mx: "auto",
+              paddingX: { base: "4", md: "6" },
+            },
+            props,
+          );
+        },
+      },
+    },
   },
 
   // The output directory for your css system
   outdir: "styled-system",
+
+  jsxFramework: "react",
 
   globalCss,
 });

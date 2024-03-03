@@ -18,9 +18,15 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./src/*"],
+      "@/styles/*": ["styles/*"],
+      "@/components/*": ["components/*"],
+      "@/panda/css": ["../styled-system/css"],
+      "@/panda/jsx": ["../styled-system/jsx"]
+    },
+    "baseUrl": "src/",
   },
+
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
