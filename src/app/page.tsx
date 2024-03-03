@@ -1,8 +1,8 @@
 import { css } from "../../styled-system/css";
-import { Stack } from "../../styled-system/jsx";
+import { Container } from "../../styled-system/jsx";
 export default function Home() {
   return (
-    <>
+    <Container>
       <div className="container mx-auto px-4">
         <h1>Hello word</h1>
         <p>This is a content to make our page longer</p>
@@ -13,6 +13,6 @@ export default function Home() {
       <div className={css({ fontSize: "2xl", fontWeight: "light" })}>
         Hello 🐼!
       </div>
-    </>
+    </Container>
   );
 }

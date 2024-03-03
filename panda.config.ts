@@ -30,6 +30,27 @@ export default defineConfig({
       },
     },
   },
+  patterns: {
+    extend: {
+      container: {
+        transform(props) {
+          // TODO descructuring props.centerContent is not working @panda
+          delete props.centerContent;
+
+          return Object.assign(
+            {
+              position: "relative",
+              width: "100%",
+              maxWidth: "7xl",
+              mx: "auto",
+              paddingX: { base: "4", md: "6" },
+            },
+            props,
+          );
+        },
+      },
+    },
+  },
 
   // The output directory for your css system
   outdir: "styled-system",
