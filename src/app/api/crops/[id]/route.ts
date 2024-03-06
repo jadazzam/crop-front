@@ -1,24 +1,25 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { cropType } from "@/interfaces/crop";
-import type { responseError } from "@/interfaces/responseError";
+import { NextRequest } from "next/server";
 
-// export default function cropHandler(
-//   req: NextApiRequest,
-//   res: NextApiResponse<cropType | responseError>,
-// ) {
-//   console.log("are we in [id] handler");
-//   const { query } = req;
-//   const { id } = query;
-//   // const person = people.find((p) => p.id === id);
-//   const crop = { id: "1", name: "name", type: "type", trefleId: "123" };
-//
-//   // User with id exists
-//   return crop
-//     ? res.status(200).json(crop)
-//     : res.status(404).json({ message: `Crop with id: ${id} not found.` });
-// }
-
-export async function GET(request: Request) {
-  const array = { id: "1", type: "type", name: "name", trefleId: "123" };
-  return new Response(JSON.stringify(array));
+const cropById = async (id: string): Promise<cropType | null> => {
+  try {
+    const res = await fetch(`http://localhost:8080/crops/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return await res.json();
+  } catch (err) {
+    console.log("get crop by id err", err);
+    return null;
+  }
+};
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } },
+) {
+  const { id } = params;
+  const crop: cropType | null = await cropById(id);
+  return new Response(JSON.stringify(crop));
 }

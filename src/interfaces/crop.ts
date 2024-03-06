@@ -5,6 +5,7 @@ const cropSchema = z.object({
   name: z.string(),
   type: z.string(),
   trefleId: z.string(),
+  trefle: z.record(z.any()),
 });
 
 export type cropType = z.infer<typeof cropSchema>;
