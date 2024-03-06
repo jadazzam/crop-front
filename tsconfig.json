@@ -6,6 +6,7 @@
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
+    "target": "ES2020",
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
@@ -22,7 +23,7 @@
       "@/styles/*": ["styles/*"],
       "@/components/*": ["components/*"],
       "@/panda/css": ["../styled-system/css"],
-      "@/panda/jsx": ["../styled-system/jsx"]
+      "@/panda/jsx": ["../styled-system/jsx"],
     },
     "baseUrl": "src/",
   },
