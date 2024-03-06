@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { cropType } from "../../../../interfaces/crop";
-import type { responseError } from "../../../../interfaces/responseError";
+import { cropType } from "@/interfaces/crop";
+import type { responseError } from "@/interfaces/responseError";
 
 // export default function cropHandler(
 //   req: NextApiRequest,

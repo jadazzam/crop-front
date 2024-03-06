@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import type { cropType } from "../../../interfaces/crop";
-import { responseError } from "../../../interfaces/responseError";
+import type { cropType } from "@/interfaces/crop";
+import { responseError } from "@/interfaces/responseError";
 // const fetcher = async (url: string) => {
 //   const res = await fetch(url);
 //   const data = await res.json();
@@ -13,6 +13,8 @@ import { responseError } from "../../../interfaces/responseError";
 // };
 
 export default function CropPage({ params }: { params: { id: string } }) {
+  const { id } = params;
+
   // const { query } = useRouter();
   // console.log("query", query);
   // const { data, error, isLoading, isValidating } = useSWR<

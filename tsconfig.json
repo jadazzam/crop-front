@@ -24,6 +24,7 @@
       "@/components/*": ["components/*"],
       "@/panda/css": ["../styled-system/css"],
       "@/panda/jsx": ["../styled-system/jsx"],
+      "@/interfaces/*": ["interfaces/*"]
     },
     "baseUrl": "src/",
   },
