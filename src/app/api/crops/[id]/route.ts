@@ -1,7 +1,7 @@
-import { cropType } from "@/interfaces/crop";
+import { cropType } from "@/interfaces/crops/crop";
 import { NextRequest } from "next/server";
 
-const cropById = async (id: string): Promise<cropType | null> => {
+const getCropById = async (id: string): Promise<cropType | null> => {
   try {
     const res = await fetch(`http://localhost:8080/crops/${id}`, {
       method: "GET",
@@ -20,6 +20,6 @@ export async function GET(
   { params }: { params: { id: string } },
 ) {
   const { id } = params;
-  const crop: cropType | null = await cropById(id);
+  const crop: cropType | null = await getCropById(id);
   return new Response(JSON.stringify(crop));
 }

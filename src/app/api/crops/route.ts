@@ -1,6 +1,6 @@
-import { cropType } from "@/interfaces/crop";
+import { cropType } from "@/interfaces/crops/crop";
 
-const allCrops = async (): Promise<cropType[]> => {
+const getAllCrops = async (): Promise<cropType[] | null> => {
   try {
     const res = await fetch(`http://localhost:8080/crops`, {
       method: "GET",
@@ -11,10 +11,15 @@ const allCrops = async (): Promise<cropType[]> => {
     return await res.json();
   } catch (err) {
     console.log("get all crops err", err);
-    return [];
+    return null;
   }
 };
-export async function GET(request: Request) {
-  const crops = await allCrops();
-  return new Response(JSON.stringify(crops));
+export async function GET(request: Request): Promise<Response | null> {
+  try {
+    const crops = await getAllCrops();
+    return new Response(JSON.stringify(crops));
+  } catch (e) {
+    console.error("Something went wrong : getAllCrops");
+    return null;
+  }
 }

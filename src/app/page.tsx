@@ -1,13 +1,12 @@
 "use client";
 import useSWR from "swr";
 import { FormEvent } from "react";
-import CropCard from "@/components/cropCard/CropCard";
-import type { cropType } from "../interfaces/crop";
+import PlantCard from "@/components/plantCard/plantCard";
+import type { plantType } from "@/interfaces/plants/plant";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 export default function Page() {
-  const { data, error, isLoading } = useSWR<cropType[]>("/api/crops", fetcher);
-
+  const { data, error, isLoading } = useSWR("/api/plants", fetcher);
   if (error) return <div>Failed to load</div>;
   if (isLoading) return <div>Loading...</div>;
   if (!data) return null;
@@ -21,7 +20,7 @@ export default function Page() {
     //   }
     //   console.log("formData", formDataObject);
     //   try {
-    //     // const getAll = await getCrops();
+    //     // const getAll = await getPlants();
     //     // console.log("Response from /api/submit", getAll);
     //   } catch (error) {
     //     console.error("Error submitting form:", error);
@@ -34,7 +33,9 @@ export default function Page() {
         <input type="text" name="name" />
         <button type="submit">Submit</button>
       </form>
-      <ul>{data?.map((_c: cropType) => <CropCard key={_c.id} crop={_c} />)}</ul>
+      <ul>
+        {data?.map((_p: plantType) => <PlantCard key={_p.id} plant={_p} />)}
+      </ul>
     </>
   );
 }

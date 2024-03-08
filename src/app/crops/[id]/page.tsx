@@ -1,6 +1,6 @@
 "use client";
 import useSWR from "swr";
-import type { cropType } from "@/interfaces/crop";
+import type { cropType } from "@/interfaces/crops/crop";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
