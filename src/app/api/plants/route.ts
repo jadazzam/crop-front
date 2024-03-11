@@ -8,21 +8,21 @@ const getManyPlants = async (): Promise<any> => {
         "Content-Type": "application/json",
       },
     });
-    let response = await res.json();
-    if (response) response = response.data;
-    return response;
+
+    return await res.json();
   } catch (err) {
     console.log("get all plants err");
     return null;
   }
 };
 
-export async function GET(): Promise<Response> {
+export async function GET(): Promise<Response | null> {
   try {
     const res = JSON.stringify(await getManyPlants());
+
     return new Response(res);
   } catch (e) {
     console.error("Something went wrong : getManyPlants");
-    return new Response(null);
+    return null;
   }
 }
