@@ -1,6 +1,6 @@
 import { plantType } from "@/interfaces/plants/plant";
 
-const getManPlants = async (): Promise<any> => {
+const getManyPlants = async (): Promise<any> => {
   try {
     const res = await fetch(`http://localhost:8080/plants`, {
       method: "GET",
@@ -17,12 +17,12 @@ const getManPlants = async (): Promise<any> => {
   }
 };
 
-export async function GET() {
+export async function GET(): Promise<Response> {
   try {
-    const res = JSON.stringify(await getManPlants());
+    const res = JSON.stringify(await getManyPlants());
     return new Response(res);
   } catch (e) {
     console.error("Something went wrong : getManyPlants");
-    return null;
+    return new Response(null);
   }
 }

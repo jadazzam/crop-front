@@ -6,9 +6,10 @@ type plantProps = {
 };
 
 export default function PlantCard({ plant }: plantProps) {
+  const { id } = plant;
   return (
     <li>
-      <Link href={`/plants/${plant.id}/page.tsx`} as={`/plants/${plant.id}`}>
+      <Link href={`/plants/${id}/page.tsx`} as={`/plants/${id}`}>
         {plant.common_name}
       </Link>
     </li>
