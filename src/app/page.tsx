@@ -3,6 +3,7 @@ import useSWR from "swr";
 import { FormEvent } from "react";
 import PlantCard from "@/components/plantCard/plantCard";
 import type { plantType } from "@/interfaces/plants/plant";
+import { css } from "@/panda/css";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 export default function Page() {
@@ -34,7 +35,15 @@ export default function Page() {
         <button type="submit">Submit</button>
       </form>
       <ul>
-        {data?.map((_p: plantType) => <PlantCard key={_p.id} plant={_p} />)}
+        <div
+          className={css({
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          })}
+        >
+          {data?.map((_p: plantType) => <PlantCard key={_p.id} plant={_p} />)}
+        </div>
       </ul>
     </>
   );
