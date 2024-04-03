@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import type { plantType } from "@/interfaces/plants/plant";
 import Link from "next/link";
-import Image from "next/image";
 import { css } from "@/panda/css";
 
 type plantProps = {
@@ -23,10 +22,13 @@ export default function PlantCard({ plant }: plantProps) {
   }, []);
 
   const { id, image_url, common_name, family, synonyms } = plant;
-  const threeSynonyms = synonyms.length > 3 ? synonyms.splice(0, 3) : synonyms;
+  const threeSynonyms =
+    synonyms && synonyms.length > 3
+      ? synonyms.splice(0, 3)
+      : synonyms || ["No Synonyms"];
   const renderSynonyms = (synonyms: string[]) => {
     return synonyms.map((string: string) => (
-      <p key={threeSynonyms.indexOf(string)}>{string}</p>
+      <p key={threeSynonyms?.indexOf(string)}>{string}</p>
     ));
   };
   const imageStyle = {
@@ -68,15 +70,15 @@ export default function PlantCard({ plant }: plantProps) {
                 position: "absolute",
               })}
             >
-              <Image
-                src={image_url || ""}
-                alt={common_name}
-                style={imageStyle}
-                height={width < 1024 ? 50 : 55}
-                width={width < 1024 ? 50 : 70}
-                layout="responsive"
-                objectFit={"contain"}
-              />
+              {/*<Image*/}
+              {/*  src={image_url || ""}*/}
+              {/*  alt={common_name}*/}
+              {/*  style={imageStyle}*/}
+              {/*  height={width < 1024 ? 50 : 55}*/}
+              {/*  width={width < 1024 ? 50 : 70}*/}
+              {/*  layout="responsive"*/}
+              {/*  objectFit={"contain"}*/}
+              {/*/>*/}
             </div>
           </div>
         </Link>

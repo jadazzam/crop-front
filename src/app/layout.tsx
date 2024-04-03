@@ -7,7 +7,7 @@ import { css } from "@/panda/css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Save my crop !",
+  title: "Save my crop",
   description: "Protect, Preserve and Thrive",
 };
 
