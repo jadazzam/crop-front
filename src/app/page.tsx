@@ -1,5 +1,5 @@
 "use client";
-import useSWR from "swr";
+import useSWR, { preload } from "swr";
 import { FormEvent } from "react";
 import PlantCard from "@/components/plantCard/plantCard";
 import type { plantType } from "@/interfaces/plants/plant";
@@ -11,6 +11,7 @@ export default function Page() {
   if (error) return <div>Failed to load</div>;
   if (isLoading) return <div>Loading...</div>;
   if (!data) return null;
+  preload("/api/plants", fetcher);
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     //   event.preventDefault();
     //

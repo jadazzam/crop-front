@@ -11,6 +11,11 @@ export const Button = ({ onClick, children, type }: Props) => {
     py: "4",
     px: "10",
     rounded: "md",
+    borderRadius: "3xl",
+    cursor: "pointer",
+    borderBlockColor: "white",
+    border: "3px solid white",
+    marginLeft: "5px",
   });
 
   return (
