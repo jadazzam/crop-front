@@ -1,24 +1,8 @@
-import { plantType } from "@/interfaces/plants/plant";
-
-const getManyPlants = async (): Promise<any> => {
-  try {
-    const res = await fetch(`http://localhost:8080/plants`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    return await res.json();
-  } catch (err) {
-    console.log("get all plants err");
-    return null;
-  }
-};
+import { getPlants } from "@/services/crop-api/plants/GET";
 
 export async function GET(): Promise<Response | null> {
   try {
-    const res = JSON.stringify(await getManyPlants());
+    const res = JSON.stringify(await getPlants());
 
     return new Response(res);
   } catch (e) {

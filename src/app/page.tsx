@@ -33,23 +33,23 @@ export default function Page() {
   }
   // return !user && <a href="/api/auth/login">Login</a>;
 
-  // return (
-  //   <>
-  //     <form onSubmit={onSubmit}>
-  //       <input type="text" name="name" />
-  //       <button type="submit">Submit</button>
-  //     </form>
-  //     <ul>
-  //       <div
-  //         className={css({
-  //           display: "flex",
-  //           flexWrap: "wrap",
-  //           justifyContent: "center",
-  //         })}
-  //       >
-  //         {data?.map((_p: plantType) => <PlantCard key={_p.id} plant={_p} />)}
-  //       </div>
-  //     </ul>
-  //   </>
-  // );
+  return (
+    <>
+      <form onSubmit={onSubmit}>
+        <input type="text" name="name" />
+        <button type="submit">Submit</button>
+      </form>
+      <ul>
+        <div
+          className={css({
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          })}
+        >
+          {data?.map((_p: plantType) => <PlantCard key={_p.id} plant={_p} />)}
+        </div>
+      </ul>
+    </>
+  );
 }
