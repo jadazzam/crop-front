@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import type { plantType } from "@/interfaces/plants/plant";
 import Link from "next/link";
 import { css } from "@/panda/css";
+import Image from "next/image";
 
 type plantProps = {
   plant: plantType;
 };
 
-export default function PlantCard({ plant }: plantProps) {
+export default function Card({ plant }: plantProps) {
   //update the size of the card when the size of the screen changes
   const [width, setWidth] = useState(0);
 
@@ -59,7 +60,7 @@ export default function PlantCard({ plant }: plantProps) {
               <p>{common_name}</p>
               <h2 className={css({ fontWeight: 600 })}>Family : </h2>
               <p>{family}</p>
-              <h3 className={css({ fontWeight: 600 })}>Synonyms: </h3>
+              <h3 className={css({ fontWeight: 600 })}>Also called : </h3>
               {renderSynonyms(threeSynonyms)}
             </div>
             <div
@@ -70,15 +71,15 @@ export default function PlantCard({ plant }: plantProps) {
                 position: "absolute",
               })}
             >
-              {/*<Image*/}
-              {/*  src={image_url || ""}*/}
-              {/*  alt={common_name}*/}
-              {/*  style={imageStyle}*/}
-              {/*  height={width < 1024 ? 50 : 55}*/}
-              {/*  width={width < 1024 ? 50 : 70}*/}
-              {/*  layout="responsive"*/}
-              {/*  objectFit={"contain"}*/}
-              {/*/>*/}
+              <Image
+                src={image_url || ""}
+                alt={common_name || ""}
+                style={imageStyle}
+                height={width < 1024 ? 50 : 55}
+                width={width < 1024 ? 50 : 70}
+                layout="responsive"
+                objectFit={"contain"}
+              />
             </div>
           </div>
         </Link>
