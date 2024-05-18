@@ -9,9 +9,10 @@ import { AddCrop } from "@/components/buttons/AddCrop";
 
 type plantProps = {
   plant: plantType;
+  addCrop: (id: string) => void;
 };
 
-export default function Card({ plant }: plantProps) {
+export default function Card({ plant, addCrop }: plantProps) {
   //update the size of the card when the size of the screen changes
   const { id, image_url, common_name, family, synonyms } = plant;
   const [width, setWidth] = useState(0);
@@ -19,33 +20,6 @@ export default function Card({ plant }: plantProps) {
   const updateWidth = () => {
     const newWidth = window.innerWidth;
     setWidth(newWidth);
-  };
-
-  const addCrop = async () => {
-    const trefleId = id && id.toString();
-    try {
-      const response = await fetch("/api/crops", {
-        method: "POST",
-        body: JSON.stringify({
-          trefleId: trefleId,
-          name: `Front + ${Date.now()}`,
-          size: "1-2-f",
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then((res) => {
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return res.json();
-      });
-      console.log("response => , ", response);
-      // TODO to continue
-      // What do we do once we have added crop
-    } catch (error) {
-      console.error("Error posting crop:", error);
-    }
   };
 
   useEffect(() => {
@@ -85,7 +59,7 @@ export default function Card({ plant }: plantProps) {
         <div className={css({ padding: "3px" })}>
           <div className={css({ height: "200px" })}>
             <div className={css({ width: 300, position: "relative" })}>
-              <AddCrop onClick={addCrop} />
+              <AddCrop onClick={() => addCrop(id.toString())} />
             </div>
             <Link href={`/plants/${id}/page.tsx`} as={`/plants/${id}`}>
               <div className={css({ width: 300 })}>

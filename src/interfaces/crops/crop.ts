@@ -5,7 +5,7 @@ const cropSchema = z.object({
   name: z.string(),
   size: z.string(),
   trefleId: z.string(),
-  trefle: z.object({}),
+  trefle: z.object({}).optional(),
 });
 
 const createSchema = z.object({

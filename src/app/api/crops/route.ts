@@ -9,7 +9,6 @@ export const GET = withApiAuthRequired(async function fetchCrops(
 ) {
   try {
     const crops = JSON.stringify(await getCrops());
-    console.log("crops", crops);
     if (!crops) {
       throw new Error("Failed to fetch crops");
     }
@@ -26,7 +25,6 @@ export const POST = withApiAuthRequired(async function createCrop(
   try {
     const body = await req.json();
     const response = await postCrop(body).then((res) => res.data);
-    console.log("response.data", response);
     return new Response(JSON.stringify(response), {
       status: 200,
       headers: { "Content-Type": "application/json" },
