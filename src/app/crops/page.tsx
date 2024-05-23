@@ -1,25 +1,29 @@
 "use client";
 import useSWR from "swr";
 import type { cropType } from "@/interfaces/crops/crop";
+import Link from "next/link";
+import { CropsList } from "@/components/crops/list";
+import { useEffect, useState } from "react";
 // import { useUser } from "@auth0/nextjs-auth0/client";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 export default function CropsPage() {
-  // const { user } = useUser();
-  // console.log("user in crops", user);
-  const url = "/api/crops";
-  const { data, error, isLoading } = useSWR<cropType[]>(url, fetcher);
+  const [myCrops, setMyCrops] = useState<cropType[]>([]);
+  useEffect(() => {
+    fetch("/api/crops")
+      .then((res) => res.json())
+      .then((myCrops) => {
+        setMyCrops(myCrops);
+      });
+  }, []);
   return (
     <>
-      {/*{data?.forEach((_c) => {*/}
-      {/*  {*/}
-      {/*    _c?.name;*/}
-      {/*  }*/}
-      {/*  {*/}
-      {/*    _c?.type;*/}
-      {/*  }*/}
-      {/*})}*/}
+      <CropsList
+        data={myCrops}
+        setMyCrop={(crop) => {
+          const crops = myCrops.filter((_c) => _c.id !== crop.id);
+          setMyCrops(crops);
+        }}
+      ></CropsList>
     </>
   );
 }

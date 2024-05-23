@@ -4,6 +4,9 @@ import { FormEvent, useEffect, useState } from "react";
 import { getPlantsByName } from "@/services/crop-api/plants/GET";
 import { PlantsList } from "@/components/plants/list";
 import { cropType } from "@/interfaces/crops/crop";
+import Link from "next/link";
+import { Button } from "@/components/buttons/Button";
+import { CropsList } from "@/components/crops/list";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 export default function Page() {
@@ -11,40 +14,18 @@ export default function Page() {
   const [search, setSearch] = useState(null);
   const { data, error, isLoading } = useSWR("/api/plants", fetcher);
 
-  useEffect(() => {
-    fetch("/api/crops")
+  const fetchCrops = async () => {
+    const crops = await fetch("/api/crops")
       .then((res) => res.json())
       .then((myCrops) => {
         setMyCrops(myCrops);
       });
+    return crops;
+  };
+  useEffect(() => {
+    fetchCrops();
   }, []);
 
-  const addCrop = async (id: string) => {
-    const trefleId = id.toString();
-    try {
-      const response = await fetch("/api/crops", {
-        method: "POST",
-        body: JSON.stringify({
-          trefleId: trefleId,
-          name: `Front + ${Date.now()}`,
-          size: "1-2-f",
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-        console.error("Failed to post crop:", await response.text());
-        return;
-      }
-      const crop: cropType = await response.json();
-      if (crop) {
-        setMyCrops([...myCrops, crop]);
-      }
-    } catch (error) {
-      console.error("Error posting crop:", error);
-    }
-  };
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -62,31 +43,40 @@ export default function Page() {
     }
   }
 
-  if (error) return <div>Failed to load</div>;
-  if (isLoading) return <div>Loading...</div>;
-  if (!data) return null;
+  console.log("data", data);
+  if (!data)
+    return (
+      <div>
+        <Button onCLick={fetchCrops}>Refresh</Button>
+      </div>
+    );
   return (
     <>
-      {myCrops.length > 0 &&
-        myCrops.map((_c: cropType) => {
-          return (
-            <>
-              <div key={_c.id}>
-                <p>
-                  {_c?.name} + {_c.size}
-                </p>
-              </div>
-            </>
-          );
-        })}
+      {myCrops?.length > 0 && (
+        <div>
+          <CropsList
+            data={myCrops}
+            setMyCrop={(crop) => {
+              const crops = myCrops.filter((_c) => _c.id !== crop.id);
+              setMyCrops(crops);
+            }}
+          ></CropsList>
+        </div>
+      )}
       <form onSubmit={onSubmit}>
         <input type="text" name="search" />
         <button type="submit">Submit</button>
       </form>
       {search ? (
-        <PlantsList addCrop={addCrop} data={search}></PlantsList>
+        <PlantsList
+          setMyCrop={(crop) => setMyCrops([...myCrops, crop])}
+          data={search}
+        ></PlantsList>
       ) : (
-        <PlantsList addCrop={addCrop} data={data} />
+        <PlantsList
+          setMyCrop={(crop: cropType) => setMyCrops([...myCrops, crop])}
+          data={data}
+        />
       )}
     </>
   );

@@ -11,7 +11,7 @@ export default function CropPage({ params }: { params: { id: string } }) {
 
   return (
     <>
-      {data?.name} {data?.type}
+      {data?.name} {data?.size}
     </>
   );
 }

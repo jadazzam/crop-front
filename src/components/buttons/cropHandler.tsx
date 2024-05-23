@@ -1,12 +1,12 @@
 import React from "react";
 import { css } from "@/panda/css";
 import Icon from "@mdi/react";
-import { mdiPlus } from "@mdi/js";
+import { mdiMinusCircle, mdiPlus } from "@mdi/js";
 import { z } from "zod"; // Adjust the path based on your project structure
 
 const Schema = z.record(z.any());
 export type Props = z.infer<typeof Schema>;
-export const AddCrop = ({ onClick, type }: Props) => {
+export const CropHandler = ({ onClick, type, action }: Props) => {
   const buttonStyle = css({
     backgroundColor: "infinum.100",
     color: "infinum.0",
@@ -24,8 +24,14 @@ export const AddCrop = ({ onClick, type }: Props) => {
   });
 
   return (
-    <button type={type} className={buttonStyle} onClick={onClick}>
-      <Icon className={iconStyle} path={mdiPlus} size={2} />
-    </button>
+    <>
+      <button type={type} className={buttonStyle} onClick={onClick}>
+        <Icon
+          className={iconStyle}
+          path={action === "add" ? mdiPlus : mdiMinusCircle}
+          size={2}
+        />
+      </button>
+    </>
   );
 };

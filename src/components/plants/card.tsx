@@ -1,11 +1,10 @@
-"use client";
 import useSWR from "swr";
 import { useEffect, useState } from "react";
 import type { plantType } from "@/interfaces/plants/plant";
 import Link from "next/link";
 import { css } from "@/panda/css";
 import Image from "next/image";
-import { AddCrop } from "@/components/buttons/AddCrop";
+import { CropHandler } from "@/components/buttons/cropHandler";
 
 type plantProps = {
   plant: plantType;
@@ -59,7 +58,10 @@ export default function Card({ plant, addCrop }: plantProps) {
         <div className={css({ padding: "3px" })}>
           <div className={css({ height: "200px" })}>
             <div className={css({ width: 300, position: "relative" })}>
-              <AddCrop onClick={() => addCrop(id.toString())} />
+              <CropHandler
+                onClick={() => addCrop(id.toString())}
+                action={"add"}
+              />
             </div>
             <Link href={`/plants/${id}/page.tsx`} as={`/plants/${id}`}>
               <div className={css({ width: 300 })}>
