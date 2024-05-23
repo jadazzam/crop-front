@@ -5,9 +5,12 @@ import {
   CROP_API_GET_CROPS,
 } from "@/services/crop-api/routes";
 
-export const getCrops = async (): Promise<cropType[] | null> => {
+export const getCrops = async (
+  complete: boolean = true,
+): Promise<cropType[] | null> => {
+  const url = `${CROP_API_GET_CROPS}?complete=${complete}`;
   try {
-    const res = await fetch(CROP_API_GET_CROPS, {
+    const res = await fetch(url, {
       method: "GET",
       headers: await withAuth(),
     });
