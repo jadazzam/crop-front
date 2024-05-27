@@ -13,7 +13,7 @@ export default function Page() {
   const [crops, setCrops] = useState<cropType[]>([]);
   const [plants, setPlants] = useState<plantType[]>([]);
   const [search, setSearch] = useState(null);
-  console.log("user => error => isLoading", user, error, isLoading);
+
   const fetchCrops = async () => {
     if (!user) return [];
     return await fetch("/api/crops")

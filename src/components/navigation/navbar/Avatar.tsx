@@ -20,7 +20,11 @@ const Avatar = () => {
         </>
       );
     } else {
-      return <div>{user.name}</div>;
+      return (
+        <div>
+          <a href="/api/auth/logout"> {user.name}</a>
+        </div>
+      );
     }
   };
   return <>{Profile()}</>;

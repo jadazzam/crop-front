@@ -34,10 +34,8 @@ const Navbar = () => {
           marginLeft: "40px",
         })}
       >
+        <Link href="/plants">Plants</Link>
         <Link href="/crops">My Crops</Link>
-
-        <Link href="/services">Services</Link>
-
         <Link href="/about">About</Link>
       </div>
       <div
