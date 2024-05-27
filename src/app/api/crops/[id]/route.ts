@@ -1,25 +1,28 @@
 import { cropType } from "@/interfaces/crops/crop";
 import { NextRequest } from "next/server";
+import { getCropById } from "@/services/crop-api/crops/GET";
+import { putCrop } from "@/services/crop-api/crops/PUT";
+import { AxiosResponse } from "axios";
 
-const getCropById = async (id: string): Promise<cropType | null> => {
-  try {
-    const res = await fetch(`http://localhost:8080/crops/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    return await res.json();
-  } catch (err) {
-    console.log("get crop by id err", err);
-    return null;
-  }
-};
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } },
 ) {
   const { id } = params;
   const crop: cropType | null = await getCropById(id);
+  return new Response(JSON.stringify(crop));
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } },
+) {
+  const { id } = params;
+  const crop = await putCrop({
+    id: id,
+    data: {
+      active: false,
+    },
+  });
   return new Response(JSON.stringify(crop));
 }

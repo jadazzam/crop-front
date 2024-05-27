@@ -25,7 +25,10 @@
       "@/panda/css": ["../styled-system/css"],
       "@/panda/jsx": ["../styled-system/jsx"],
       "@/panda/patterns": ["../styled-system/patterns"],
-      "@/interfaces/*": ["interfaces/*"]
+      "@/interfaces/*": ["interfaces/*"],
+      "@/common/*": ["common/*"],
+      "@/services/*": ["services/*"],
+      "@/api/*": ["app/api/*"]
     },
     "baseUrl": "src/",
   },
