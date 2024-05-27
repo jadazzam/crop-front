@@ -5,10 +5,10 @@ import Card from "@/components/plants/card";
 import { cropType } from "@/interfaces/crops/crop";
 
 export const PlantsList = (props: {
-  data: [];
-  setMyCrop: (crop: cropType) => void;
+  data: plantType[];
+  setCrop: (crop: cropType) => void;
 }) => {
-  const { data, setMyCrop } = props;
+  const { data, setCrop } = props;
   const addCrop = async (id: string) => {
     const trefleId = id.toString();
     try {
@@ -29,7 +29,7 @@ export const PlantsList = (props: {
       }
       const crop: cropType = await response.json();
       if (crop) {
-        setMyCrop(crop);
+        setCrop(crop);
       }
     } catch (error) {
       console.error("Error posting crop:", error);

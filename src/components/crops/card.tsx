@@ -1,19 +1,24 @@
-"use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { css } from "@/panda/css";
 import Image from "next/image";
 import { cropType } from "@/interfaces/crops/crop";
 import { CropHandler } from "@/components/buttons/cropHandler";
+import { plantType } from "@/interfaces/plants/plant";
 
 type cropProps = {
   crop: cropType;
-  deleteCrop: (id: string) => void;
+  deleteCrop: (id: string) => any;
 };
 
+interface Synonym {
+  id: number;
+  name: string;
+}
+
 export default function Card({ crop, deleteCrop }: cropProps) {
-  const { id, name, size, trefle } = crop;
-  const { image_url, common_name, synonyms, family } = trefle ?? {};
+  const { id, name, trefle } = crop;
+  const { image_url, common_name, synonyms, family }: plantType = trefle ?? {};
   const [width, setWidth] = useState(0);
 
   const updateWidth = () => {
@@ -24,16 +29,20 @@ export default function Card({ crop, deleteCrop }: cropProps) {
   useEffect(() => {
     window.addEventListener("resize", updateWidth);
     updateWidth();
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", updateWidth);
+    };
   }, []);
 
-  const threeSynonyms =
-    synonyms && synonyms.length > 3
-      ? synonyms.splice(0, 3)
-      : synonyms || ["No Synonyms"];
-  const renderSynonyms = (synonyms: string[]) => {
-    return synonyms.map((string: string) => (
-      <p key={threeSynonyms?.indexOf(string)}>{string}</p>
-    ));
+  const syns: any =
+    synonyms && synonyms.length
+      ? synonyms.slice(0, 3)
+      : [{ id: 0, name: "No Synonyms" }];
+
+  const renderSynonyms = (synonyms: Synonym[]) => {
+    return synonyms.map((_s: Synonym) => <p key={_s.id}>{_s.name}</p>);
   };
   const imageStyle = {
     borderRadius: "5%",
@@ -67,9 +76,9 @@ export default function Card({ crop, deleteCrop }: cropProps) {
                 <h2 className={css({ fontWeight: 600 })}>Name : </h2>
                 <p>{common_name}</p>
                 <h2 className={css({ fontWeight: 600 })}>Family : </h2>
-                {/*<p>{family}</p>*/}
+                <p>{family}</p>
                 <h3 className={css({ fontWeight: 600 })}>Also called : </h3>
-                {renderSynonyms(threeSynonyms)}
+                {renderSynonyms(syns)}
               </div>
             </Link>
           </div>

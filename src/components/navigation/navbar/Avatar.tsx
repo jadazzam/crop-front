@@ -5,8 +5,14 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 const Avatar = () => {
   const Profile = () => {
     const { user, error, isLoading } = useUser();
+
     if (isLoading) return <div>Loading...</div>;
-    if (error) return <p>Indisponible</p>;
+    if (error)
+      return (
+        <div>
+          <p>Indisponible</p>
+        </div>
+      );
     if (!user) {
       return (
         <>

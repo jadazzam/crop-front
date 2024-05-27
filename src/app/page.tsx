@@ -1,30 +1,38 @@
 "use client";
-import useSWR, { preload } from "swr";
 import { FormEvent, useEffect, useState } from "react";
 import { getPlantsByName } from "@/services/crop-api/plants/GET";
 import { PlantsList } from "@/components/plants/list";
 import { cropType } from "@/interfaces/crops/crop";
-import Link from "next/link";
 import { Button } from "@/components/buttons/Button";
 import { CropsList } from "@/components/crops/list";
+import { plantType } from "@/interfaces/plants/plant";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
 export default function Page() {
-  const [myCrops, setMyCrops] = useState<cropType[]>([]);
+  const { user, error, isLoading } = useUser();
+  const [crops, setCrops] = useState<cropType[]>([]);
+  const [plants, setPlants] = useState<plantType[]>([]);
   const [search, setSearch] = useState(null);
-  const { data, error, isLoading } = useSWR("/api/plants", fetcher);
-
+  console.log("user => error => isLoading", user, error, isLoading);
   const fetchCrops = async () => {
-    const crops = await fetch("/api/crops")
+    if (!user) return [];
+    return await fetch("/api/crops")
       .then((res) => res.json())
-      .then((myCrops) => {
-        setMyCrops(myCrops);
-      });
-    return crops;
+      .then((crops) => setCrops(crops));
+  };
+
+  const fetchPlants = async () => {
+    return await fetch("/api/plants")
+      .then((res) => res.json())
+      .then((plants) => setPlants(plants));
   };
   useEffect(() => {
-    fetchCrops();
+    fetchPlants();
   }, []);
+
+  useEffect(() => {
+    user && fetchCrops();
+  }, [user]);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -43,22 +51,21 @@ export default function Page() {
     }
   }
 
-  console.log("data", data);
-  if (!data)
+  if (!plants)
     return (
       <div>
-        <Button onCLick={fetchCrops}>Refresh</Button>
+        <Button onCLick={fetchPlants}>Refresh</Button>
       </div>
     );
   return (
     <>
-      {myCrops?.length > 0 && (
+      {crops?.length > 0 && (
         <div>
           <CropsList
-            data={myCrops}
+            data={crops}
             setMyCrop={(crop) => {
-              const crops = myCrops.filter((_c) => _c.id !== crop.id);
-              setMyCrops(crops);
+              const res = crops.filter((_c) => _c.id !== crop.id);
+              setCrops(res);
             }}
           ></CropsList>
         </div>
@@ -69,13 +76,13 @@ export default function Page() {
       </form>
       {search ? (
         <PlantsList
-          setMyCrop={(crop) => setMyCrops([...myCrops, crop])}
+          setCrop={(crop) => setCrops([...crops, crop])}
           data={search}
         ></PlantsList>
       ) : (
         <PlantsList
-          setMyCrop={(crop: cropType) => setMyCrops([...myCrops, crop])}
-          data={data}
+          setCrop={(crop: cropType) => setCrops([...crops, crop])}
+          data={plants}
         />
       )}
     </>
