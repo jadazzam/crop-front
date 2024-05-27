@@ -11,8 +11,8 @@ export default function CropsPage() {
   useEffect(() => {
     fetch("/api/crops")
       .then((res) => res.json())
-      .then((myCrops) => {
-        setMyCrops(myCrops);
+      .then((crops) => {
+        if (crops && !crops.error) setMyCrops(crops);
       });
   }, []);
   return (
