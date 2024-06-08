@@ -4,8 +4,6 @@ import { getCrops } from "@/services/crop-api/crops/GET";
 import { postCrop } from "@/services/crop-api/crops/POST";
 
 export const GET = withApiAuthRequired(async function fetchCrops(
-  req: NextApiRequest,
-  res: NextApiResponse,
 ) {
   try {
     const crops = JSON.stringify(await getCrops());

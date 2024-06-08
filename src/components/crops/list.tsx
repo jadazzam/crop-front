@@ -1,7 +1,6 @@
-import { css } from "@/panda/css";
-import type { cropType } from "@/interfaces/crops/crop";
+import type { cropType } from '@/interfaces/crops/crop';
 
-import Card from "@/components/crops/card";
+import Crop from '@/components/crops/card';
 
 export const CropsList = (props: {
   data: cropType[];
@@ -11,13 +10,13 @@ export const CropsList = (props: {
   const deleteCrop = async (id: string) => {
     try {
       const crop = await fetch(`/api/crops/${id}`, {
-        method: "DELETE",
+        method: 'DELETE',
         headers: {
-          "Content-Type": "application/json",
-        },
+          'Content-Type': 'application/json'
+        }
       }).then((res) => res.json());
       if (!crop) {
-        console.error("Failed to post crop:");
+        console.error('Failed to post crop:');
         return;
       }
       if (crop) {
@@ -25,23 +24,19 @@ export const CropsList = (props: {
       }
       return crop;
     } catch (error) {
-      console.error("Error posting crop:", error);
+      console.error('Error posting crop:', error);
     }
   };
   return (
-    <ul>
-      <h4>Tous mes crops : </h4>
-      <div
-        className={css({
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-        })}
-      >
-        {data?.map((_c: cropType) => (
-          <Card key={_c.id} crop={_c} deleteCrop={deleteCrop} />
-        ))}
+    <>
+      <div className="text-center">
+        <h4>Tous mes crops : </h4>
       </div>
-    </ul>
+      <ul className="grid grid-cols-4 gap-4 place-items-center items-stretch">
+        {data?.map((_c: cropType) => (
+          <Crop key={_c.id} crop={_c} deleteCrop={deleteCrop} />
+        ))}
+      </ul>
+    </>
   );
 };

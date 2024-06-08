@@ -1,9 +1,10 @@
-"use client";
-import { useState } from "react";
-import Navbar from "./navbar";
+'use client';
 
-const Navigation = () => {
-  return <Navbar />;
+import Navbar from './navbar';
+import { Claims } from '@auth0/nextjs-auth0';
+
+const Navigation = (props: { user?: Claims | undefined }) => {
+  return <Navbar user={props?.user} />;
 };
 
 export default Navigation;

@@ -1,54 +1,66 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import Logo from "./Logo";
-import { flex, hstack, vstack } from "@/panda/patterns";
-import { css } from "@/panda/css";
-import { Button } from "@/components/buttons/Button";
-import Avatar from "@/components/navigation/navbar/Avatar";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import Logo from './Logo';
+import { Avatar, Button, Dropdown, Navbar } from 'flowbite-react';
+import { string } from 'zod';
+import { Claims } from '@auth0/nextjs-auth0';
+import './navbar.css';
+import { HiLogout } from 'react-icons/hi';
 
-const Navbar = () => {
+const Nav = (props: { user: Claims | undefined }) => {
   const [width, setWidth] = useState(0);
-
+  const { user } = props;
+  console.log('user =>', user);
   return (
-    <div
-      className={hstack({
-        backgroundColor: "infinum.100",
-        color: "infinum.0",
-        paddingX: "10px",
-        width: "100%",
-      })}
-    >
-      <Logo
-        className={{
-          paddingX: "10px",
-          marginLeft: "10px",
-          marginRight: "20px",
-        }}
-      />
-      <div
-        className={css({
-          display: "flex",
-          marginY: "auto",
-          width: "100%",
-          gap: "80px",
-          marginLeft: "40px",
-        })}
-      >
-        <Link href="/plants">Plants</Link>
-        <Link href="/crops">My Crops</Link>
-        <Link href="/about">About</Link>
-      </div>
-      <div
-        className={css({
-          marginLeft: "0",
-          marginY: "auto",
-          paddingX: "10px",
-        })}
-      >
-        <Avatar />
-      </div>
-    </div>
-  );
+    <>
+      <Navbar className="bg-cropy" fluid rounded>
+        <Navbar.Brand href="./">
+          <img src="/crop-white.svg" className="mr-3 h-6 sm:h-9" alt="Save My Crop Logo" />
+          <span
+            className="self-center whitespace-nowrap text-xl font-semibold text-white dark:text-white">Save my crop</span>
+        </Navbar.Brand>
+        <div className="flex md:order-2">
+          {!user ? (
+            <div className="nav-btn-sign-in">
+              <a
+                href="/api/auth/login"><Button className="btn-sign-in">Sign
+                in</Button></a>
+            </div>
+          ) : <Dropdown
+            arrowIcon={false}
+            inline
+            label={
+              <Avatar alt="user"
+                      img="/Jad.jpg" rounded />
+            }
+          >
+            <Dropdown.Header>
+              <span className="block text-sm">{user.nickname}</span>
+              <span className="block truncate text-sm font-medium">{user.email}</span>
+            </Dropdown.Header>
+            <Dropdown.Item>Dashboard</Dropdown.Item>
+            <Dropdown.Item>Settings</Dropdown.Item>
+            <Dropdown.Item>Earnings</Dropdown.Item>
+            <Dropdown.Divider />
+            <a href="/api/auth/logout"><Dropdown.Item icon={HiLogout}>Sign out</Dropdown.Item></a>
+          </Dropdown>}
+          <Navbar.Toggle />
+        </div>
+        <Navbar.Collapse>
+          <Navbar.Link href="#" active>
+            Home
+          </Navbar.Link>
+          <Navbar.Link href="#">About</Navbar.Link>
+          <Navbar.Link href="#">Services</Navbar.Link>
+          <Navbar.Link href="#">Pricing</Navbar.Link>
+          <Navbar.Link href="#">Contact</Navbar.Link>
+        </Navbar.Collapse>
+      </Navbar>
+
+    </>
+
+  )
+    ;
 };
 
-export default Navbar;
+export default Nav;

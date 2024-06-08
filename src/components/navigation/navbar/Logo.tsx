@@ -1,9 +1,8 @@
-"use client";
-import Image from "next/image";
-import { css } from "@/panda/css";
-import { useEffect, useState } from "react";
-import Link from "next/link";
-const Logo = ({ className, ...rest }: { className: object }) => {
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+
+const Logo = ({ className = '', ...rest }: { className: string }) => {
   //update the size of the logo when the size of the screen changes
   const [width, setWidth] = useState(0);
 
@@ -13,7 +12,7 @@ const Logo = ({ className, ...rest }: { className: object }) => {
   };
 
   useEffect(() => {
-    window.addEventListener("resize", updateWidth);
+    window.addEventListener('resize', updateWidth);
     updateWidth();
   }, []);
 
@@ -29,24 +28,19 @@ const Logo = ({ className, ...rest }: { className: object }) => {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", changeNavButton);
+    window.addEventListener('scroll', changeNavButton);
   }, []);
 
   return (
     <div
-      className={css({
-        ...className,
-      })}
+      className={className}
     >
-      <Link href="/" style={{ display: showButton ? "none" : "block" }}>
+      <Link href="/" style={{ display: showButton ? 'none' : 'block' }}>
         <Image
           src="/crop-white.svg"
           alt="crop"
           width={width < 1024 ? 50 : 75}
           height={width < 1024 ? 25 : 53}
-          className={css({
-            color: "white",
-          })}
         />
       </Link>
     </div>

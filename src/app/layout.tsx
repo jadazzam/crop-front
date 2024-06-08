@@ -1,32 +1,34 @@
-import "./globals.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { UserProvider } from "@auth0/nextjs-auth0/client";
-import Navigation from "@/components/navigation";
-import { css } from "@/panda/css";
-import { getSession } from "@auth0/nextjs-auth0";
+import './globals.css';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import { Cormorant_Infant } from 'next/font/google';
+import { UserProvider } from '@auth0/nextjs-auth0/client';
+import Navigation from '@/components/navigation';
+import { Claims, getSession } from '@auth0/nextjs-auth0';
+import 'flowbite/dist/flowbite.css';
 
-const inter = Inter({ subsets: ["latin"] });
+const cormorant = Cormorant_Infant({ weight: ['400', '500', '700'], subsets: ['latin'], display: 'swap' });
 
 export const metadata: Metadata = {
-  title: "Save my crop",
-  description: "Protect, Preserve and Thrive",
+  title: 'Save my crop',
+  description: 'Protect, Preserve and Thrive'
 };
 
 export default async function RootLayout({
-  children,
-}: Readonly<{
+                                           children
+                                         }: Readonly<{
   children: React.ReactNode;
 }>) {
   const session = await getSession();
+  const user: Claims | undefined = session?.user;
   return (
     <html lang="en">
-      <UserProvider user={session?.user}>
-        <body className={inter.className}>
-          <Navigation />
-          <div className={css({})}>{children}</div>
-        </body>
-      </UserProvider>
+    <UserProvider user={user}>
+      <body className={cormorant.className}>
+      <Navigation user={user} />
+      <div>{children}</div>
+      </body>
+    </UserProvider>
     </html>
   );
 }
