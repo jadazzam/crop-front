@@ -30,7 +30,7 @@ export const CropsList = (props: {
   return (
     <>
       <div className="text-center">
-        <h4>Tous mes crops : </h4>
+        <h1 className="text-h2 font-bold text-cropy dark:text-sunny">All my crops</h1>
       </div>
       <ul className="grid grid-cols-4 gap-4 place-items-center items-stretch">
         {data?.map((_c: cropType) => (

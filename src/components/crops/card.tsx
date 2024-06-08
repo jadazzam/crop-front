@@ -51,23 +51,25 @@ export default function Crop({ crop, deleteCrop }: cropProps) {
 
   return (
     <li className="max-h-[600px] flex content-center">
-      <Link href={`/crops/${id}/page.tsx`} as={`/crops/${id}`}>
+      <Link className="flex-1 h-full" href={`/crops/${id}/page.tsx`} as={`/crops/${id}`}>
         <Card
-          className="w-42"
+          className="w-full h-full flex flex-col justify-between"
           renderImage={() =>
-            <div className="max-h-[250px] overflow-hidden flex justify-center items-center">
-
-              <Image width={400} height={300}
-                     src={image_url} alt={name} /></div>}
+            <div className="h-[400px] overflow-hidden flex justify-center items-center">
+              <Image width={400} height={400}
+                     src={image_url} alt={name}
+              /></div>}
         >
-          <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {name ?? common_name}
-          </h5>
-          <p className="font-normal text-gray-700 dark:text-gray-400">
-            <span className="font-bold">Family :</span> {family} <br />
-            <span className="font-bold">Size :</span> : {size} <br />
-            <span className="font-bold">Synonyms :</span> : {renderSynonyms(syns)} <br />
-          </p>
+          <div className="flex-1 h-full">
+            <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              {name ?? common_name}
+            </h5>
+            <p className="font-normal text-gray-700 dark:text-gray-400">
+              <span className="font-bold">Family :</span> {family} <br />
+              <span className="font-bold">Size :</span> : {size} <br />
+              <span className="font-bold">Synonyms :</span> : {renderSynonyms(syns)} <br />
+            </p>
+          </div>
         </Card>
       </Link>
     </li>
