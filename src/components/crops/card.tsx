@@ -11,11 +11,6 @@ type cropProps = {
   deleteCrop: (id: string) => any;
 };
 
-interface Synonym {
-  id: number;
-  name: string;
-}
-
 export default function Crop({ crop, deleteCrop }: cropProps) {
   const { id, name, perenual, size } = crop;
   let { default_image, common_name, other_name, family }: plantType = perenual ?? {};
@@ -39,10 +34,10 @@ export default function Crop({ crop, deleteCrop }: cropProps) {
   const syns: any =
     other_name && other_name.length
       ? other_name.slice(0, 3)
-      : [{ id: 0, name: 'No Synonyms' }];
+      : 'N/A';
 
-  const renderSynonyms = (other_name: Synonym[]) => {
-    return other_name.map((_s: Synonym) => <p key={_s.id}>{_s.name}</p>);
+  const renderSynonyms = (names: string[]) => {
+    return names.map((_s: string) => <span key={_s}>{_s}</span>);
   };
   const imageStyle = {
     borderRadius: '5%',

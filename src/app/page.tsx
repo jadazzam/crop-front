@@ -18,7 +18,6 @@ export default function Page() {
   const fetchCrops = async () => {
     if (!user) return [];
     return await axios.get('/api/crops').then(res => {
-      console.log('res crops', res);
       if (res.status === 200 && res.data) {
         return res.data;
       }
