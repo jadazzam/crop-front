@@ -6,7 +6,8 @@ import { cropType } from '@/interfaces/crops/crop';
 import { CropsList } from '@/components/crops/list';
 import { plantType } from '@/interfaces/plants/plant';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import { Alert } from 'flowbite-react';
+import HeroSection from '@/components/hero';
+import axios from 'axios';
 
 export default function Page() {
   const { user, error, isLoading } = useUser();
@@ -16,15 +17,20 @@ export default function Page() {
   //
   const fetchCrops = async () => {
     if (!user) return [];
-    return await fetch('/api/crops')
-      .then((res) => res.json())
-      .then((crops) => setCrops(crops));
+    return await axios.get('/api/crops').then(res => {
+      console.log('res crops', res);
+      if (res.status === 200 && res.data) {
+        return res.data;
+      }
+    }).then(crops => setCrops(crops));
   };
 
   const fetchPlants = async () => {
     return await fetch('/api/plants')
       .then((res) => res.json())
-      .then((plants) => setPlants(plants));
+      .then((plants) => {
+        if (plants?.data?.length > 0) setPlants(plants.data);
+      });
   };
   useEffect(() => {
     fetchPlants();
@@ -58,8 +64,11 @@ export default function Page() {
       </div>
     );
   console.log('crops', crops, 'plants', plants, 'search', search);
+
+
   return (
     <>
+      <HeroSection />
       {crops?.length > 0 && (
         <div>
           <CropsList

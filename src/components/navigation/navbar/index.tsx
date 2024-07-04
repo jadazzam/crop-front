@@ -10,10 +10,10 @@ import { HiLogout } from 'react-icons/hi';
 const Nav = (props: { user: Claims | undefined }) => {
   const [width, setWidth] = useState(0);
   const { user } = props;
-  console.log('user =>', user);
+
   return (
     <>
-      <Navbar className="bg-cropy" fluid rounded>
+      <Navbar className="bg-cropy" fluid>
         <Navbar.Brand href="./">
           <img src="/crop-white.svg" className="mr-3 h-6 sm:h-9" alt="Save My Crop Logo" />
           <span
