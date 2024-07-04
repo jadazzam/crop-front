@@ -9,12 +9,12 @@ export const PlantsList = (props: {
 }) => {
   const { data, setCrop } = props;
   const addCrop = async (id: string) => {
-    const trefleId = id.toString();
+    const perenualId = id.toString();
     try {
       const response = await fetch('/api/crops', {
         method: 'POST',
         body: JSON.stringify({
-          trefleId: trefleId,
+          perenualId: perenualId,
           name: `Front + ${Date.now()}`,
           size: '1-2-f'
         }),

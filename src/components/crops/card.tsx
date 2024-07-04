@@ -17,10 +17,10 @@ interface Synonym {
 }
 
 export default function Crop({ crop, deleteCrop }: cropProps) {
-  const { id, name, trefle, size } = crop;
-  let { image_url, common_name, synonyms, family }: plantType = trefle ?? {};
+  const { id, name, perenual, size } = crop;
+  let { default_image, common_name, other_name, family }: plantType = perenual ?? {};
   const [width, setWidth] = useState(0);
-  if (!image_url) image_url = '';
+
   const updateWidth = () => {
     const newWidth = window.innerWidth;
     setWidth(newWidth);
@@ -37,12 +37,12 @@ export default function Crop({ crop, deleteCrop }: cropProps) {
   }, []);
 
   const syns: any =
-    synonyms && synonyms.length
-      ? synonyms.slice(0, 3)
+    other_name && other_name.length
+      ? other_name.slice(0, 3)
       : [{ id: 0, name: 'No Synonyms' }];
 
-  const renderSynonyms = (synonyms: Synonym[]) => {
-    return synonyms.map((_s: Synonym) => <p key={_s.id}>{_s.name}</p>);
+  const renderSynonyms = (other_name: Synonym[]) => {
+    return other_name.map((_s: Synonym) => <p key={_s.id}>{_s.name}</p>);
   };
   const imageStyle = {
     borderRadius: '5%',
@@ -57,7 +57,7 @@ export default function Crop({ crop, deleteCrop }: cropProps) {
           renderImage={() =>
             <div className="h-[400px] overflow-hidden flex justify-center items-center">
               <Image width={400} height={400}
-                     src={image_url} alt={name}
+                     src={default_image?.small_url} alt={name}
               /></div>}
         >
           <div className="flex-1 h-full">

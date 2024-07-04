@@ -12,7 +12,7 @@ type plantProps = {
 
 export default function Card({ plant, addCrop }: plantProps) {
   //update the size of the card when the size of the screen changes
-  const { id, image_url, common_name, family, synonyms } = plant;
+  const { id, default_image, common_name, family, other_name } = plant;
   const [width, setWidth] = useState(0);
 
   const updateWidth = () => {
@@ -26,11 +26,11 @@ export default function Card({ plant, addCrop }: plantProps) {
   }, []);
 
   const threeSynonyms =
-    synonyms && synonyms.length > 3
-      ? synonyms.splice(0, 3)
-      : synonyms || ['No Synonyms'];
-  const renderSynonyms = (synonyms: string[]) => {
-    return synonyms.map((string: string) => (
+    other_name && other_name.length > 3
+      ? other_name.splice(0, 3)
+      : other_name || ['No Synonyms'];
+  const renderSynonyms = (other_name: string[]) => {
+    return other_name.map((string: string) => (
       <p key={threeSynonyms?.indexOf(string)}>{string}</p>
     ));
   };
@@ -86,11 +86,11 @@ export default function Card({ plant, addCrop }: plantProps) {
               // })}
             >
               <Image
-                src={image_url || ''}
+                src={default_image?.small_url || default_image?.medium_url || ''}
                 alt={common_name || ''}
                 style={imageStyle}
-                height={width < 1024 ? 50 : 55}
-                width={width < 1024 ? 50 : 70}
+                height={width < 1024 ? 10 : 11}
+                width={width < 1024 ? 10 : 14}
                 layout="responsive"
                 objectFit={'contain'}
               />

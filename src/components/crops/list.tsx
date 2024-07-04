@@ -15,6 +15,7 @@ export const CropsList = (props: {
           'Content-Type': 'application/json'
         }
       }).then((res) => res.json());
+
       if (!crop) {
         console.error('Failed to post crop:');
         return;
