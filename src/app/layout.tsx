@@ -5,7 +5,6 @@ import { Cormorant_Infant } from 'next/font/google';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import Navigation from '@/components/navigation';
 import { Claims, getSession } from '@auth0/nextjs-auth0';
-import 'flowbite/dist/flowbite.css';
 
 const cormorant = Cormorant_Infant({ weight: ['400', '500', '700'], subsets: ['latin'], display: 'swap' });
 
