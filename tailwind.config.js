@@ -1,33 +1,11 @@
-/**
- * @type {import('@types/tailwindcss/tailwind-config').TailwindConfig}
- */module.exports = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   content: [
-    './src/**/*.{js,ts,jsx,tsx,mdx}',
-    './public/**/*.html'
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}'
   ],
   theme: {
-    extend: {
-      colors: {
-        'sunny': '#FDB813',
-        'cropy': '#38785F'
-
-      },
-      fontSize: {
-        'h1': ['2.25rem', { lineHeight: '2.5rem' }],
-        'h2': ['1.875rem', { lineHeight: '2.25rem' }],
-        'h3': ['1.5rem', { lineHeight: '2rem' }]
-      }
-
-      // extend: {
-      //   spacing: {
-      //     '128': '32rem',
-      //     '144': '36rem',
-      //   },
-      //   borderRadius: {
-      //     '4xl': '2rem',
-      //   }
-      // }
-    }
+    extend: {}
   },
   plugins: []
 };

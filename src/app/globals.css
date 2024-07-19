@@ -2,26 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    margin: 0
-}
+/*body {*/
+/*    margin: 0*/
+/*}*/
 
-button {
-    @apply bg-sunny text-white font-medium rounded-lg text-sm px-4 py-2 transition-colors duration-300;
-}
+/*h1 {*/
+/*    @apply text-2xl;*/
+/*}*/
 
-button:hover {
-    @apply bg-white text-sunny;
-}
+/*h2 {*/
+/*    @apply text-xl;*/
+/*}*/
 
-h1 {
-    @apply text-2xl;
-}
-
-h2 {
-    @apply text-xl;
-}
-
-h3 {
-    @apply text-lg;
-}
+/*h3 {*/
+/*    @apply text-lg;*/
+/*}*/

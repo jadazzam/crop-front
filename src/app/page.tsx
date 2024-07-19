@@ -8,6 +8,7 @@ import { plantType } from '@/interfaces/plants/plant';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import HeroSection from '@/components/hero';
 import axios from 'axios';
+import { Button } from '@mui/material';
 
 export default function Page() {
   const { user, error, isLoading } = useUser();
@@ -31,13 +32,13 @@ export default function Page() {
         if (plants?.data?.length > 0) setPlants(plants.data);
       });
   };
-  useEffect(() => {
-    fetchPlants();
-  }, []);
-
-  useEffect(() => {
-    user && fetchCrops();
-  }, [user]);
+  // useEffect(() => {
+  //   fetchPlants();
+  // }, []);
+  //
+  // useEffect(() => {
+  //   user && fetchCrops();
+  // }, [user]);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -56,29 +57,30 @@ export default function Page() {
     }
   }
 
-  if (!plants)
-    return (
-      <div>
-        <button onClick={fetchPlants}>Refresh</button>
-      </div>
-    );
-  console.log('crops', crops, 'plants', plants, 'search', search);
+  // if (!plants)
+  //   return (
+  //     <div>
+  //       <button onClick={fetchPlants}>Refresh</button>
+  //     </div>
+  //   );
+  // console.log('crops', crops, 'plants', plants, 'search', search);
 
 
   return (
     <>
-      <HeroSection />
-      {crops?.length > 0 && (
-        <div>
-          <CropsList
-            data={crops}
-            setMyCrop={(crop) => {
-              const res = crops.filter((_c) => _c.id !== crop.id);
-              setCrops(res);
-            }}
-          ></CropsList>
-        </div>
-      )}
+      {/*<HeroSection />*/}
+      {/*{crops?.length > 0 && (*/}
+      {/*  <div>*/}
+      {/*    <CropsList*/}
+      {/*      data={crops}*/}
+      {/*      setMyCrop={(crop) => {*/}
+      {/*        const res = crops.filter((_c) => _c.id !== crop.id);*/}
+      {/*        setCrops(res);*/}
+      {/*      }}*/}
+      {/*    ></CropsList>*/}
+
+      {/*  </div>*/}
+      {/*)}*/}
       {/*<form onSubmit={onSubmit}>*/}
       {/*  <input type="text" name="search" />*/}
       {/*  <button type="submit">Submit</button>*/}
@@ -94,6 +96,7 @@ export default function Page() {
       {/*    data={plants}*/}
       {/*  />*/}
       {/*)}*/}
+      <Button variant="contained">Contained</Button>
     </>
   );
 }

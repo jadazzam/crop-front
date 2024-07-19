@@ -1,5 +1,6 @@
 import Search from './search';
 import React from 'react';
+import { Button } from '@mui/material';
 
 const HeroSection = () => {
   return (
@@ -8,6 +9,8 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="relative flex flex-col justify-center h-full text-center text-white ml-8 md:ml-8 lg:ml-16">
           <h1 className="text-5xl font-bold">Protect, Preserve and Thrive</h1>
+          {/*<Button variant="contained">Contained</Button>*/}
+
           <p className="mt-4 text-lg">Discover how to grow your crops</p>
           <Search />
         </div>
