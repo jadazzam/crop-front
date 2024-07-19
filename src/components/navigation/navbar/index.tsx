@@ -21,7 +21,7 @@ const settings = ['Profile', 'My crops', 'Logout'];
 function NavBar(props: { user?: Claims | undefined }) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-  console.log('user', props.user);
+
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -37,11 +37,13 @@ function NavBar(props: { user?: Claims | undefined }) {
     setAnchorElUser(null);
   };
 
+  const handleUserMenu = (setting: string) => {
+    if (setting === 'Logout') location.href = '/api/auth/logout';
+  };
   return (
     <AppBar position="static">
       <Container maxWidth={false}>
         <Toolbar disableGutters>
-          {/*<AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />*/}
           <Image className="mr-2 mt-2 mb-2" width={50} height={50} src="/crop-white.svg" alt="Save My Crop Logo" />
           <Typography
             variant="h6"
@@ -114,7 +116,7 @@ function NavBar(props: { user?: Claims | undefined }) {
               textDecoration: 'none'
             }}
           >
-            LOGO
+            Save My crop
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -129,11 +131,14 @@ function NavBar(props: { user?: Claims | undefined }) {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
+            {!props?.user ?
+              <Button color="secondary" variant="contained" href="/api/auth/login">
+                Sign in
+              </Button>
+              : <Tooltip title="Open settings"><IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}><Avatar
+                alt={props.user ? props.user.nickname : 'user avatar'} src={props.user.picture} /> </IconButton>
+              </Tooltip>
+            }
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -151,7 +156,7 @@ function NavBar(props: { user?: Claims | undefined }) {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={() => handleUserMenu(setting)}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
