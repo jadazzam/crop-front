@@ -8,15 +8,27 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import Button, { ButtonProps } from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Claims } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
+import { styled } from '@mui/system';
 
 const pages = ['My crops', 'Plants', 'About us'];
 const settings = ['Profile', 'My crops', 'Logout'];
+
+const SignInButton = styled(Button)<ButtonProps>(({ theme }) => ({
+  color: 'white',
+  backgroundColor: theme.palette.secondary.main,
+  '&:hover': {
+    backgroundColor: theme.palette.secondary.dark
+  },
+  width: 100,
+  height: 50,
+  textTransform: 'capitalize'
+}));
 
 function NavBar(props: { user?: Claims | undefined }) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -132,9 +144,9 @@ function NavBar(props: { user?: Claims | undefined }) {
 
           <Box sx={{ flexGrow: 0 }}>
             {!props?.user ?
-              <Button color="secondary" variant="contained" href="/api/auth/login">
+              <SignInButton href="/api/auth/login">
                 Sign in
-              </Button>
+              </SignInButton>
               : <Tooltip title="Open settings"><IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}><Avatar
                 alt={props.user ? props.user.nickname : 'user avatar'} src={props.user.picture} /> </IconButton>
               </Tooltip>

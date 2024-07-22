@@ -68,7 +68,7 @@ export default function Page() {
 
   return (
     <>
-      {/*<HeroSection />*/}
+      <HeroSection />
       {/*{crops?.length > 0 && (*/}
       {/*  <div>*/}
       {/*    <CropsList*/}
@@ -96,7 +96,6 @@ export default function Page() {
       {/*    data={plants}*/}
       {/*  />*/}
       {/*)}*/}
-      <Button variant="contained">Contained</Button>
     </>
   );
 }

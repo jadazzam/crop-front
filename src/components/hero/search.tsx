@@ -1,32 +1,33 @@
 import React from 'react';
 import { handleSearch } from '@/api/actions/plants';
+import SunnyButton from '@/components/buttons/sunny';
 
 const Search: React.FC = () => {
   return (
-    <></>
-    //   <form
-    //     className="w-7/12 mx-auto mt-4"
-    //     action={handleSearch}>
-    //     <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search for your
-    //       plant</label>
-    //     <div className="relative">
-    //       <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-    //         <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-    //              xmlns="http://www.w3.org/2000/svg"
-    //              fill="none" viewBox="0 0 20 20">
-    //           <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-    //                 d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-    //         </svg>
-    //       </div>
-    //       <input name="search" type="search" id="search"
-    //              className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-bluesunny-500 focus:border-sunny-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sunny-500 dark:focus:border-sunny-500"
-    //              placeholder="Search for your plant" required />
-    //       <button type="submit"
-    //               className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-    //       >Search
-    //       </button>
-    //     </div>
-    //   </form>
+    <form
+      className="w-7/12 mx-auto mt-4"
+      action={handleSearch}>
+      <div className="relative flex">
+        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+          <svg className="w-4 h-4 text-secondary-700 dark:text-secondary-600" aria-hidden="true"
+               xmlns="http://www.w3.org/2000/svg"
+               fill="none" viewBox="0 0 20 20">
+            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+          </svg>
+        </div>
+        <input name="search" type="search" id="search"
+               className="block w-full p-4 ps-10 text-gray-900 border border-white-300 rounded-lg bg-white-50 focus:ring-secondary-500 focus:border-secondary-500 dark:bg-white-700 dark:border-white-600 dark:placeholder-white-400 dark:text-white dark:focus:ring-sunny-500 dark:focus:border-sunny-500"
+               placeholder="Search for your plant" required />
+        <div className="flex items-center">
+          <SunnyButton text={'Search'}></SunnyButton>
+        </div>
+        {/*<button type="submit"*/}
+        {/*        className="text-white absolute end-2.5 bottom-2.5 bg-secondary-700 hover:bg-secondary-800 focus:ring-4 focus:outline-none focus:ring-secondary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-secondary-600 dark:hover:bg-secondary-700 dark:focus:ring-secondary-800"*/}
+        {/*>Search*/}
+        {/*</button>*/}
+      </div>
+    </form>
   );
 
 };
