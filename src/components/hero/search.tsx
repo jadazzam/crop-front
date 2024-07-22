@@ -17,7 +17,7 @@ const Search: React.FC = () => {
           </svg>
         </div>
         <input name="search" type="search" id="search"
-               className="block w-full p-4 ps-10 text-gray-900 border border-white-300 rounded-lg bg-white-50 focus:ring-secondary-500 focus:border-secondary-500 dark:bg-white-700 dark:border-white-600 dark:placeholder-white-400 dark:text-white dark:focus:ring-sunny-500 dark:focus:border-sunny-500"
+               className="block w-full p-4 ps-10 text-gray-900 border border-secondary-300 rounded-lg bg-white-50 focus:ring-secondary-500 focus:border-secondary-500 dark:bg-white dark:border-secondary-800 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-secondary-500 dark:focus:border-secondary-800"
                placeholder="Search for your plant" required />
         <div className="flex items-center">
           <SunnyButton text={'Search'}></SunnyButton>
