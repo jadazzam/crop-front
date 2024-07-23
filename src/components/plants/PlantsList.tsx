@@ -1,13 +1,16 @@
 import type { plantType } from '@/interfaces/plants/plant';
+import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 
-import Card from '@/components/plants/card';
+
+import PlantCard from '@/components/plants/PlantCard';
 import { cropType } from '@/interfaces/crops/crop';
+import { searchPlantType } from '@/interfaces/plants/search';
 
 export const PlantsList = (props: {
-  data: plantType[];
+  search: searchPlantType | null;
   setCrop: (crop: cropType) => void;
 }) => {
-  const { data, setCrop } = props;
+  const { search, setCrop } = props;
   const addCrop = async (id: string) => {
     const perenualId = id.toString();
     try {
@@ -35,13 +38,12 @@ export const PlantsList = (props: {
     }
   };
   return (
-    <ul>
-      <div
-      >
-        {data?.map((_p: plantType) => (
-          <Card key={_p.id} plant={_p} addCrop={addCrop} />
-        ))}
-      </div>
-    </ul>
+    <Grid container spacing={4}>
+      {search?.data?.map((_p: plantType) => (
+        <Grid xs={2} sm={4} md={4} key={_p.id}>
+          <PlantCard key={_p.id} plant={_p} addCrop={addCrop} />
+        </Grid>
+      ))}
+    </Grid>
   );
 };

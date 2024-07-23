@@ -1,12 +1,27 @@
 import React from 'react';
 import { handleSearch } from '@/api/actions/plants';
 import SunnyButton from '@/components/buttons/sunny';
+import { searchPlantType } from '@/interfaces/plants/search';
 
-const Search: React.FC = () => {
+interface SearchProps {
+  setSearch: (search: searchPlantType) => void;
+}
+
+
+const Search: React.FC<SearchProps> = ({
+                                         setSearch
+                                       }) => {
+
+  const searchPlants = async (formData: FormData) => {
+    const search = await handleSearch(formData);
+    setSearch(search);
+    return search;
+  };
+
   return (
     <form
       className="w-7/12 mx-auto mt-4"
-      action={handleSearch}>
+      action={searchPlants}>
       <div className="relative flex">
         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
           <svg className="w-4 h-4 text-secondary-700 dark:text-secondary-600" aria-hidden="true"
@@ -22,10 +37,6 @@ const Search: React.FC = () => {
         <div className="flex items-center">
           <SunnyButton text={'Search'}></SunnyButton>
         </div>
-        {/*<button type="submit"*/}
-        {/*        className="text-white absolute end-2.5 bottom-2.5 bg-secondary-700 hover:bg-secondary-800 focus:ring-4 focus:outline-none focus:ring-secondary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-secondary-600 dark:hover:bg-secondary-700 dark:focus:ring-secondary-800"*/}
-        {/*>Search*/}
-        {/*</button>*/}
       </div>
     </form>
   );

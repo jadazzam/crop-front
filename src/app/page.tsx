@@ -1,20 +1,20 @@
 'use client';
 import { FormEvent, useEffect, useState } from 'react';
 import { getPlantsByName } from '@/services/crop-api/plants/GET';
-import { PlantsList } from '@/components/plants/list';
+import { PlantsList } from '@/components/plants/PlantsList';
 import { cropType } from '@/interfaces/crops/crop';
 import { CropsList } from '@/components/crops/list';
 import { plantType } from '@/interfaces/plants/plant';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import HeroSection from '@/components/hero';
 import axios from 'axios';
-import { Button } from '@mui/material';
+import { searchPlantType } from '@/interfaces/plants/search';
 
 export default function Page() {
   const { user, error, isLoading } = useUser();
   const [crops, setCrops] = useState<cropType[]>([]);
   const [plants, setPlants] = useState<plantType[]>([]);
-  const [search, setSearch] = useState(null);
+  const [search, setSearch] = useState<searchPlantType | null>(null);
   //
   const fetchCrops = async () => {
     if (!user) return [];
@@ -35,27 +35,10 @@ export default function Page() {
   // useEffect(() => {
   //   fetchPlants();
   // }, []);
-  //
+
   // useEffect(() => {
   //   user && fetchCrops();
   // }, [user]);
-
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const formDataObject: any = {};
-    for (const [key, value] of formData.entries()) {
-      formDataObject[key] = formData.get('search');
-    }
-    try {
-      if (formDataObject?.search) {
-        const res = await getPlantsByName(formDataObject.search);
-        if (res?.data) setSearch(res.data);
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    }
-  }
 
   // if (!plants)
   //   return (
@@ -63,39 +46,37 @@ export default function Page() {
   //       <button onClick={fetchPlants}>Refresh</button>
   //     </div>
   //   );
-  // console.log('crops', crops, 'plants', plants, 'search', search);
+  console.log('crops', crops, 'plants', plants, 'search', search);
 
 
-  return (
-    <>
-      <HeroSection />
-      {/*{crops?.length > 0 && (*/}
-      {/*  <div>*/}
-      {/*    <CropsList*/}
-      {/*      data={crops}*/}
-      {/*      setMyCrop={(crop) => {*/}
-      {/*        const res = crops.filter((_c) => _c.id !== crop.id);*/}
-      {/*        setCrops(res);*/}
-      {/*      }}*/}
-      {/*    ></CropsList>*/}
+  return <>
+    <HeroSection setSearch={(search: searchPlantType) => {
+      setSearch(search);
+    }} />
+    {/*{crops?.length > 0 && (*/}
+    {/*  <div>*/}
+    {/*    <CropsList*/}
+    {/*      data={crops}*/}
+    {/*      setMyCrop={(crop) => {*/}
+    {/*        const res = crops.filter((_c) => _c.id !== crop.id);*/}
+    {/*        setCrops(res);*/}
+    {/*      }}*/}
+    {/*    ></CropsList>*/}
 
-      {/*  </div>*/}
-      {/*)}*/}
-      {/*<form onSubmit={onSubmit}>*/}
-      {/*  <input type="text" name="search" />*/}
-      {/*  <button type="submit">Submit</button>*/}
-      {/*</form>*/}
-      {/*{search ? (*/}
-      {/*  <PlantsList*/}
-      {/*    setCrop={(crop) => setCrops([...crops, crop])}*/}
-      {/*    data={search}*/}
-      {/*  ></PlantsList>*/}
-      {/*) : (*/}
-      {/*  <PlantsList*/}
-      {/*    setCrop={(crop: cropType) => setCrops([...crops, crop])}*/}
-      {/*    data={plants}*/}
-      {/*  />*/}
-      {/*)}*/}
-    </>
-  );
+    {/*  </div>*/}
+    {/*)}*/}
+    {/*<form onSubmit={onSubmit}>*/}
+    {/*  <input type="text" name="search" />*/}
+    {/*  <button type="submit">Submit</button>*/}
+    {/*</form>*/}
+    {/*  <PlantsList*/}
+    {/*    setCrop={(crop) => setCrops([...crops, crop])}*/}
+    {/*    data={search}*/}
+    {/*  ></PlantsList>*/}
+    {/*) : (*/}
+    {search && <PlantsList
+      setCrop={(crop: cropType) => setCrops([...crops, crop])}
+      search={search}
+    />}
+  </>;
 }
