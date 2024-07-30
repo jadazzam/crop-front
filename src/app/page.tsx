@@ -16,22 +16,22 @@ export default function Page() {
   const [plants, setPlants] = useState<plantType[]>([]);
   const [search, setSearch] = useState<searchPlantType | null>(null);
   //
-  const fetchCrops = async () => {
-    if (!user) return [];
-    return await axios.get('/api/crops').then(res => {
-      if (res.status === 200 && res.data) {
-        return res.data;
-      }
-    }).then(crops => setCrops(crops));
-  };
-
-  const fetchPlants = async () => {
-    return await fetch('/api/plants')
-      .then((res) => res.json())
-      .then((plants) => {
-        if (plants?.data?.length > 0) setPlants(plants.data);
-      });
-  };
+  // const fetchCrops = async () => {
+  //   if (!user) return [];
+  //   return await axios.get('/api/crops').then(res => {
+  //     if (res.status === 200 && res.data) {
+  //       return res.data;
+  //     }
+  //   }).then(crops => setCrops(crops));
+  // };
+  //
+  // const fetchPlants = async () => {
+  //   return await fetch('/api/plants')
+  //     .then((res) => res.json())
+  //     .then((plants) => {
+  //       if (plants?.data?.length > 0) setPlants(plants.data);
+  //     });
+  // };
   // useEffect(() => {
   //   fetchPlants();
   // }, []);

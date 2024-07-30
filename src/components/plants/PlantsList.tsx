@@ -5,6 +5,13 @@ import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import PlantCard from '@/components/plants/PlantCard';
 import { cropType } from '@/interfaces/crops/crop';
 import { searchPlantType } from '@/interfaces/plants/search';
+import { styled } from '@mui/system';
+
+
+const Item = styled(Grid)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center'
+}));
 
 export const PlantsList = (props: {
   search: searchPlantType | null;
@@ -38,11 +45,11 @@ export const PlantsList = (props: {
     }
   };
   return (
-    <Grid container spacing={4}>
-      {search?.data?.map((_p: plantType) => (
-        <Grid xs={2} sm={4} md={4} key={_p.id}>
-          <PlantCard key={_p.id} plant={_p} addCrop={addCrop} />
-        </Grid>
+    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+      {search?.data?.map((_p: plantType, index) => (
+        <Item xs={2} sm={4} md={4} key={index}>
+          <PlantCard plant={_p} addCrop={addCrop} />
+        </Item>
       ))}
     </Grid>
   );
