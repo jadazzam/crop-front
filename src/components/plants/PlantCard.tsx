@@ -48,7 +48,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 export default function PlantCard({ plant, addCrop }: plantProps) {
   //update the size of the card when the size of the screen changes
-  const { id, default_image, scientific_name, common_name, family, other_name, sunlight } = plant;
+  const { id, default_image, scientific_name, common_name, family, other_name, sunlight, watering } = plant;
   const [width, setWidth] = useState(0);
   const [expanded, setExpanded] = React.useState(false);
 
@@ -104,6 +104,45 @@ export default function PlantCard({ plant, addCrop }: plantProps) {
     }
   };
 
+  const renderWatering = (watering: string) => {
+    switch (watering) {
+      case 'Minimum':
+        return {
+          src: '/water-min.svg',
+          alt: 'Water minimum',
+          description: 'Think of it as the camel of the plant world; a little water goes a long way!'
+        };
+        break;
+      case 'Average':
+        return {
+          src: '/water-average.svg',
+          alt: 'Water average',
+          description: 'Water it like Goldilocks: not too dry, not too wet, but just right!'
+        };
+        break;
+      case 'Frequent':
+        return {
+          src: '/water-frequent.svg',
+          alt: 'Water frequent',
+          description: 'Think of this plant as always thirsty – it\'s your own little waterholic!'
+        };
+        break;
+      case 'None':
+        return {
+          src: '/water-none.svg',
+          alt: 'Water none',
+          description: 'This plant is on a water-free diet – no H2O needed!'
+        };
+        break;
+      default:
+        return {
+          src: '/water-frequent.svg',
+          alt: 'Water frequent',
+          description: 'Think of this plant as always thirsty – it\'s your own little waterholic!'
+        };
+    }
+
+  };
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
@@ -152,10 +191,16 @@ export default function PlantCard({ plant, addCrop }: plantProps) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Description</Typography>
-          <div style={{ display: 'flex' }}>
+          <div className="flex ">
 
-            <Image className="mr-4" width={32} height={32} src={renderSunCondition(sunlight).src}
+            <Image className="mr-4" width={48} height={48} src={renderSunCondition(sunlight).src}
                    alt={renderSunCondition(sunlight).alt} /> {renderSunCondition(sunlight).description}
+          </div>
+          <div className="flex mt-5">
+
+            <Image className="mr-4" width={48} height={48} src={renderWatering(watering).src}
+                   alt={renderWatering(watering).alt} />
+            <p>{renderWatering(watering).description}</p>
           </div>
           <Typography paragraph>
             Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
