@@ -68,11 +68,14 @@ export const plantSchema = z.object({
     license: z.number(),
     license_name: z.string(),
     license_url: z.string(),
+    license_id: z.number(),
     original_url: z.string(),
     regular_url: z.string(),
     medium_url: z.string(),
     small_url: z.string(),
-    thumbnail: z.string()
+    thumbnail: z.string(),
+    alt: z.string()
+
   })
 });
 
