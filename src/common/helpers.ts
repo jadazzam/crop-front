@@ -10,3 +10,11 @@ export const plantsTitles: string[] = [
   'Growing edible plants ensures local and healthy food',
   'Plants and flowers create habitats for wildlife, enriching biodiversity'
 ];
+
+export const Logout = 'Logout';
+export const MyCrops = 'My crops';
+export const Profile = 'Profile';
+export const Plants = 'plants';
+export const AboutUs = 'About us';
+export const navPages = [MyCrops, Plants, AboutUs];
+export const userSettings = [Profile, MyCrops, Logout];
