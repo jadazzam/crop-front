@@ -25,7 +25,7 @@ export const POST = withApiAuthRequired(async function createCrop(
       headers: { 'Content-Type': 'application/json' }
     });
   } catch (e) {
-    console.log('Post crop fail', e);
-    return new Response('Error POST Crop', { status: 500 });
+    console.error('Post crop fail', e);
+    return new Response(null, { status: 500 });
   }
 });
