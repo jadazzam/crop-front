@@ -1,24 +1,18 @@
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { css } from "@/panda/css";
-import Image from "next/image";
-import { cropType } from "@/interfaces/crops/crop";
-import { CropHandler } from "@/components/buttons/cropHandler";
-import { plantType } from "@/interfaces/plants/plant";
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { cropType } from '@/interfaces/crops/crop';
+import { CropHandler } from '@/components/buttons/cropHandler';
+import { plantType } from '@/interfaces/plants/plant';
 
 type cropProps = {
   crop: cropType;
   deleteCrop: (id: string) => any;
 };
 
-interface Synonym {
-  id: number;
-  name: string;
-}
-
-export default function Card({ crop, deleteCrop }: cropProps) {
-  const { id, name, trefle } = crop;
-  const { image_url, common_name, synonyms, family }: plantType = trefle ?? {};
+export default function Crop({ crop, deleteCrop }: cropProps) {
+  const { id, name, perenual, size } = crop;
+  let { default_image, common_name, other_name, family }: plantType = perenual ?? {};
   const [width, setWidth] = useState(0);
 
   const updateWidth = () => {
@@ -27,83 +21,51 @@ export default function Card({ crop, deleteCrop }: cropProps) {
   };
 
   useEffect(() => {
-    window.addEventListener("resize", updateWidth);
+    window.addEventListener('resize', updateWidth);
     updateWidth();
 
     // Cleanup event listener on component unmount
     return () => {
-      window.removeEventListener("resize", updateWidth);
+      window.removeEventListener('resize', updateWidth);
     };
   }, []);
 
   const syns: any =
-    synonyms && synonyms.length
-      ? synonyms.slice(0, 3)
-      : [{ id: 0, name: "No Synonyms" }];
+    other_name && other_name.length
+      ? other_name.slice(0, 3)
+      : 'N/A';
 
-  const renderSynonyms = (synonyms: Synonym[]) => {
-    return synonyms.map((_s: Synonym) => <p key={_s.id}>{_s.name}</p>);
+  const renderSynonyms = (names: string[]) => {
+    return names?.map((_s: string) => <span key={_s}>{_s}</span>);
   };
   const imageStyle = {
-    borderRadius: "5%",
-    border: "1px solid #fff",
+    borderRadius: '5%',
+    border: '1px solid #fff'
   };
 
   return (
-    <li>
-      <div
-        className={css({
-          border: "3px solid #38785F",
-          boxShadow: "4px 4px 0opx #38785F",
-          borderRadius: "5px",
-          height: 400,
-          maxWidth: 350,
-          position: "relative",
-          overflow: "hidden",
-          marginY: 5,
-          marginX: 5,
-        })}
-      >
-        <div className={css({ padding: "3px" })}>
-          <div className={css({ height: "200px" })}>
-            <div className={css({ width: 300, position: "relative" })}>
-              <CropHandler onClick={() => deleteCrop(id)} action={"delete"} />
-            </div>
-            <Link href={`/crops/${id}/page.tsx`} as={`/crops/${id}`}>
-              <div className={css({ width: 300 })}>
-                <h4 className={css({ fontWeight: 600 })}>My Crop : </h4>
-                <p>{name}</p>
-                <h2 className={css({ fontWeight: 600 })}>Name : </h2>
-                <p>{common_name}</p>
-                <h2 className={css({ fontWeight: 600 })}>Family : </h2>
-                <p>{family}</p>
-                <h3 className={css({ fontWeight: 600 })}>Also called : </h3>
-                {renderSynonyms(syns)}
-              </div>
-            </Link>
-          </div>
-          <Link href={`/crops/${id}/page.tsx`} as={`/crops/${id}`}>
-            <div
-              className={css({
-                maxHeight: 150,
-                maxWidth: 150,
-                // position: "absolute",
-                margin: "auto",
-              })}
-            >
-              <Image
-                src={image_url || ""}
-                alt={common_name || ""}
-                style={imageStyle}
-                height={width < 1024 ? 50 : 55}
-                width={width < 1024 ? 50 : 70}
-                layout="responsive"
-                objectFit={"contain"}
-              />
-            </div>
-          </Link>
-        </div>
-      </div>
+    <li className="max-h-[600px] flex content-center">
+      <Link className="flex-1 h-full" href={`/crops/${id}/page.tsx`} as={`/crops/${id}`}>
+        {/*<Card*/}
+        {/*  className="w-full h-full flex flex-col justify-between"*/}
+        {/*  renderImage={() =>*/}
+        {/*    <div className="h-[400px] overflow-hidden flex justify-center items-center">*/}
+        {/*      <Image width={400} height={400}*/}
+        {/*             src={default_image?.small_url} alt={name}*/}
+        {/*      /></div>}*/}
+        {/*>*/}
+        {/*  <div className="flex-1 h-full">*/}
+        {/*    <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">*/}
+        {/*      {name ?? common_name}*/}
+        {/*    </h5>*/}
+        {/*    <p className="font-normal text-gray-700 dark:text-gray-400">*/}
+        {/*      <span className="font-bold">Family :</span> {family} <br />*/}
+        {/*      <span className="font-bold">Size :</span> : {size} <br />*/}
+        {/*      <span className="font-bold">Synonyms :</span> : {renderSynonyms(syns)} <br />*/}
+        {/*    </p>*/}
+        {/*  </div>*/}
+        {/*</Card>*/}
+      </Link>
     </li>
   );
 }

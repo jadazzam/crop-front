@@ -1,15 +1,13 @@
-"use client";
-import React from "react";
-import { Button } from "@/components/buttons/Button";
+'use client';
+import React from 'react';
 
 const Dashboard: React.FC = () => {
   const handleClick = () => {
-    return "hello";
+    return 'hello';
   };
   return (
     <>
       <p>We are in dashboard folder</p>
-      <Button onClick={handleClick}>Click me!</Button>{" "}
     </>
   );
 };
