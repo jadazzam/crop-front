@@ -9,11 +9,12 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import HeroSection from '@/components/hero';
 import axios from 'axios';
 import { searchPlantType } from '@/interfaces/plants/search';
+import { plantsTitles } from '@/common/helpers';
 
 export default function Page() {
   const { user, error, isLoading } = useUser();
   const [crops, setCrops] = useState<cropType[]>([]);
-  const [plants, setPlants] = useState<plantType[]>([]);
+  const [name, setName] = useState<string | null>(null);
   const [search, setSearch] = useState<searchPlantType | null>(null);
   //
   // const fetchCrops = async () => {
@@ -25,16 +26,16 @@ export default function Page() {
   //   }).then(crops => setCrops(crops));
   // };
   //
-  // const fetchPlants = async () => {
-  //   return await fetch('/api/plants')
-  //     .then((res) => res.json())
-  //     .then((plants) => {
-  //       if (plants?.data?.length > 0) setPlants(plants.data);
-  //     });
-  // };
-  // useEffect(() => {
-  //   fetchPlants();
-  // }, []);
+  const fetchPlants = async () => {
+    return await fetch('/api/plants')
+      .then((res) => res.json())
+      .then((res) => {
+        setSearch(res);
+      }).catch(e => console.log('GET Plants error', e));
+  };
+  useEffect(() => {
+    fetchPlants();
+  }, []);
 
   // useEffect(() => {
   //   user && fetchCrops();
@@ -46,11 +47,11 @@ export default function Page() {
   //       <button onClick={fetchPlants}>Refresh</button>
   //     </div>
   //   );
-  console.log('crops', crops, 'plants', plants, 'search', search);
+  console.log('crops', crops, 'name', name, 'search', search);
 
-
+  const randomTitle = plantsTitles[Math.floor(Math.random() * plantsTitles.length)];
   return <>
-    <HeroSection setSearch={(search: searchPlantType) => {
+    <HeroSection setName={setName} setSearch={(search: searchPlantType) => {
       setSearch(search);
     }} />
     {/*{crops?.length > 0 && (*/}
@@ -74,9 +75,18 @@ export default function Page() {
     {/*    data={search}*/}
     {/*  ></PlantsList>*/}
     {/*) : (*/}
-    {search && <PlantsList
-      setCrop={(crop: cropType) => setCrops([...crops, crop])}
-      search={search}
-    />}
+    {search &&
+      <>
+        <div className="flex-col max-w-full">
+
+          <h2
+            className="heading-2">{name ? `Résulats de recherche : ${name}` : randomTitle}</h2>
+        </div>
+        <PlantsList
+          setCrop={(crop: cropType) => setCrops([...crops, crop])}
+          search={search}
+        />
+      </>
+    }
   </>;
 }

@@ -10,7 +10,6 @@ import Navigation from '@/components/navigation';
 import { Claims, getSession } from '@auth0/nextjs-auth0';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { StyledRoot } from './StyledRoot';
-import Head from 'next/head';
 
 const cormorant = Cormorant_Infant({ weight: ['400', '500', '700'], subsets: ['latin'], display: 'swap' });
 
@@ -28,9 +27,6 @@ export default async function RootLayout({
   const user: Claims | undefined = session?.user;
   return (
     <html lang="en">
-    <Head>
-      <meta name="viewport" content="initial-scale=1, width=device-width" />
-    </Head>
     <UserProvider user={user}>
       <body className={cormorant.className}>
       <AppRouterCacheProvider>

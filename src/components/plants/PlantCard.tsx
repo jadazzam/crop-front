@@ -147,7 +147,7 @@ export default function PlantCard({ plant, addCrop }: plantProps) {
             <AddOutlinedIcon color="secondary" />
           </IconButton>
         }
-        title={common_name}
+        title={<span className="heading-4">{common_name}</span>}
         subheader={scientific_name[0]}
       />
       <CardMedia
