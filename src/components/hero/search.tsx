@@ -5,16 +5,20 @@ import { searchPlantType } from '@/interfaces/plants/search';
 
 interface SearchProps {
   setSearch: (search: searchPlantType) => void;
+  setName: (name: string) => void;
 }
 
 
 const Search: React.FC<SearchProps> = ({
-                                         setSearch
+                                         setSearch,
+                                         setName
                                        }) => {
 
   const searchPlants = async (formData: FormData) => {
-    const search = await handleSearch(formData);
-    setSearch(search);
+    const search = formData.get('search') as string;
+    const response = await handleSearch(search);
+    setName(search);
+    setSearch(response);
     return search;
   };
 

@@ -1,4 +1,4 @@
-import { getPlants } from "@/services/crop-api/plants/GET";
+import { getPlants } from '@/services/crop-api/plants/GET';
 
 export async function GET(): Promise<Response | void> {
   try {
@@ -6,7 +6,7 @@ export async function GET(): Promise<Response | void> {
 
     return new Response(res);
   } catch (e) {
-    console.error("Something went wrong : getManyPlants");
-   throw new Error("GetManyPlants error");
+    console.error('Something went wrong : GET Plants', e);
+    throw new Error(`GET Plants error, ${e}`);
   }
 }

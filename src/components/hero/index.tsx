@@ -4,9 +4,10 @@ import { searchPlantType } from '@/interfaces/plants/search';
 
 interface SearchProps {
   setSearch: (search: searchPlantType) => void;
+  setName: (name: string) => void;
 }
 
-const HeroSection = ({ setSearch }: SearchProps) => {
+const HeroSection = ({ setSearch, setName }: SearchProps) => {
   return (
     <>
       <div className="relative bg-cover bg-center h-screen" style={{ backgroundImage: 'url(/home-hero.svg)' }}>
@@ -14,7 +15,7 @@ const HeroSection = ({ setSearch }: SearchProps) => {
         <div className="relative flex flex-col justify-center h-full text-center text-white ml-8 md:ml-8 lg:ml-16">
           <h1 className="text-5xl font-bold">Protect, Preserve and Thrive</h1>
           <p className="mt-4 text-lg">Discover how to grow your crops</p>
-          <Search setSearch={setSearch} />
+          <Search setName={setName} setSearch={setSearch} />
         </div>
 
       </div>
