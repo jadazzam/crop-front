@@ -140,13 +140,8 @@ export default function PlantCard({ plant, addCrop }: plantProps) {
 
   };
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, borderRadius: 10 }}>
       <CardHeader
-        // avatar={
-        //   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-        //     R
-        //   </Avatar>
-        // }
         action={
           <IconButton onClick={() => addCrop(id.toString())} aria-label="add crop">
             <AddOutlinedIcon color="secondary" />
@@ -157,7 +152,7 @@ export default function PlantCard({ plant, addCrop }: plantProps) {
       />
       <CardMedia
         component="img"
-        height="194"
+        sx={{ width: 345, height: 345 }}
         image={default_image?.small_url}
         alt={common_name}
       />
