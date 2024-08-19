@@ -116,7 +116,7 @@ export default function PlantCard({ plant, addCrop }: plantProps) {
       <CardMedia
         component="img"
         sx={{ width: 345, height: 345 }}
-        image={default_image?.small_url}
+        image={default_image?.small_url || default_image?.original_url}
         alt={common_name}
       />
       <CardContent>
