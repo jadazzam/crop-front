@@ -15,12 +15,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import Image from 'next/image';
-
-const Sunlight = {
-  FullSun: 'full sun',
-  PartShade: 'part shade',
-  FullShade: 'full_shade', SunPartShade: 'sun-part_shade'
-};
+import { renderSunCondition } from '@/common/helpers';
 
 type plantProps = {
   plant: plantType;
@@ -66,39 +61,7 @@ export default function PlantCard({ plant, addCrop }: plantProps) {
     borderRadius: '5%',
     border: '1px solid #fff'
   };
-  const renderSunCondition = (conditions: string[]) => {
-    if (conditions.includes(Sunlight.FullSun)) {
-      return {
-        src: '/sunny.svg',
-        alt: Sunlight.FullSun,
-        description: 'Give your plant some sunny love, and watch it thrive!'
-      };
-    } else if (conditions.includes(Sunlight.SunPartShade)) {
-      return {
-        src: '/part-sunny.svg',
-        alt: Sunlight.SunPartShade,
-        description: 'Your plant enjoys a mix of sun and shade to stay happy and healthy!'
-      };
-    } else if (conditions.includes(Sunlight.PartShade)) {
-      return {
-        src: '/part-shade.svg',
-        alt: Sunlight.PartShade,
-        description: 'Give your plant a mix of sun and shade, and it will be one happy camper!'
-      };
-    } else if (conditions.includes(Sunlight.FullShade)) {
-      return {
-        src: '/full-shade.svg',
-        alt: Sunlight.FullShade,
-        description: 'Keep your plant happy by giving it a cozy, shady spot to chill!'
-      };
-    } else {
-      return {
-        src: '',
-        alt: '',
-        description: ''
-      };
-    }
-  };
+
 
   const renderWatering = (watering: string) => {
     switch (watering) {
