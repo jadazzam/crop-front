@@ -15,7 +15,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import Image from 'next/image';
-import { renderSunCondition } from '@/common/helpers';
+import { renderSunCondition, renderWatering } from '@/common/helpers';
 
 type plantProps = {
   plant: plantType;
@@ -37,7 +37,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   })
 }));
 
-export default function PlantCard({ plant, addCrop }: plantProps) {
+export default function Plant({ plant, addCrop }: plantProps) {
   //update the size of the card when the size of the screen changes
   const { id, default_image, scientific_name, common_name, family, other_name, sunlight, watering } = plant;
   const [width, setWidth] = useState(0);
@@ -57,51 +57,6 @@ export default function PlantCard({ plant, addCrop }: plantProps) {
     updateWidth();
   }, []);
 
-  const imageStyle = {
-    borderRadius: '5%',
-    border: '1px solid #fff'
-  };
-
-
-  const renderWatering = (watering: string) => {
-    switch (watering) {
-      case 'Minimum':
-        return {
-          src: '/water-min.svg',
-          alt: 'Water minimum',
-          description: 'Think of it as the camel of the plant world; a little water goes a long way!'
-        };
-        break;
-      case 'Average':
-        return {
-          src: '/water-average.svg',
-          alt: 'Water average',
-          description: 'Water it like Goldilocks: not too dry, not too wet, but just right!'
-        };
-        break;
-      case 'Frequent':
-        return {
-          src: '/water-frequent.svg',
-          alt: 'Water frequent',
-          description: 'Think of this plant as always thirsty – it\'s your own little waterholic!'
-        };
-        break;
-      case 'None':
-        return {
-          src: '/water-none.svg',
-          alt: 'Water none',
-          description: 'This plant is on a water-free diet – no H2O needed!'
-        };
-        break;
-      default:
-        return {
-          src: '/water-frequent.svg',
-          alt: 'Water frequent',
-          description: 'Think of this plant as always thirsty – it\'s your own little waterholic!'
-        };
-    }
-
-  };
   return (
     <Card sx={{ maxWidth: 345, borderRadius: 10 }}>
       <CardHeader

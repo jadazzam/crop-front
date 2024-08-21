@@ -1,6 +1,12 @@
+import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import type { cropType } from '@/interfaces/crops/crop';
-
 import Crop from '@/components/crops/card';
+import { styled } from '@mui/system';
+
+const Item = styled(Grid)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center'
+}));
 
 export const CropsList = (props: {
   data: cropType[];
@@ -29,10 +35,12 @@ export const CropsList = (props: {
     }
   };
   return (
-    <ul className="grid grid-cols-4 gap-4 place-items-center items-stretch">
-      {data?.map((_c: cropType) => (
+    <Grid container spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}>      {data?.map((_c: cropType, _i: number) => (
+      <Item xs={2} sm={4} md={4} key={_i}>
         <Crop key={_c.id} crop={_c} deleteCrop={deleteCrop} />
-      ))}
-    </ul>
+      </Item>
+    ))}
+    </Grid>
   );
 };
