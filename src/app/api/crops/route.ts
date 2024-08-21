@@ -1,4 +1,4 @@
-import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
+import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { getCrops } from '@/services/crop-api/crops/GET';
 import { postCrop } from '@/services/crop-api/crops/POST';
 
@@ -10,7 +10,7 @@ export const GET = withApiAuthRequired(async function fetchCrops() {
     });
   } catch (e) {
     console.error('Something went wrong : getAllCrops');
-    return new Response(null);
+    throw new Error('GET crops error', { cause: e });
   }
 });
 

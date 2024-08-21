@@ -9,7 +9,7 @@ const Item = styled(Grid)(({ theme }) => ({
 }));
 
 export const CropsList = (props: {
-  data: cropType[] | undefined;
+  data: cropType[];
   setMyCrop: (crop: cropType) => void;
 }) => {
   const { data, setMyCrop } = props;
