@@ -7,7 +7,7 @@ import { plantType } from '@/interfaces/plants/plant';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -64,11 +64,11 @@ export default function Crop({ crop, deleteCrop }: cropProps) {
       window.removeEventListener('resize', updateWidth);
     };
   }, []);
-
-  const syns: any =
-    other_name && other_name.length
-      ? other_name.slice(0, 3)
-      : 'N/A';
+  //
+  // const syns: any =
+  //   other_name && other_name.length
+  //     ? other_name.slice(0, 3)
+  //     : 'N/A';
 
   const renderSynonyms = (names: string[]) => {
     return names?.map((_s: string) => <span key={_s}>{_s}</span>);
@@ -79,7 +79,7 @@ export default function Crop({ crop, deleteCrop }: cropProps) {
       <CardHeader
         action={
           <IconButton onClick={() => deleteCrop(id.toString())} aria-label="add crop">
-            <AddOutlinedIcon color="secondary" />
+            <RemoveOutlinedIcon color="secondary" />
           </IconButton>
         }
         title={<span className="heading-4">{name}</span>}
