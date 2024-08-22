@@ -10,12 +10,11 @@ import axios from 'axios';
 
 export const getPlants = async (): Promise<any> => {
   try {
-    const res = await fetch(CROP_API_GET_PLANTS, {
-      method: 'GET',
+    const url = CROP_API_GET_PLANTS;
+    const response = await axios.get(url, {
       headers: withoutAuth
     });
-
-    return await res.json();
+    return response.data;
   } catch (err) {
     console.log('get all plants err');
     return null;
@@ -25,12 +24,10 @@ export const getPlants = async (): Promise<any> => {
 export const getPlantById = async (id: string): Promise<plantType | null> => {
   const url = CROP_API_GET_PLANT_BY_ID.replace(':id', id);
   try {
-    const res = await fetch(url, {
-      method: 'GET',
+    const response = await axios.get(url, {
       headers: withoutAuth
     });
-    const response = await res.json();
-    return response;
+    return response.data;
   } catch (err) {
     console.log('get plant by id err', err);
     return null;

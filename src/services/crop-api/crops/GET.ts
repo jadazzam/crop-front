@@ -24,11 +24,10 @@ export const getCropById = async (id: string): Promise<cropType> => {
   if (!id) throw new Error('id is required');
   try {
     let url = CROP_API_GET_CROP_BY_ID.replace(':id', id);
-    const res = await fetch(url, {
-      method: 'GET',
+    const response = await axios.get(url, {
       headers: await withAuth()
     });
-    return await res.json();
+    return response.data;
   } catch (err) {
     console.log('get crop by id err', err);
     throw new Error('Get crops err', { cause: err });
