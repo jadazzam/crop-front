@@ -2,7 +2,7 @@
 import type { plantType } from '@/interfaces/plants/plant';
 
 import { useEffect, useState } from 'react';
-import { PlantsList } from '@/components/plants/PlantsList';
+import { PlantsList } from '@/components/plants/list';
 import { cropType } from '@/interfaces/crops/crop';
 import { searchPlantType } from '@/interfaces/plants/search';
 
