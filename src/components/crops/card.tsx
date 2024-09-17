@@ -42,7 +42,6 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 export default function Crop({ crop, deleteCrop }: cropProps) {
   const { id, name, perenual, size } = crop;
   let { default_image, common_name, other_name, family, sunlight, watering }: plantType = perenual ?? {};
-  console.log('crop =>', crop);
   const [width, setWidth] = useState(0);
   const [expanded, setExpanded] = React.useState(false);
 

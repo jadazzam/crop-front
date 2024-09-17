@@ -27,12 +27,16 @@ export const cropsTitle = cropsTitles[Math.floor(Math.random() * cropsTitles.len
 
 export const Logout = 'Logout';
 export const MyCrops = 'My crops';
+export const Crops = 'Crops';
+export const Home = 'Home';
 export const Profile = 'Profile';
 export const Plants = 'plants';
 export const AboutUs = 'About us';
 export const navPages = [MyCrops, Plants, AboutUs];
 export const userSettings = [Profile, MyCrops, Logout];
-
+export const ManyPlants = 'yard';
+export const OnePlant = 'plant';
+export const HomeIcon = 'home';
 
 const Sunlight = {
   FullSun: 'full sun',
