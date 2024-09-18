@@ -6,7 +6,6 @@ import '@fontsource/roboto/700.css';
 import type { Metadata } from 'next';
 import { Cormorant_Infant } from 'next/font/google';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
-import Navigation from '@/components/navigation';
 import { Claims, getSession } from '@auth0/nextjs-auth0';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { StyledRoot } from './StyledRoot';
@@ -31,7 +30,6 @@ export default async function RootLayout({
       <body className={cormorant.className}>
       <AppRouterCacheProvider>
         <StyledRoot>
-          <Navigation user={user} />
           {children}
         </StyledRoot>
       </AppRouterCacheProvider>
