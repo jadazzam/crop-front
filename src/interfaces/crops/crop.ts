@@ -7,7 +7,8 @@ const cropSchema = z.object({
   size: z.string(),
   perenualId: z.string(),
   perenual: plantSchema,
-  active: z.boolean()
+  active: z.boolean(),
+  description: z.string()
 });
 
 const putSchema = z.object({

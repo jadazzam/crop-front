@@ -1,6 +1,6 @@
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import type { cropType } from '@/interfaces/crops/crop';
-import Crop from '@/components/crops/card';
+import Crop from '@/components/crops/Card';
 import { styled } from '@mui/system';
 
 const Item = styled(Grid)(({ theme }) => ({

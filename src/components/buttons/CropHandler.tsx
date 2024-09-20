@@ -1,5 +1,4 @@
 import React from 'react';
-// import { css } from "@/panda/css";
 import Icon from '@mdi/react';
 import { mdiMinusCircle, mdiPlus } from '@mdi/js';
 import { z } from 'zod'; // Adjust the path based on your project structure

@@ -11,7 +11,6 @@ export default async function PlantsLayout({
 
   return (
     <section>
-      {/* Include shared UI here e.g. a header or sidebar */}
       <Navigation user={user} />
       {children}
     </section>

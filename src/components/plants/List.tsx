@@ -2,7 +2,7 @@ import type { plantType } from '@/interfaces/plants/plant';
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 
 
-import Plant from '@/components/plants/card';
+import Plant from '@/components/plants/Card';
 import { cropType } from '@/interfaces/crops/crop';
 import { searchPlantType } from '@/interfaces/plants/search';
 import { styled } from '@mui/system';

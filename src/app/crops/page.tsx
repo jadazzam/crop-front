@@ -1,7 +1,7 @@
 'use client';
 import useSWR from 'swr';
 import type { cropType } from '@/interfaces/crops/crop';
-import { CropsList } from '@/components/crops/list';
+import { CropsList } from '@/components/crops/List';
 import { useEffect, useState } from 'react';
 import { cropsTitle } from '@/common/helpers';
 

@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { cropType } from '@/interfaces/crops/crop';
-import { CropHandler } from '@/components/buttons/cropHandler';
+import { CropHandler } from '@/components/buttons/CropHandler';
 import { plantType } from '@/interfaces/plants/plant';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -16,7 +16,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
-import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { renderSunCondition, renderWatering } from '@/common/helpers';
 
@@ -40,18 +39,17 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   })
 }));
 export default function Crop({ crop, deleteCrop }: cropProps) {
-  const { id, name, perenual, size } = crop;
-  let { default_image, common_name, other_name, family, sunlight, watering }: plantType = perenual ?? {};
+  const { id, name, perenual } = crop || {};
+  let { default_image, common_name, sunlight, watering }: plantType = perenual || {};
+  const [expanded, setExpanded] = useState(false);
   const [width, setWidth] = useState(0);
-  const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   const updateWidth = () => {
-    const newWidth = window.innerWidth;
-    setWidth(newWidth);
+    setWidth(window.innerWidth);
   };
 
   useEffect(() => {
@@ -59,37 +57,26 @@ export default function Crop({ crop, deleteCrop }: cropProps) {
     updateWidth();
 
     // Cleanup event listener on component unmount
-    return () => {
-      window.removeEventListener('resize', updateWidth);
-    };
+    return () => window.removeEventListener('resize', updateWidth);
   }, []);
-  //
-  // const syns: any =
-  //   other_name && other_name.length
-  //     ? other_name.slice(0, 3)
-  //     : 'N/A';
-
-  const renderSynonyms = (names: string[]) => {
-    return names?.map((_s: string) => <span key={_s}>{_s}</span>);
-  };
 
   return (
     <Card sx={{ maxWidth: 345, borderRadius: 10 }}>
       <CardHeader
         action={
-          <IconButton onClick={() => deleteCrop(id.toString())} aria-label="add crop">
+          <IconButton onClick={() => deleteCrop(id.toString())} aria-label="delete- crop">
             <RemoveOutlinedIcon color="secondary" />
           </IconButton>
         }
         title={<span className="heading-4">{name}</span>}
-        subheader={common_name}
+        subheader={common_name || 'No common name available'}
       />
-      <Link className="flex-1 h-full" href={`/crops/${id}/page.tsx`} as={`/crops/${id}`}>
+      <Link href={`/crops/${id}/page.tsx`} as={`/crops/${id}`}>
         <CardMedia
           component="img"
           sx={{ width: 345, height: 345 }}
-          image={default_image?.small_url || default_image?.original_url}
-          alt={common_name}
+          image={default_image?.small_url || default_image?.original_url || '/coming-soon.jpg'}
+          alt={common_name || 'coming soon'}
         />
       </Link>
       <CardContent>
@@ -97,6 +84,7 @@ export default function Crop({ crop, deleteCrop }: cropProps) {
           This impressive paella is a perfect party dish and a fun meal to cook
           together with your guests. Add 1 cup of frozen peas along with the mussels,
           if you like.
+          {crop.description || 'No description available for this crop.'}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -118,19 +106,28 @@ export default function Crop({ crop, deleteCrop }: cropProps) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Description</Typography>
-          <div className="flex ">
-
-            <Image className="mr-4" width={48} height={48} src={renderSunCondition(sunlight).src}
-                   alt={renderSunCondition(sunlight).alt} /> {renderSunCondition(sunlight).description}
+          <div className="flex">
+            <Image
+              className="mr-4"
+              width={48}
+              height={48}
+              src={renderSunCondition(sunlight)?.src || '/default-sun-icon.png'}
+              alt={renderSunCondition(sunlight)?.alt || 'Sun condition placeholder'}
+            />
+            {renderSunCondition(sunlight)?.description || 'No sunlight info available'}
           </div>
           <div className="flex mt-5">
-
-            <Image className="mr-4" width={48} height={48} src={renderWatering(watering).src}
-                   alt={renderWatering(watering).alt} />
-            <p>{renderWatering(watering).description}</p>
+            <Image
+              className="mr-4"
+              width={48}
+              height={48}
+              src={renderWatering(watering)?.src}
+              alt={renderWatering(watering)?.alt}
+            />
+            <p>{renderWatering(watering)?.description || 'No watering info available'}</p>
           </div>
         </CardContent>
       </Collapse>
     </Card>
   );
-}
+};

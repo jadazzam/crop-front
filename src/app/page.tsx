@@ -1,8 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { PlantsList } from '@/components/plants/list';
+import { PlantsList } from '@/components/plants/List';
 import { cropType } from '@/interfaces/crops/crop';
-import { CropsList } from '@/components/crops/list';
+import { CropsList } from '@/components/crops/List';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import HeroSection from '@/components/hero';
 import axios from 'axios';
@@ -41,37 +41,37 @@ export default function Page() {
     setTitle(cropsTitle);
   }, [user]);
 
-  const randomTitle = plantsTitles[Math.floor(Math.random() * plantsTitles.length)];
+  // const randomTitle = plantsTitles[Math.floor(Math.random() * plantsTitles.length)];
   return <>
     <HeroSection setName={setName} setSearch={(search: searchPlantType) => {
       setSearch(search);
     }} />
-    {crops?.length > 0 && (
-      <div>
-        <div className="text-center">
-          <h2 className="heading-2">{title ? `My crops : ${title}` : `My crops`}</h2>
-        </div>
-        <CropsList
-          data={crops}
-          setMyCrop={(crop) => {
-            const res = crops.filter((_c) => _c.id !== crop.id);
-            setCrops(res);
-          }}
-        ></CropsList>
-      </div>
-    )}
-    {search &&
-      <>
-        <div className="flex-col max-w-full">
+    {/*{crops?.length > 0 && (*/}
+    {/*  <div>*/}
+    {/*    <div className="text-center">*/}
+    {/*      <h2 className="heading-2">{title ? `My crops : ${title}` : `My crops`}</h2>*/}
+    {/*    </div>*/}
+    {/*    <CropsList*/}
+    {/*      data={crops}*/}
+    {/*      setMyCrop={(crop) => {*/}
+    {/*        const res = crops.filter((_c) => _c.id !== crop.id);*/}
+    {/*        setCrops(res);*/}
+    {/*      }}*/}
+    {/*    ></CropsList>*/}
+    {/*  </div>*/}
+    {/*)}*/}
+    {/*{search &&*/}
+    {/*  <>*/}
+    {/*    <div className="flex-col max-w-full">*/}
 
-          <h2
-            className="heading-2">{name ? `Résulats de recherche : ${name}` : randomTitle}</h2>
-        </div>
-        <PlantsList
-          setCrop={(crop: cropType) => setCrops([...crops, crop])}
-          search={search}
-        />
-      </>
-    }
+    {/*      <h2*/}
+    {/*        className="heading-2">{name ? `Résulats de recherche : ${name}` : randomTitle}</h2>*/}
+    {/*    </div>*/}
+    {/*    <PlantsList*/}
+    {/*      setCrop={(crop: cropType) => setCrops([...crops, crop])}*/}
+    {/*      search={search}*/}
+    {/*    />*/}
+    {/*  </>*/}
+    {/*}*/}
   </>;
 }
