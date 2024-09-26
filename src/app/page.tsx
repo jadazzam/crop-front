@@ -1,13 +1,12 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { PlantsList } from '@/components/plants/List';
+import { useEffect, useState, createContext } from 'react';
 import { cropType } from '@/interfaces/crops/crop';
-import { CropsList } from '@/components/crops/List';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import HeroSection from '@/components/hero';
 import axios from 'axios';
 import { searchPlantType } from '@/interfaces/plants/search';
 import { cropsTitle, plantsTitles } from '@/common/helpers';
+import { UserContext } from '../providers';
 
 export default function Page() {
   const { user } = useUser();
@@ -15,7 +14,6 @@ export default function Page() {
   const [name, setName] = useState<string | null>(null);
   const [search, setSearch] = useState<searchPlantType | null>(null);
   const [title, setTitle] = useState<string | null>(null);
-
   const fetchCrops = async () => {
     if (!user) return [];
     return await axios.get('/api/crops').then(res => {
@@ -43,9 +41,11 @@ export default function Page() {
 
   // const randomTitle = plantsTitles[Math.floor(Math.random() * plantsTitles.length)];
   return <>
-    <HeroSection setName={setName} setSearch={(search: searchPlantType) => {
-      setSearch(search);
-    }} />
+    <UserContext.Provider value={user}>
+      <HeroSection setName={setName} setSearch={(search: searchPlantType) => {
+        setSearch(search);
+      }} />
+    </UserContext.Provider>
     {/*{crops?.length > 0 && (*/}
     {/*  <div>*/}
     {/*    <div className="text-center">*/}

@@ -154,32 +154,35 @@ function NavBar(props: { user?: Claims | undefined }) {
               <SignInButton href="/api/auth/login">
                 Sign in
               </SignInButton>
-              : <Tooltip title="Open settings"><IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}><Avatar
-                alt={props.user ? props.user.nickname : 'user avatar'} src={props.user.picture} /> </IconButton>
-              </Tooltip>
+              :
+              <>
+                <Tooltip title="Open settings"><IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}><Avatar
+                  alt={props.user ? props.user.nickname : 'user avatar'} src={props.user.picture} /> </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: '45px' }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right'
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right'
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {userSettings.map((setting) => (
+                    <MenuItem key={setting} onClick={() => handleUserMenu(setting)}>
+                      <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </>
             }
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right'
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right'
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {userSettings.map((setting) => (
-                <MenuItem key={setting} onClick={() => handleUserMenu(setting)}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
           </Box>
         </Toolbar>
       </Container>
