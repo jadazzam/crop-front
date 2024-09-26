@@ -47,13 +47,7 @@ const LoginButton = ({ text }: { text: string }) => {
     if (setting === MyCrops) location.href = '/crops';
     if (setting === Profile) location.href = '/profile';
   };
-  const handleNavMenu = (setting: string) => {
-    if (setting === AboutUs) location.href = '/about';
-    if (setting === MyCrops) location.href = '/crops';
-    if (setting === Plants) location.href = '/plants';
-  };
 
-  console.log('user in login button =>', user);
   return (
     <>
       <Box className={'right-6 top-6 absolute'} sx={{ flexGrow: 0 }}>

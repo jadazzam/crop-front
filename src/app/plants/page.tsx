@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PlantsList } from '@/components/plants/List';
 import { cropType } from '@/interfaces/crops/crop';
 import { searchPlantType } from '@/interfaces/plants/search';

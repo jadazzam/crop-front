@@ -23,16 +23,16 @@ export default function Page() {
     }).then(crops => setCrops(crops));
   };
   //
-  const fetchPlants = async () => {
-    return await fetch('/api/plants')
-      .then((res) => res.json())
-      .then((res) => {
-        setSearch(res);
-      }).catch(e => console.log('GET Plants error', e));
-  };
-  useEffect(() => {
-    fetchPlants();
-  }, []);
+  // const fetchPlants = async () => {
+  //   return await fetch('/api/plants')
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       setSearch(res);
+  //     }).catch(e => console.log('GET Plants error', e));
+  // };
+  // useEffect(() => {
+  //   fetchPlants();
+  // }, []);
 
   useEffect(() => {
     user && fetchCrops();
