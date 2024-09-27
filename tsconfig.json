@@ -1,26 +1,63 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "paths": {
-      "@/*": ["./*"]
-    }
+	"lib": [
+	  "es6",
+	  "dom",
+	  "dom.iterable",
+	  "esnext"
+	],
+	"noImplicitAny": true,
+	"noImplicitThis": true,
+	"strictNullChecks": true,
+	"allowJs": true,
+	"skipLibCheck": true,
+	"strict": true,
+	"noEmit": true,
+	"esModuleInterop": true,
+	"target": "ES2020",
+	"module": "esnext",
+	"moduleResolution": "bundler",
+	"resolveJsonModule": true,
+	"isolatedModules": true,
+	"jsx": "preserve",
+	"incremental": true,
+	"plugins": [
+	  {
+		"name": "next"
+	  }
+	],
+	"paths": {
+	  "@/*": [
+		"./src/*"
+	  ],
+	  "@/styles/*": [
+		"styles/*"
+	  ],
+	  "@/components/*": [
+		"components/*"
+	  ],
+	  "@/interfaces/*": [
+		"interfaces/*"
+	  ],
+	  "@/common/*": [
+		"common/*"
+	  ],
+	  "@/services/*": [
+		"services/*"
+	  ],
+	  "@/api/*": [
+		"app/api/*"
+	  ]
+	},
+	"baseUrl": "src/"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+	"next-env.d.ts",
+	"**/*.ts",
+	"**/*.tsx",
+	".next/types/**/*.ts"
+  ],
+  "exclude": [
+	"node_modules"
+  ]
 }
