@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { plantSchema } from '@/interfaces/plants/plant';
 
-export const searchPlantSchema = z.object({
+export const searchSchema = z.object({
   current_page: z.number(),
   data: z.array(plantSchema),
   from: z.number(),
@@ -11,4 +11,4 @@ export const searchPlantSchema = z.object({
   total: z.number()
 });
 
-export type searchPlantType = z.infer<typeof searchPlantSchema>;
+export type searchType = z.infer<typeof searchSchema>;

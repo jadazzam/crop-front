@@ -16,6 +16,7 @@ import { Claims } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
 import { styled } from '@mui/system';
 import { userSettings, navPages, Logout, Profile, MyCrops, AboutUs, Plants } from '@/common/helpers';
+import Link from 'next/link';
 
 
 const SignInButton = styled(Button)<ButtonProps>(({ theme }) => ({
@@ -63,7 +64,10 @@ function NavBar(props: { user?: Claims | undefined }) {
     <AppBar position="static">
       <Container maxWidth={false}>
         <Toolbar disableGutters>
-          <Image className="mr-2 mt-2 mb-2" width={50} height={50} src="/crop-white.svg" alt="Save My Crop Logo" />
+          <Link key={'logo'} passHref href="/">
+            <Image className="mr-2 mt-2 mb-2" width={50} height={50} src="/crop-white.svg"
+                   alt="Save My Crop Logo" />
+          </Link>
           <Typography
             variant="h6"
             noWrap

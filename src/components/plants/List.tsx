@@ -4,7 +4,7 @@ import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 
 import Plant from '@/components/plants/Card';
 import { cropType } from '@/interfaces/crops/crop';
-import { searchPlantType } from '@/interfaces/plants/search';
+import { searchType } from '@/interfaces/plants/search';
 import { styled } from '@mui/system';
 
 
@@ -14,7 +14,7 @@ const Item = styled(Grid)(({ theme }) => ({
 }));
 
 export const PlantsList = (props: {
-  search: searchPlantType | null;
+  search: searchType | null;
   setCrop: (crop: cropType) => void;
 }) => {
   const { search, setCrop } = props;
