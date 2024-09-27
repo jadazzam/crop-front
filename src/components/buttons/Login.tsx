@@ -2,7 +2,7 @@ import { styled } from '@mui/system';
 import { ButtonProps } from '@mui/material/Button';
 import { Button } from '@mui/material';
 import Menu from '@mui/material/Menu';
-import { AboutUs, Logout, MyCrops, Plants, Profile, userSettings } from '@/common/helpers';
+import { Logout, MyCrops, Profile, userSettings } from '@/common/helpers';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
@@ -11,8 +11,9 @@ import { useContext } from 'react';
 import { UserContext } from '../../providers';
 import { UserProfile } from '@auth0/nextjs-auth0/client';
 import Box from '@mui/material/Box';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
-const LoginButton = ({ text }: { text: string }) => {
+const LoginButton = () => {
   const user: UserProfile | undefined = useContext(UserContext);
   const SignInButton = styled(Button)<ButtonProps>(({ theme }) => ({
     color: '#FFFFFF',
@@ -52,7 +53,7 @@ const LoginButton = ({ text }: { text: string }) => {
     <>
       <Box className={'right-6 top-6 absolute'} sx={{ flexGrow: 0 }}>
         {!user ?
-          <SignInButton href="/api/auth/login">
+          <SignInButton startIcon={<PersonOutlineIcon />} href="/api/auth/login">
             Sign in
           </SignInButton>
           :
