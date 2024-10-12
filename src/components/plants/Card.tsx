@@ -22,6 +22,7 @@ import { ButtonBase } from '@mui/material';
 type plantProps = {
   plant: plantType;
   addCrop: (id: string) => void;
+  handleDrawer: (plant: plantType) => void;
 };
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -39,7 +40,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   })
 }));
 
-export default function Plant({ plant, addCrop }: plantProps) {
+export default function Plant({ plant, addCrop, handleDrawer }: plantProps) {
   //update the size of the card when the size of the screen changes
   const { id, default_image, scientific_name, common_name, sunlight, watering } = plant;
   const [width, setWidth] = useState(0);
@@ -54,10 +55,6 @@ export default function Plant({ plant, addCrop }: plantProps) {
     const newWidth = window.innerWidth;
     setWidth(newWidth);
   };
-
-  function handleDrawer() {
-    setOpen(!open);
-  }
 
   useEffect(() => {
     window.addEventListener('resize', updateWidth);
@@ -74,7 +71,7 @@ export default function Plant({ plant, addCrop }: plantProps) {
           title={<span className="heading-4">{common_name}</span>}
           subheader={scientific_name[0]} />
         <>
-          <ButtonBase onClick={handleDrawer}>
+          <ButtonBase onClick={() => handleDrawer(plant)}>
             <CardMedia
               component="img"
               sx={{ width: 345, height: 345 }}
@@ -122,7 +119,6 @@ export default function Plant({ plant, addCrop }: plantProps) {
           </CardContent>
         </Collapse>
       </Card>
-      <PlantDrawer open={open} handleDrawer={handleDrawer} plant={plant} />
     </>
   );
 }

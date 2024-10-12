@@ -1,11 +1,12 @@
-import type { plantType } from '@/interfaces/plants/plant';
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
-
-
 import Plant from '@/components/plants/Card';
 import { cropType } from '@/interfaces/crops/crop';
 import { searchType } from '@/interfaces/plants/search';
 import { styled } from '@mui/system';
+import PlantDrawer from '@/components/drawer/Drawer';
+import * as React from 'react';
+import { useState } from 'react';
+import { plantType } from '@/interfaces/plants/plant';
 
 
 const Item = styled(Grid)(({ theme }) => ({
@@ -18,6 +19,16 @@ export const PlantsList = (props: {
   setCrop: (crop: cropType) => void;
 }) => {
   const { search, setCrop } = props;
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState({});
+
+  const handleDrawer = (plant: plantType) => {
+    if (plant) {
+      setSelected(plant);
+      setOpen(!open);
+    }
+  };
+
   const addCrop = async (id: string) => {
     const perenualId = id.toString();
     try {
@@ -48,9 +59,10 @@ export const PlantsList = (props: {
     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
       {search?.data?.map((_p: plantType, _i) => (
         <Item xs={2} sm={4} md={4} key={_i}>
-          <Plant plant={_p} addCrop={addCrop} />
+          <Plant plant={_p} addCrop={addCrop} handleDrawer={handleDrawer} />
         </Item>
       ))}
+      <PlantDrawer open={open} handleDrawer={handleDrawer} plant={selected} />
     </Grid>
   );
 };
