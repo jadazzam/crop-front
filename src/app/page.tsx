@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { cropType } from '@/interfaces/crops/crop';
 import { useUser } from '@auth0/nextjs-auth0/client';
@@ -15,7 +15,11 @@ export default function Page() {
   const [crops, setCrops] = useState([]);
   const [search, setSearch] = useState('');
   const router = useRouter();
+  const ref = useRef<HTMLInputElement>(null);
 
+  const handleScroll = () => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  };
   const fetchCrops = () => {
     if (!user) return [];
     return fetch('/api/crops')
@@ -25,19 +29,23 @@ export default function Page() {
   };
 
   useEffect(() => {
+    if (crops?.length) setTimeout(() => handleScroll(), 3000);
+  });
+
+  useEffect(() => {
     user && fetchCrops();
     setTitle(cropsTitle);
   }, [user]);
 
   return <>
     <UserContext.Provider value={user}>
-      <HeroSection search={search} setSearch={(search) => {
+      <HeroSection crops={crops} user={user} handleScroll={handleScroll} search={search} setSearch={(search) => {
         setSearch(search);
         router.push(`/plants?search=${search}`);
       }} />
     </UserContext.Provider>
     {crops?.length > 0 && (
-      <div>
+      <div ref={ref}>
         <div className="text-center">
           <h2 className="heading-2">{title ? `My crops : ${title}` : `My crops`}</h2>
         </div>

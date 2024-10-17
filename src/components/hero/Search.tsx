@@ -15,7 +15,7 @@ const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
 
   return (
     <form
-      className="w-1/3 mx-auto py-16"
+      className="lg:w-1/3 md:w-2/3 mx-auto p-5 py-16"
       action={handleSearch}>
       <div className="relative flex">
         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
