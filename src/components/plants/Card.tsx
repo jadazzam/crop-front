@@ -16,7 +16,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import Image from 'next/image';
 import { renderSunCondition, renderWatering } from '@/common/helpers';
-import PlantDrawer from '@/components/drawer/Drawer';
 import { ButtonBase } from '@mui/material';
 import HeadingSecondary from '@/components/titles';
 
@@ -46,7 +45,6 @@ export default function Plant({ plant, addCrop, handleDrawer }: plantProps) {
   const { id, default_image, scientific_name, common_name, sunlight, watering } = plant;
   const [width, setWidth] = useState(0);
   const [expanded, setExpanded] = useState(false);
-  const [open, setOpen] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
