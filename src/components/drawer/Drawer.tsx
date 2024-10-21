@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { renderSunCondition, renderWatering } from '@/common/helpers';
 import useSWR from 'swr';
 import type { plantType } from '@/interfaces/plants/plant';
+import HeadingSecondary from '@/components/titles';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -39,7 +40,7 @@ const PlantDrawer = ({ plant, open, handleDrawer }: DrawerProps) => {
           />
         </div>
         <div className="p-4">
-          <h3 className="text-lg font-semibold">{common_name}</h3>
+          <HeadingSecondary>{common_name}</HeadingSecondary>
           <div className="flex mt-5">
             <Image
               className="mr-4"
@@ -61,17 +62,17 @@ const PlantDrawer = ({ plant, open, handleDrawer }: DrawerProps) => {
             <p>{renderWatering(watering).description}</p>
           </div>
         </div>
-        {hardiness_location?.full_iframe && (
-          <div
-            className="w-full max-w-full"
-            dangerouslySetInnerHTML={{
-              __html: hardiness_location.full_iframe.replace(
-                '<iframe',
-                '<iframe style="width:100%; height:auto;"'
-              )
-            }}
-          />
-        )}
+        {/*{hardiness_location?.full_iframe && (*/}
+        {/*  <div*/}
+        {/*    className="w-full max-w-full"*/}
+        {/*    dangerouslySetInnerHTML={{*/}
+        {/*      __html: hardiness_location.full_iframe.replace(*/}
+        {/*        '<iframe',*/}
+        {/*        '<iframe style="width:100%; height:auto;"'*/}
+        {/*      )*/}
+        {/*    }}*/}
+        {/*  />*/}
+        {/*)}*/}
         <p>Hello world</p>
       </div>
     );

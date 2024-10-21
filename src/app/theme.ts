@@ -1,8 +1,8 @@
 'use client';
-import { Roboto } from 'next/font/google';
+import { Cormorant_Infant } from 'next/font/google';
 import { createTheme } from '@mui/material/styles';
 
-const roboto = Roboto({
+const roboto = Cormorant_Infant({
   weight: ['300', '400', '500', '700'],
   subsets: ['latin'],
   display: 'swap'
@@ -11,20 +11,14 @@ const roboto = Roboto({
 const theme = createTheme({
   palette: {
     primary: {
-      light: '#9CDFD2',
-      main: '#38785F',
-      dark: '#18403B',
-      contrastText: '#fff'
+      main: '#38785F'
     },
     secondary: {
-      light: '#FFEFC4',
-      main: '#FDB813',
-      dark: '#99680B',
-      contrastText: '#000'
+      main: '#FDB813'
     }
   },
   typography: {
-    fontFamily: roboto.style.fontFamily
+    fontFamily: '"Cormorant Infant", serif'
   },
   components: {
     MuiAlert: {

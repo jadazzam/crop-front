@@ -18,6 +18,7 @@ import Image from 'next/image';
 import { renderSunCondition, renderWatering } from '@/common/helpers';
 import PlantDrawer from '@/components/drawer/Drawer';
 import { ButtonBase } from '@mui/material';
+import HeadingSecondary from '@/components/titles';
 
 type plantProps = {
   plant: plantType;
@@ -68,7 +69,7 @@ export default function Plant({ plant, addCrop, handleDrawer }: plantProps) {
           action={<IconButton onClick={() => addCrop(id.toString())} aria-label="add crop">
             <AddOutlinedIcon color="secondary" />
           </IconButton>}
-          title={<span className="heading-4">{common_name}</span>}
+          title={<HeadingSecondary>{common_name}</HeadingSecondary>}
           subheader={scientific_name[0]} />
         <>
           <ButtonBase onClick={() => handleDrawer(plant)}>
