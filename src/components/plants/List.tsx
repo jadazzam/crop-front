@@ -20,13 +20,12 @@ export const PlantsList = (props: {
 }) => {
   const { search, setCrop } = props;
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState({});
+  const [selected, setSelected] = useState<plantType | null>(null);
 
-  const handleDrawer = (plant: plantType) => {
-    if (plant) {
-      setSelected(plant);
-      setOpen(!open);
-    }
+  const handleDrawer = (plant: plantType | null) => {
+    setSelected(plant);
+    setOpen(!open);
+
   };
 
   const addCrop = async (id: string) => {
@@ -56,7 +55,7 @@ export const PlantsList = (props: {
     }
   };
   return (
-    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+    <Grid container spacing={{ xs: 2, md: 3 }} style={{ margin: 0, width: '100%' }} columns={{ xs: 4, sm: 8, md: 12 }}>
       {search?.data?.map((_p: plantType, _i) => (
         <Item xs={2} sm={4} md={4} key={_i}>
           <Plant plant={_p} addCrop={addCrop} handleDrawer={handleDrawer} />

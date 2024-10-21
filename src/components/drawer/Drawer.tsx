@@ -9,25 +9,16 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 type DrawerProps = {
   plant: plantType | null;
   open: boolean;
-  handleDrawer: () => void;
+  handleDrawer: (plant: plantType) => void;
 };
 
 const PlantDrawer = ({ plant, open, handleDrawer }: DrawerProps) => {
   const url = `/api/plants/${plant?.id}`;
   const { data, error, isLoading } = useSWR<plantType>(url, fetcher);
   if (data) plant = { ...plant, ...data };
-
   let content;
 
-  if (isLoading) {
-    content = (
-      <div className="m-auto">
-        <CircularProgress color="primary" />
-      </div>
-    );
-  } else if (error) {
-    content = <p>Error loading plant data...</p>;
-  } else if (plant) {
+  if (plant) {
     const {
       default_image,
       common_name,
@@ -84,6 +75,15 @@ const PlantDrawer = ({ plant, open, handleDrawer }: DrawerProps) => {
         <p>Hello world</p>
       </div>
     );
+  } else if (isLoading) {
+    content = (
+      <div className="m-auto">
+        <CircularProgress color="primary" />
+      </div>
+    );
+  } else {
+    console.error('error fetching plant :', error);
+    content = <p>Error loading plant data...</p>;
   }
 
   return (

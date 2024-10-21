@@ -36,6 +36,7 @@ export const CropsList = (props: {
   };
   return (
     <Grid container spacing={{ xs: 2, md: 3 }}
+          style={{ margin: 0, width: '100%' }}
           columns={{ xs: 4, sm: 8, md: 12 }}>
       {data?.map((_c: cropType, _i: number) => (
         <Item xs={2} sm={4} md={4} key={_i}>
