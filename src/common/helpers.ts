@@ -82,31 +82,31 @@ export const renderWatering = (watering: string) => {
   switch (watering) {
     case 'Minimum':
       return {
-        src: '/water-min.svg',
+        src: '/water-min.png',
         alt: 'Water minimum',
         description: 'Think of it as the camel of the plant world; a little water goes a long way!'
       };
     case 'Average':
       return {
-        src: '/water-average.svg',
+        src: '/water-average.png',
         alt: 'Water average',
         description: 'Water it like Goldilocks: not too dry, not too wet, but just right!'
       };
     case 'Frequent':
       return {
-        src: '/water-frequent.svg',
+        src: '/water-frequent.png',
         alt: 'Water frequent',
         description: 'Think of this plant as always thirsty – it\'s your own little waterholic!'
       };
     case 'None':
       return {
-        src: '/water-none.svg',
+        src: '/water-none.png',
         alt: 'Water none',
         description: 'This plant is on a water-free diet – no H2O needed!'
       };
     default:
       return {
-        src: '/water-frequent.svg',
+        src: '/water-frequent.png',
         alt: 'Water frequent',
         description: 'Think of this plant as always thirsty – it\'s your own little waterholic!'
       };

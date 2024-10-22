@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { CircularProgress, Drawer } from '@mui/material';
 import Image from 'next/image';
 import { renderSunCondition, renderWatering } from '@/common/helpers';
@@ -25,7 +26,8 @@ const PlantDrawer = ({ plant, open, handleDrawer }: DrawerProps) => {
       common_name,
       sunlight,
       watering,
-      hardiness_location
+      hardiness_location,
+      description
     } = plant;
 
     content = (
@@ -44,8 +46,8 @@ const PlantDrawer = ({ plant, open, handleDrawer }: DrawerProps) => {
           <div className="flex mt-5">
             <Image
               className="mr-4"
-              width={48}
-              height={48}
+              width={24}
+              height={24}
               src={renderSunCondition(sunlight).src}
               alt={renderSunCondition(sunlight).alt}
             />
@@ -54,26 +56,31 @@ const PlantDrawer = ({ plant, open, handleDrawer }: DrawerProps) => {
           <div className="flex mt-5">
             <Image
               className="mr-4"
-              width={48}
-              height={48}
+              width={24}
+              height={24}
               src={renderWatering(watering).src}
               alt={renderWatering(watering).alt}
             />
             <p>{renderWatering(watering).description}</p>
           </div>
+          <p className="mt-5">
+
+            {description}
+          </p>
         </div>
-        {/*{hardiness_location?.full_iframe && (*/}
-        {/*  <div*/}
-        {/*    className="w-full max-w-full"*/}
-        {/*    dangerouslySetInnerHTML={{*/}
-        {/*      __html: hardiness_location.full_iframe.replace(*/}
-        {/*        '<iframe',*/}
-        {/*        '<iframe style="width:100%; height:auto;"'*/}
-        {/*      )*/}
-        {/*    }}*/}
-        {/*  />*/}
-        {/*)}*/}
-        <p>Hello world</p>
+        {hardiness_location?.full_iframe && (
+          <div
+            className="w-full max-w-full"
+            dangerouslySetInnerHTML={{
+              __html: hardiness_location.full_iframe.replace(
+                '<iframe',
+                '<iframe style="width:100%; height:auto;"'
+              )
+            }}
+          />
+        )}
+
+
       </div>
     );
   } else if (isLoading) {

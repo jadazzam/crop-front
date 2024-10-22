@@ -1,7 +1,6 @@
 import React from 'react';
 import Search from './Search';
 import LoginButton from '@/components/buttons/Login';
-import { Button } from '@mui/material';
 import Image from 'next/image';
 import { UserProfile } from '@auth0/nextjs-auth0/client';
 import { cropType } from '@/interfaces/crops/crop';
@@ -24,19 +23,21 @@ const HeroSection = ({ search, setSearch, handleScroll, user, crops }: SearchPro
           <LoginButton />
           <Search search={search} setSearch={setSearch} />
         </div>
-        {(user && crops?.length) && <button
-          className="absolute mb-1 lg:h-36 lg:w-36 md:h-24 md:w-12 sm:h-7 sm:w-7 hover:backdrop-blur-sm rounded-full border-8 hover:border-secondary-500 border-primary-900 left-1/2 transform -translate-x-1/2"
-          onClick={handleScroll}
-          // loading={loading}
-        >
-          <div className="m-auto" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-
-            <Image className="m-auto" sizes="(max-width: 768px) none, 33vw"
-                   src={hovered ? '/arrows-secondary.png' : '/arrows-primary.png'} alt="arrow"
-                   width="45"
-                   height="40" />
+        {(user && crops?.length) &&
+          <div className="mx-auto relative rounded-full" onMouseEnter={() => setHovered(true)}
+               onMouseLeave={() => setHovered(false)}>
+            <button
+              className={`lg:h-36 lg:w-36 md:h-24 md:w-12 sm:h-7 sm:w-7 hover:backdrop-blur-sm rounded-full border-8 hover:border-secondary-500 border-primary-900 transform`}
+              onClick={handleScroll}
+              // loading={loading}
+            >
+              <Image className="m-auto" sizes="(max-width: 768px) none, 33vw"
+                     src={hovered ? '/arrows-secondary.png' : '/arrows-primary.png'} alt="arrow"
+                     width="45"
+                     height="40" />
+            </button>
           </div>
-        </button>}
+        }
       </div>
     </>
   );

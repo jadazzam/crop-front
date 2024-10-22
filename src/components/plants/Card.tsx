@@ -45,7 +45,6 @@ export default function Plant({ plant, addCrop, handleDrawer }: plantProps) {
   const { id, default_image, scientific_name, common_name, sunlight, watering } = plant;
   const [width, setWidth] = useState(0);
   const [expanded, setExpanded] = useState(false);
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -67,7 +66,10 @@ export default function Plant({ plant, addCrop, handleDrawer }: plantProps) {
           action={<IconButton onClick={() => addCrop(id.toString())} aria-label="add crop">
             <AddOutlinedIcon color="secondary" />
           </IconButton>}
-          title={<HeadingSecondary>{common_name}</HeadingSecondary>}
+          title={
+            <HeadingSecondary
+              className="overflow-hidden whitespace-nowrap overflow-ellipsis w-96 capitalize">{common_name}</HeadingSecondary>
+          }
           subheader={scientific_name[0]} />
         <>
           <ButtonBase onClick={() => handleDrawer(plant)}>
@@ -105,14 +107,17 @@ export default function Plant({ plant, addCrop, handleDrawer }: plantProps) {
           <CardContent>
             <Typography paragraph>Description</Typography>
             <div className="flex ">
-
-              <Image className="mr-4" width={48} height={48} src={renderSunCondition(sunlight).src}
-                     alt={renderSunCondition(sunlight).alt} /> {renderSunCondition(sunlight).description}
+              <div className="mr-4">
+                <Image width={36} height={36} src={renderSunCondition(sunlight).src}
+                       alt={renderSunCondition(sunlight).alt} />
+              </div>
+              <p>{renderSunCondition(sunlight).description}</p>
             </div>
             <div className="flex mt-5">
-
-              <Image className="mr-4" width={48} height={48} src={renderWatering(watering).src}
-                     alt={renderWatering(watering).alt} />
+              <div className="mr-4">
+                <Image width={36} height={36} src={renderWatering(watering).src}
+                       alt={renderWatering(watering).alt} />
+              </div>
               <p>{renderWatering(watering).description}</p>
             </div>
           </CardContent>
