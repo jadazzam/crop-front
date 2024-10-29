@@ -22,45 +22,44 @@ import HeadingSecondary from '@/components/titles';
 type plantProps = {
   plant: plantType;
   addCrop: (id: string) => void;
-  handleDrawer: (plant: plantType) => void;
+  handleDrawer: (plant: plantType) => void,
+  handleExpand: (id: number) => void,
+  expanded: boolean
 };
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
 }
 
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest
-  })
-}));
 
-export default function Plant({ plant, addCrop, handleDrawer }: plantProps) {
+export default function Plant({ plant, addCrop, handleDrawer, handleExpand, expanded }: plantProps) {
   //update the size of the card when the size of the screen changes
   const { id, default_image, scientific_name, common_name, sunlight, watering } = plant;
   const [width, setWidth] = useState(0);
-  const [expanded, setExpanded] = useState(false);
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   const updateWidth = () => {
     const newWidth = window.innerWidth;
     setWidth(newWidth);
   };
 
+
+  const ExpandMore = styled((props: ExpandMoreProps) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+  })(({ theme, expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest
+    })
+  }));
   useEffect(() => {
     window.addEventListener('resize', updateWidth);
     updateWidth();
   }, []);
 
   return (
-    <>
+    <div>
       <Card sx={{ maxWidth: 345, borderRadius: 10 }}>
         <CardHeader
           action={<IconButton onClick={() => addCrop(id.toString())} aria-label="add crop">
@@ -96,7 +95,7 @@ export default function Plant({ plant, addCrop, handleDrawer }: plantProps) {
           </IconButton>
           <ExpandMore
             expand={expanded}
-            onClick={handleExpandClick}
+            onClick={() => handleExpand(id)}
             aria-expanded={expanded}
             aria-label="show more"
           >
@@ -123,6 +122,6 @@ export default function Plant({ plant, addCrop, handleDrawer }: plantProps) {
           </CardContent>
         </Collapse>
       </Card>
-    </>
+    </div>
   );
 }

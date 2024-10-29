@@ -21,11 +21,20 @@ export const PlantsList = (props: {
   const { search, setCrop } = props;
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<plantType | null>(null);
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
 
   const handleDrawer = (plant: plantType | null) => {
     setSelected(plant);
     setOpen(!open);
 
+  };
+
+  const handleExpand = (id: number) => {
+    setExpanded(prevState => (
+      {
+        ...prevState, [id]: !prevState[id]
+      }
+    ));
   };
 
   const addCrop = async (id: string) => {
@@ -58,7 +67,8 @@ export const PlantsList = (props: {
     <Grid container spacing={{ xs: 2, md: 3 }} style={{ margin: 0, width: '100%' }} columns={{ xs: 4, sm: 8, md: 12 }}>
       {search?.data?.map((_p: plantType, _i) => (
         <Item xs={2} sm={4} md={4} key={_i}>
-          <Plant plant={_p} addCrop={addCrop} handleDrawer={handleDrawer} />
+          <Plant expanded={expanded[_p.id]} plant={_p} addCrop={addCrop} handleDrawer={handleDrawer}
+                 handleExpand={handleExpand} />
         </Item>
       ))}
       <PlantDrawer open={open} handleDrawer={handleDrawer} plant={selected} />
