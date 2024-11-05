@@ -1,14 +1,14 @@
 import { z } from 'zod';
 import { plantSchema } from '@/interfaces/plants/plant';
 
-const cropSchema = z.object({
-  id: z.string().uuid(),
+export const cropSchema = z.object({
+  id: z.string().uuid().optional(),
   name: z.string(),
   size: z.string(),
   perenualId: z.string(),
-  perenual: plantSchema,
-  active: z.boolean(),
-  description: z.string()
+  perenual: plantSchema.optional(),
+  active: z.boolean().optional(),
+  description: z.string().optional()
 });
 
 const putSchema = z.object({
