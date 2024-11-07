@@ -24,7 +24,7 @@ const HeroSection = ({ search, setSearch, handleScroll, user, crops }: SearchPro
           <Search search={search} setSearch={setSearch} />
         </div>
         {(user && crops?.length) &&
-          <div className="mx-auto relative rounded-full" onMouseEnter={() => setHovered(true)}
+          <div className="mx-auto relative rounded-full bottom-4" onMouseEnter={() => setHovered(true)}
                onMouseLeave={() => setHovered(false)}>
             <button
               className={`lg:h-36 lg:w-36 md:h-24 md:w-12 sm:h-7 sm:w-7 hover:backdrop-blur-sm rounded-full border-8 hover:border-secondary-500 border-primary-900 transform`}
