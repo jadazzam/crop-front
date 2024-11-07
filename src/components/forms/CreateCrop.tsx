@@ -1,9 +1,12 @@
-import React, { ReactNode } from 'react';
+import React, { FormEvent, ReactNode } from 'react';
 import PrimaryButton from '@/components/buttons/Primary';
 import HeadingSecondary from '@/components/titles';
 import { FormControl, FormHelperText, Input, InputLabel, Select } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import { CloseIcon } from 'next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon';
+import { plantType } from '@/interfaces/plants/plant';
 
 const modalStyle = {
   position: 'absolute',
@@ -35,7 +38,7 @@ type CreateCropFormTitleProps = {
 }
 CreateCropForm.Title = function Title({ children }: CreateCropFormTitleProps) {
   return (
-    <div className="mb-6">
+    <div>
       <HeadingSecondary>{children}</HeadingSecondary>
     </div>
   );
@@ -46,7 +49,7 @@ type CreateCropFormInputProps = {
   helper: string,
   className?: string,
   id: string,
-  defaultValue: string
+  defaultValue?: string
 }
 CreateCropForm.Input = function Component({ children, helper, id, defaultValue }: CreateCropFormInputProps) {
   const helperTextId = `${id}-helper-text`;
@@ -75,7 +78,7 @@ CreateCropForm.Select = function Component({
                                            }: CreateCropFormSelectProps) {
   return (
     <FormControl fullWidth sx={FieldStyle}>
-      <InputLabel id="demo-simple-select-label">{label}</InputLabel>
+      <InputLabel id={id}>{label}</InputLabel>
       <Select
         labelId={id}
         id={id}
@@ -98,8 +101,14 @@ CreateCropForm.Select = function Component({
 };
 
 
-type CreateCropFormProps = any
-export default function CreateCropForm({ defaultValues, onSubmit }: CreateCropFormProps) {
+type CreateCropFormProps = {
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void,
+  handleModal: (plant?: plantType) => void,
+  defaultValues?: {
+    name?: string,
+  }
+}
+export default function CreateCropForm({ defaultValues, onSubmit, handleModal }: CreateCropFormProps) {
 
 
   const healthItems = {
@@ -118,7 +127,13 @@ export default function CreateCropForm({ defaultValues, onSubmit }: CreateCropFo
   };
   return (
     <Box sx={modalStyle} component="form" onSubmit={onSubmit}>
-      <CreateCropForm.Title>Add plant to your crops</CreateCropForm.Title>
+      <div className="flex justify-between w-full mb-6">
+        <CreateCropForm.Title>Add plant to your crops</CreateCropForm.Title>
+        <IconButton onClick={() => handleModal()} className="mt-0 flex-end " aria-label="cancel">
+          <CloseIcon />
+        </IconButton>
+      </div>
+
       <div className="mt-10 mb-10">
 
         <CreateCropForm.Input className="mb-5" defaultValue={defaultValues?.name} id="name"

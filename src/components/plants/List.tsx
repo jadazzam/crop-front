@@ -11,7 +11,6 @@ import { Modal } from '@mui/material';
 import CreateCropForm from '@/components/forms/CreateCrop';
 import { withoutAuth } from '@/services/crop-api/headers';
 
-
 const Item = styled(Grid)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center'
@@ -30,8 +29,8 @@ export const PlantsList = (props: {
     setSelected(plant);
     setOpenDrawer(!openDrawer);
   };
-  const handleModal = (plant: plantType) => {
-    setSelected(plant);
+  const handleModal = (plant?: plantType) => {
+    if (plant) setSelected(plant);
     setOpenModal(prevState => !prevState);
   };
 
@@ -86,11 +85,12 @@ export const PlantsList = (props: {
       <PlantDrawer open={openDrawer} handleDrawer={handleDrawer} plant={selected} handleModal={handleModal} />
       <Modal
         open={openModal}
-        onClose={handleModal}
+        onClose={() => handleModal()}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <CreateCropForm defaultValues={{ name: selected?.common_name }} onSubmit={onSubmit} />
+        <CreateCropForm handleModal={handleModal} defaultValues={{ name: selected?.common_name }}
+                        onSubmit={onSubmit} />
       </Modal>
     </Grid>
   );
