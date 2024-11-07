@@ -14,7 +14,7 @@ import { withoutAuth } from '@/services/crop-api/headers';
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 type DrawerProps = {
-  plant: plantType;
+  plant: plantType | null;
   open: boolean;
   handleDrawer: (plant: plantType) => void;
 };
@@ -30,21 +30,23 @@ const PlantDrawer = ({ plant, open, handleDrawer }: DrawerProps) => {
     setOpenModal(prevState => !prevState);
   };
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+
     e.preventDefault();
+    let perenualId;
+    if (plant) perenualId = plant?.id;
     const formData: FormData = new FormData(e.currentTarget);
-    const name = formData.get('name');
-    const size = formData.get('size');
-    const health = formData.get('health');
-    const perenualId: string = plant?.id.toString();
+    const name = formData.get('name') as string | null;
+    const size = formData.get('size') as string;
+    const health = formData.get('health') as string;
     try {
-      const response = await fetch('/api/crops', {
+      const response: Response = await fetch('/api/crops', {
         method: 'POST',
         body: JSON.stringify({
           perenualId: perenualId,
           name: name,
-          size: size,
-          health: health
+          size: +size,
+          health: +health
         }),
         headers: withoutAuth
       });
@@ -54,7 +56,7 @@ const PlantDrawer = ({ plant, open, handleDrawer }: DrawerProps) => {
       }
       const crop: cropType = await response.json();
       if (crop) {
-        setTimeout(() => setOpenModal(false), 400);
+        setTimeout(() => setOpenModal(false), 200);
       }
     } catch (error) {
       console.error('Error posting crop:', error);
