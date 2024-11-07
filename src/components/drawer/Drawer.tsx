@@ -1,15 +1,11 @@
 import * as React from 'react';
-import { CircularProgress, Drawer, Modal } from '@mui/material';
+import { CircularProgress, Drawer } from '@mui/material';
 import Image from 'next/image';
 import { renderSunCondition, renderWatering } from '@/common/helpers';
 import useSWR from 'swr';
 import type { plantType } from '@/interfaces/plants/plant';
 import HeadingSecondary from '@/components/titles';
 import PrimaryButton from '@/components/buttons/Primary';
-import { FormEvent, useState } from 'react';
-import CreateCropForm from '@/components/forms/CreateCrop';
-import { cropType } from '@/interfaces/crops/crop';
-import { withoutAuth } from '@/services/crop-api/headers';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -17,52 +13,14 @@ type DrawerProps = {
   plant: plantType | null;
   open: boolean;
   handleDrawer: (plant: plantType) => void;
+  handleModal: (plant: plantType) => void
 };
 
 
-const PlantDrawer = ({ plant, open, handleDrawer }: DrawerProps) => {
-  const [openModal, setOpenModal] = useState(false);
+const PlantDrawer = ({ plant, open, handleDrawer, handleModal }: DrawerProps) => {
   const url = `/api/plants/${plant?.id}`;
   const { data, error, isLoading } = useSWR<plantType>(url, fetcher);
   if (data) plant = { ...plant, ...data };
-
-  const handleModal = () => {
-    setOpenModal(prevState => !prevState);
-  };
-
-  const onSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
-
-    e.preventDefault();
-    let perenualId;
-    if (plant) perenualId = plant?.id;
-    const formData: FormData = new FormData(e.currentTarget);
-    const name = formData.get('name') as string | null;
-    const size = formData.get('size') as string;
-    const health = formData.get('health') as string;
-    try {
-      const response: Response = await fetch('/api/crops', {
-        method: 'POST',
-        body: JSON.stringify({
-          perenualId: perenualId,
-          name: name,
-          size: +size,
-          health: +health
-        }),
-        headers: withoutAuth
-      });
-      if (!response.ok) {
-        console.error('Failed to post crop:', await response.text());
-        return;
-      }
-      const crop: cropType = await response.json();
-      if (crop) {
-        setTimeout(() => setOpenModal(false), 200);
-      }
-    } catch (error) {
-      console.error('Error posting crop:', error);
-    }
-  };
-
   let content;
 
   if (plant) {
@@ -124,7 +82,7 @@ const PlantDrawer = ({ plant, open, handleDrawer }: DrawerProps) => {
           {/*  />*/}
           {/*)}*/}
           <div className="w-full my-5 text-center">
-            <PrimaryButton SxProps={{ marginTop: '2rem', width: '60%' }} onClick={handleModal}>Add
+            <PrimaryButton SxProps={{ marginTop: '2rem', width: '60%' }} onClick={() => handleModal(plant)}>Add
               plant
               to my crops</PrimaryButton>
           </div>
@@ -159,14 +117,6 @@ const PlantDrawer = ({ plant, open, handleDrawer }: DrawerProps) => {
       >
         {content}
       </Drawer>
-      <Modal
-        open={openModal}
-        onClose={handleModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <CreateCropForm defaultValues={{ name: plant?.common_name }} onSubmit={onSubmit} />
-      </Modal>
     </>
   );
 };

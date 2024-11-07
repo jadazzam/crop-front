@@ -36,7 +36,6 @@ export default function PlantsPage() {
       <Search search={search} setSearch={getPlantsByName} />
       <PlantsList
         search={plants}
-        setCrop={(crop: cropType) => console.log('crop added =>', crop)}
       ></PlantsList>
     </>
   );

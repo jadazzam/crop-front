@@ -21,7 +21,7 @@ import HeadingSecondary from '@/components/titles';
 
 type plantProps = {
   plant: plantType;
-  addCrop: (id: string) => void;
+  handleModal: (plant: plantType) => void;
   handleDrawer: (plant: plantType) => void,
   handleExpand: (id: number) => void,
   expanded: boolean
@@ -32,7 +32,7 @@ interface ExpandMoreProps extends IconButtonProps {
 }
 
 
-export default function Plant({ plant, addCrop, handleDrawer, handleExpand, expanded }: plantProps) {
+export default function Plant({ plant, handleModal, handleDrawer, handleExpand, expanded }: plantProps) {
   //update the size of the card when the size of the screen changes
   const { id, default_image, scientific_name, common_name, sunlight, watering } = plant;
   const [width, setWidth] = useState(0);
@@ -62,7 +62,7 @@ export default function Plant({ plant, addCrop, handleDrawer, handleExpand, expa
     <div>
       <Card sx={{ maxWidth: 345, borderRadius: 10 }}>
         <CardHeader
-          action={<IconButton onClick={() => addCrop(id.toString())} aria-label="add crop">
+          action={<IconButton onClick={() => handleModal(plant)} aria-label="add crop">
             <AddOutlinedIcon color="secondary" />
           </IconButton>}
           title={
