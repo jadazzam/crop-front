@@ -71,9 +71,9 @@ export const renderSunCondition = (conditions?: string[]) => {
     };
   } else {
     return {
-      src: '',
-      alt: '',
-      description: ''
+      src: '/part-shade.svg',
+      alt: Sunlight.PartShade,
+      description: 'Give your plant a mix of sun and shade, and it will be one happy camper!'
     };
   }
 };

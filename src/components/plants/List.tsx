@@ -25,16 +25,17 @@ export const PlantsList = (props: {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
   const [openModal, setOpenModal] = useState(false);
 
-  const handleDrawer = (plant: plantType | null) => {
-    setSelected(plant);
-    setOpenDrawer(!openDrawer);
+  const handleDrawer = (plant: plantType): void => {
+    if (plant.id) setSelected(plant);
+    else setSelected(null);
+    setOpenDrawer(prevState => !prevState);
   };
-  const handleModal = (plant?: plantType) => {
+  const handleModal = (plant?: plantType): void => {
     if (plant) setSelected(plant);
     setOpenModal(prevState => !prevState);
   };
 
-  const handleExpand = (id: number) => {
+  const handleExpand = (id: number): void => {
     setExpanded(prevState => (
       {
         ...prevState, [id]: !prevState[id]
@@ -67,22 +68,23 @@ export const PlantsList = (props: {
       }
       const crop: cropType = await response.json();
       if (crop) {
-        setTimeout(() => setOpenModal(false), 200);
+        setOpenModal(false);
       }
     } catch (error) {
       console.error('Error posting crop:', error);
     }
   };
-
   return (
-    <Grid container spacing={{ xs: 2, md: 3 }} style={{ margin: 0, width: '100%' }} columns={{ xs: 4, sm: 8, md: 12 }}>
+    <Grid container spacing={{ xs: 2, md: 3 }} style={{ margin: 0, width: '100%', position: 'relative' }}
+          columns={{ xs: 4, sm: 8, md: 12 }}>
       {search?.data?.map((_p: plantType, _i) => (
         <Item xs={2} sm={4} md={4} key={_i}>
           <Plant expanded={expanded[_p.id]} plant={_p} handleModal={handleModal} handleDrawer={handleDrawer}
                  handleExpand={handleExpand} />
         </Item>
       ))}
-      <PlantDrawer open={openDrawer} handleDrawer={handleDrawer} plant={selected} handleModal={handleModal} />
+      {selected &&
+        <PlantDrawer open={openDrawer} handleDrawer={handleDrawer} plant={selected} handleModal={handleModal} />}
       <Modal
         open={openModal}
         onClose={() => handleModal()}

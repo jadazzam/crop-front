@@ -10,7 +10,7 @@ import PrimaryButton from '@/components/buttons/Primary';
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 type DrawerProps = {
-  plant: plantType | null;
+  plant: plantType;
   open: boolean;
   handleDrawer: (plant: plantType) => void;
   handleModal: (plant: plantType) => void
@@ -37,7 +37,7 @@ const PlantDrawer = ({ plant, open, handleDrawer, handleModal }: DrawerProps) =>
       <div className="flex flex-col">
         <div className="h-[50vh] relative">
           <Image
-            src={default_image?.small_url || default_image?.original_url}
+            src={default_image?.small_url || default_image?.original_url || '/coming-soon.jpg'}
             layout="fill"
             alt={common_name}
             loading="lazy"
@@ -70,17 +70,17 @@ const PlantDrawer = ({ plant, open, handleDrawer, handleModal }: DrawerProps) =>
 
             {description}
           </p>
-          {/*{hardiness_location?.full_iframe && (*/}
-          {/*  <div*/}
-          {/*    className="w-full max-w-full"*/}
-          {/*    dangerouslySetInnerHTML={{*/}
-          {/*      __html: hardiness_location.full_iframe.replace(*/}
-          {/*        '<iframe',*/}
-          {/*        '<iframe style="width:100%; height:auto;"'*/}
-          {/*      )*/}
-          {/*    }}*/}
-          {/*  />*/}
-          {/*)}*/}
+          {hardiness_location?.full_iframe && (
+            <div
+              className="w-full max-w-full"
+              dangerouslySetInnerHTML={{
+                __html: hardiness_location.full_iframe.replace(
+                  '<iframe',
+                  '<iframe style="width:100%; height:auto;"'
+                )
+              }}
+            />
+          )}
           <div className="w-full my-5 text-center">
             <PrimaryButton SxProps={{ marginTop: '2rem', width: '60%' }} onClick={() => handleModal(plant)}>Add
               plant
