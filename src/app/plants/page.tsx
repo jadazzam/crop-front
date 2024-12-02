@@ -27,7 +27,7 @@ export default function PlantsPage() {
       fetch('/api/plants')
         .then((res: Response) => res.json())
         .then(res => {
-          if (!res.error) setPlants(res);
+          if (!res.error && res.data?.length) setPlants(res);
         });
   }, [param]);
 

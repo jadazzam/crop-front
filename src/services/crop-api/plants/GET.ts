@@ -24,15 +24,13 @@ export const getPlants = async (): Promise<plantType[]> => {
 export const getPlantById = async (id: string): Promise<plantType> => {
   const url = CROP_API_GET_PLANT_BY_ID.replace(':id', id);
   try {
-    if (!id || isNaN(Number(id))) throw new Error(`Param incorrect`);
+    if (!id || isNaN(Number(id))) new Error(`Param incorrect`);
     return await fetch(url, {
       headers: withoutAuth,
       cache: 'force-cache'
-    }).then((res: Response) => {
-      return res.json();
-    });
+    }).then((res: Response) => res.json());
   } catch (err) {
-    throw new Error(`get Plant by id error : ${err} for id: ${id}`);
+    throw new Error(`${err}`);
   }
 
 };
