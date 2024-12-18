@@ -10,14 +10,13 @@ import { searchType } from '@/interfaces/plants/search';
 
 export const getPlants = async (): Promise<plantType[]> => {
   try {
-    return await fetch(CROP_API_GET_PLANTS, {
+    const res: Response = await fetch(CROP_API_GET_PLANTS, {
       headers: withoutAuth,
       cache: 'force-cache'
-    }).then(res => {
-      return res.json();
     });
-  } catch (err) {
-    throw new Error(`get Plants error : ${err}`);
+    return res.json();
+  } catch (e) {
+    throw new Error(`${e}`);
   }
 };
 

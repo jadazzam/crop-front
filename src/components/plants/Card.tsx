@@ -57,7 +57,6 @@ export default function Plant({ plant, handleModal, handleDrawer, handleExpand, 
     window.addEventListener('resize', updateWidth);
     updateWidth();
   }, []);
-
   return (
     <div>
       <Card sx={{ maxWidth: 345, borderRadius: 10 }}>
@@ -75,7 +74,7 @@ export default function Plant({ plant, handleModal, handleDrawer, handleExpand, 
             <CardMedia
               component="img"
               sx={{ width: 345, height: 345 }}
-              image={default_image?.small_url || default_image?.original_url}
+              image={default_image?.thumbnail || default_image?.original_url || `/coming-soon.jpg`}
               alt={common_name} />
           </ButtonBase>
         </>

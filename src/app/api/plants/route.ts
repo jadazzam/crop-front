@@ -1,8 +1,6 @@
 import { getPlants } from '@/services/crop-api/plants/GET';
-import { plantType } from '@/interfaces/plants/plant';
+import { NextResponse } from 'next/server';
 
-
-export async function GET(): Promise<Response> {
-  const data: plantType[] = await getPlants();
-  return new Response(JSON.stringify(data));
+export async function GET(): Promise<NextResponse> {
+  return NextResponse.json(await getPlants());
 }
