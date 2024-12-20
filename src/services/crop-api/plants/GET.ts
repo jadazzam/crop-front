@@ -35,7 +35,6 @@ export const getPlantById = async (id: string): Promise<plantType> => {
 };
 
 export const getPlantsByName = async (name: string | null): Promise<searchType> => {
-  console.log('name', name);
   try {
     return await fetch(`${CROP_API_GET_PLANT_BY_NAME}?name=${name}`, {
       headers: withoutAuth,
