@@ -13,11 +13,12 @@ export default function PrimaryButton({ children, type, onClick, SxProps = {} }:
     <Button
       type={type}
       sx={{
-        ...SxProps,
+        width: { xs: '100%', md: '30%' },
         '&:hover': {
           backgroundColor: 'primary.dark',
           boxShadow: '5px 5px 5px primary.dark'
-        }
+        },
+        ...SxProps
       }}
       variant="contained"
       onClick={onClick}>{children}</Button>

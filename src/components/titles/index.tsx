@@ -7,7 +7,7 @@ interface HeadingSecondaryProps {
 
 const HeadingSecondary: FC<HeadingSecondaryProps> = ({ children, className }) => {
   return (
-    <span className={`heading-4 text-2xl ${className}`}>{children}</span>
+    <h2 className={`mb-5 ${className}`}>{children}</h2>
   );
 };
 
