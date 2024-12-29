@@ -40,7 +40,7 @@ export const navbarSections = [{ title: 'My crops', icon: LocalFloristIcon, link
 }, {
   title: 'About Us',
   icon: InfoIcon,
-  link: '/aboutus'
+  link: '/about'
 }];
 export const userSettings = [Profile, MyCrops, Logout];
 export const ManyPlants = 'yard';
