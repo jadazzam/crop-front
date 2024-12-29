@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchButton from '@/components/buttons/Search';
 
-interface SearchProps {
+export interface SearchProps {
   search: string,
   setSearch: (value: string) => void
 }
