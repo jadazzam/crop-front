@@ -16,66 +16,65 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import Image from 'next/image';
 import { renderSunCondition, renderWatering } from '@/common/helpers';
-import PlantDrawer from '@/components/drawer/Drawer';
 import { ButtonBase } from '@mui/material';
+import HeadingSecondary from '@/components/titles';
 
 type plantProps = {
   plant: plantType;
-  addCrop: (id: string) => void;
-  handleDrawer: (plant: plantType) => void;
+  handleModal: (plant: plantType) => void;
+  handleDrawer: (plant: plantType) => void,
+  handleExpand: (id: number) => void,
+  expanded: boolean
 };
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
 }
 
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest
-  })
-}));
 
-export default function Plant({ plant, addCrop, handleDrawer }: plantProps) {
+export default function Plant({ plant, handleModal, handleDrawer, handleExpand, expanded }: plantProps) {
   //update the size of the card when the size of the screen changes
   const { id, default_image, scientific_name, common_name, sunlight, watering } = plant;
   const [width, setWidth] = useState(0);
-  const [expanded, setExpanded] = useState(false);
-  const [open, setOpen] = useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   const updateWidth = () => {
     const newWidth = window.innerWidth;
     setWidth(newWidth);
   };
 
+
+  const ExpandMore = styled((props: ExpandMoreProps) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+  })(({ theme, expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest
+    })
+  }));
   useEffect(() => {
     window.addEventListener('resize', updateWidth);
     updateWidth();
   }, []);
-
   return (
-    <>
+    <div>
       <Card sx={{ maxWidth: 345, borderRadius: 10 }}>
         <CardHeader
-          action={<IconButton onClick={() => addCrop(id.toString())} aria-label="add crop">
+          action={<IconButton onClick={() => handleModal(plant)} aria-label="add crop">
             <AddOutlinedIcon color="secondary" />
           </IconButton>}
-          title={<span className="heading-4">{common_name}</span>}
+          title={
+            <HeadingSecondary
+              className="overflow-hidden whitespace-nowrap overflow-ellipsis w-96 capitalize">{common_name}</HeadingSecondary>
+          }
           subheader={scientific_name[0]} />
         <>
           <ButtonBase onClick={() => handleDrawer(plant)}>
             <CardMedia
               component="img"
               sx={{ width: 345, height: 345 }}
-              image={default_image?.small_url || default_image?.original_url}
+              image={default_image?.thumbnail || default_image?.original_url || `/coming-soon.jpg`}
               alt={common_name} />
           </ButtonBase>
         </>
@@ -95,7 +94,7 @@ export default function Plant({ plant, addCrop, handleDrawer }: plantProps) {
           </IconButton>
           <ExpandMore
             expand={expanded}
-            onClick={handleExpandClick}
+            onClick={() => handleExpand(id)}
             aria-expanded={expanded}
             aria-label="show more"
           >
@@ -106,19 +105,22 @@ export default function Plant({ plant, addCrop, handleDrawer }: plantProps) {
           <CardContent>
             <Typography paragraph>Description</Typography>
             <div className="flex ">
-
-              <Image className="mr-4" width={48} height={48} src={renderSunCondition(sunlight).src}
-                     alt={renderSunCondition(sunlight).alt} /> {renderSunCondition(sunlight).description}
+              <div className="mr-4">
+                <Image width={36} height={36} src={renderSunCondition(sunlight).src}
+                       alt={renderSunCondition(sunlight).alt} />
+              </div>
+              <p>{renderSunCondition(sunlight).description}</p>
             </div>
             <div className="flex mt-5">
-
-              <Image className="mr-4" width={48} height={48} src={renderWatering(watering).src}
-                     alt={renderWatering(watering).alt} />
+              <div className="mr-4">
+                <Image width={36} height={36} src={renderWatering(watering).src}
+                       alt={renderWatering(watering).alt} />
+              </div>
               <p>{renderWatering(watering).description}</p>
             </div>
           </CardContent>
         </Collapse>
       </Card>
-    </>
+    </div>
   );
 }

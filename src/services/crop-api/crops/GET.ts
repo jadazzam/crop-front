@@ -29,7 +29,6 @@ export const getCropById = async (id: string): Promise<cropType> => {
     });
     return response.data;
   } catch (err) {
-    console.log('get crop by id err', err);
     throw new Error('Get crops err', { cause: err });
   }
 };

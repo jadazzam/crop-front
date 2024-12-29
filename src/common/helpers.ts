@@ -1,3 +1,7 @@
+import InfoIcon from '@mui/icons-material/Info';
+import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+
 export const plantsTitles: string[] = [
   'Plants purify the air by absorbing toxins',
   'Flowers beautify spaces and bring joy',
@@ -27,12 +31,17 @@ export const cropsTitle = cropsTitles[Math.floor(Math.random() * cropsTitles.len
 
 export const Logout = 'Logout';
 export const MyCrops = 'My crops';
-export const Crops = 'Crops';
 export const Home = 'Home';
 export const Profile = 'Profile';
-export const Plants = 'plants';
-export const AboutUs = 'About us';
-export const navPages = [MyCrops, Plants, AboutUs];
+export const navbarSections = [{ title: 'My crops', icon: LocalFloristIcon, link: '/crops' }, {
+  title: 'Plants',
+  icon: ShoppingCartCheckoutIcon,
+  link: '/plants'
+}, {
+  title: 'About Us',
+  icon: InfoIcon,
+  link: '/about'
+}];
 export const userSettings = [Profile, MyCrops, Logout];
 export const ManyPlants = 'yard';
 export const OnePlant = 'plant';
@@ -71,9 +80,9 @@ export const renderSunCondition = (conditions?: string[]) => {
     };
   } else {
     return {
-      src: '',
-      alt: '',
-      description: ''
+      src: '/part-shade.svg',
+      alt: Sunlight.PartShade,
+      description: 'Give your plant a mix of sun and shade, and it will be one happy camper!'
     };
   }
 };
@@ -82,31 +91,31 @@ export const renderWatering = (watering: string) => {
   switch (watering) {
     case 'Minimum':
       return {
-        src: '/water-min.svg',
+        src: '/water-min.png',
         alt: 'Water minimum',
         description: 'Think of it as the camel of the plant world; a little water goes a long way!'
       };
     case 'Average':
       return {
-        src: '/water-average.svg',
+        src: '/water-average.png',
         alt: 'Water average',
         description: 'Water it like Goldilocks: not too dry, not too wet, but just right!'
       };
     case 'Frequent':
       return {
-        src: '/water-frequent.svg',
+        src: '/water-frequent.png',
         alt: 'Water frequent',
         description: 'Think of this plant as always thirsty – it\'s your own little waterholic!'
       };
     case 'None':
       return {
-        src: '/water-none.svg',
+        src: '/water-none.png',
         alt: 'Water none',
         description: 'This plant is on a water-free diet – no H2O needed!'
       };
     default:
       return {
-        src: '/water-frequent.svg',
+        src: '/water-frequent.png',
         alt: 'Water frequent',
         description: 'Think of this plant as always thirsty – it\'s your own little waterholic!'
       };

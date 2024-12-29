@@ -1,10 +1,9 @@
 'use client';
 
-import Navbar from './navbar';
-import { Claims } from '@auth0/nextjs-auth0';
+import Navbar, { NavbarType } from './navbar';
 
-const Navigation = (props: { user?: Claims | undefined }) => {
-  return <Navbar user={props?.user} />;
+const Navigation = ({ position, bgColor }: NavbarType) => {
+  return <Navbar position={position} bgColor={bgColor} />;
 };
 
 export default Navigation;

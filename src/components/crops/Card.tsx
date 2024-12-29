@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { cropType } from '@/interfaces/crops/crop';
-import { CropHandler } from '@/components/buttons/CropHandler';
-import { plantType } from '@/interfaces/plants/plant';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
@@ -39,8 +37,17 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   })
 }));
 export default function Crop({ crop, deleteCrop }: cropProps) {
-  const { id, name, perenual } = crop || {};
-  let { default_image, common_name, sunlight, watering }: plantType = perenual || {};
+  const { id, name, perenual } = crop;
+  let default_image,
+    common_name,
+    sunlight,
+    watering = '';
+  if (perenual) {
+    default_image = perenual.default_image;
+    common_name = perenual.common_name;
+    sunlight = perenual.sunlight;
+    watering = perenual.watering;
+  }
   const [expanded, setExpanded] = useState(false);
   const [width, setWidth] = useState(0);
 
@@ -64,7 +71,9 @@ export default function Crop({ crop, deleteCrop }: cropProps) {
     <Card sx={{ maxWidth: 345, borderRadius: 10 }}>
       <CardHeader
         action={
-          <IconButton onClick={() => deleteCrop(id.toString())} aria-label="delete- crop">
+          <IconButton onClick={() => {
+            if (id) deleteCrop(id);
+          }} aria-label="delete- crop">
             <RemoveOutlinedIcon color="secondary" />
           </IconButton>
         }

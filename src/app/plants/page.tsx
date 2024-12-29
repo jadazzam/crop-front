@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { PlantsList } from '@/components/plants/List';
-import { cropType } from '@/interfaces/crops/crop';
 import { searchType } from '@/interfaces/plants/search';
 import Search from '@/components/hero/Search';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -26,18 +25,18 @@ export default function PlantsPage() {
       if (param) router.replace('/plants');
     } else
       fetch('/api/plants')
-        .then((res) => res.json())
-        .then((res) => setPlants(res))
-        .catch(e => console.log('GET Plants error', e));
+        .then((res: Response) => res.json())
+        .then(res => {
+          if (!res.error && res.data?.length) setPlants(res);
+        });
   }, [param]);
 
   return (
     <>
       <Search search={search} setSearch={getPlantsByName} />
-      <PlantsList
+      {plants?.data.length && <PlantsList
         search={plants}
-        setCrop={(crop: cropType) => console.log('crop added =>', crop)}
-      ></PlantsList>
+      ></PlantsList>}
     </>
   );
 }
