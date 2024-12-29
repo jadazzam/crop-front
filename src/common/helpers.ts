@@ -1,3 +1,7 @@
+import InfoIcon from '@mui/icons-material/Info';
+import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+
 export const plantsTitles: string[] = [
   'Plants purify the air by absorbing toxins',
   'Flowers beautify spaces and bring joy',
@@ -27,12 +31,17 @@ export const cropsTitle = cropsTitles[Math.floor(Math.random() * cropsTitles.len
 
 export const Logout = 'Logout';
 export const MyCrops = 'My crops';
-export const Crops = 'Crops';
 export const Home = 'Home';
 export const Profile = 'Profile';
-export const Plants = 'plants';
-export const AboutUs = 'About us';
-export const navPages = [MyCrops, Plants, AboutUs];
+export const navbarSections = [{ title: 'My crops', icon: LocalFloristIcon, link: '/crops' }, {
+  title: 'Plants',
+  icon: ShoppingCartCheckoutIcon,
+  link: '/plants'
+}, {
+  title: 'About Us',
+  icon: InfoIcon,
+  link: '/aboutus'
+}];
 export const userSettings = [Profile, MyCrops, Logout];
 export const ManyPlants = 'yard';
 export const OnePlant = 'plant';

@@ -6,7 +6,6 @@ import '@fontsource/roboto/700.css';
 import type { Metadata } from 'next';
 import { Cormorant_Infant } from 'next/font/google';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
-import { Claims, getSession } from '@auth0/nextjs-auth0';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { StyledRoot } from './StyledRoot';
 
@@ -22,11 +21,9 @@ export default async function RootLayout({
                                          }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getSession();
-  const user: Claims | undefined = session?.user;
   return (
     <html lang="en">
-    <UserProvider user={user}>
+    <UserProvider>
       <body className={cormorant.className}>
       <AppRouterCacheProvider>
         <StyledRoot>
@@ -35,8 +32,6 @@ export default async function RootLayout({
       </AppRouterCacheProvider>
       </body>
     </UserProvider>
-
-
     </html>
   );
 }
