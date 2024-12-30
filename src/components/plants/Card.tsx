@@ -35,12 +35,6 @@ interface ExpandMoreProps extends IconButtonProps {
 export default function Plant({ plant, handleModal, handleDrawer, handleExpand, expanded }: plantProps) {
   //update the size of the card when the size of the screen changes
   const { id, default_image, scientific_name, common_name, sunlight, watering } = plant;
-  const [width, setWidth] = useState(0);
-
-  const updateWidth = () => {
-    const newWidth = window.innerWidth;
-    setWidth(newWidth);
-  };
 
 
   const ExpandMore = styled((props: ExpandMoreProps) => {
@@ -53,10 +47,7 @@ export default function Plant({ plant, handleModal, handleDrawer, handleExpand, 
       duration: theme.transitions.duration.shortest
     })
   }));
-  useEffect(() => {
-    window.addEventListener('resize', updateWidth);
-    updateWidth();
-  }, []);
+
   return (
     <div>
       <Card sx={{ maxWidth: 345, borderRadius: 10 }}>

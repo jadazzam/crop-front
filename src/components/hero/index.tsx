@@ -1,10 +1,10 @@
 import React, { ReactNode } from 'react';
-import Search, { SearchProps } from './Search';
+import Search, { SearchProps } from '../forms/Search';
 import Image from 'next/image';
 import { cropType } from '@/interfaces/crops/crop';
 import Navbar from '@/components/navigation/navbar';
 
-const HeroSectionBlock = ({ children }: { children: ReactNode }) => {
+export const HeroSectionBlock = ({ children }: { children: ReactNode }) => {
   return (
     <div className="bg-cover bg-center h-screen flex items-end opacity-95"
          style={{ backgroundImage: 'url(/home.jpg)' }}>
@@ -26,25 +26,25 @@ HeroSectionBlock.Search = function HeroSectionBlockSearch({ search, setSearch }:
 };
 
 type HeroSectionBlockButtonProps = {
-  handleScroll: () => void,
-  crops: cropType[],
+  // handleScroll: () => void,
+  // crops: cropType[],
   hovered: boolean,
   setHovered: (value: boolean) => void
 }
 
 HeroSectionBlock.Button = function HeroSectionBlockButton({
-                                                            crops,
-                                                            handleScroll,
+                                                            // crops,
+                                                            // handleScroll,
                                                             hovered,
                                                             setHovered
                                                           }: HeroSectionBlockButtonProps) {
   return (
-    crops?.length &&
+    // crops?.length &&
     <div className="mx-auto relative rounded-full bottom-4" onMouseEnter={() => setHovered(true)}
          onMouseLeave={() => setHovered(false)}>
       <button
         className={`lg:h-36 lg:w-36 md:h-24 md:w-12 sm:h-7 sm:w-7 hover:backdrop-blur-sm rounded-full border-8 hover:border-secondary-500 border-primary-900 transform`}
-        onClick={handleScroll}
+        // onClick={handleScroll}
         // loading={loading}
       >
         <Image className="m-auto" sizes="(max-width: 768px) none, 33vw"
@@ -56,18 +56,17 @@ HeroSectionBlock.Button = function HeroSectionBlockButton({
   );
 };
 
-interface HeroSectionProps extends SearchProps {
-  handleScroll: () => void,
-  crops: cropType[]
+type HeroSectionProps = {
+  searchNode: ReactNode,
+  buttonNode?: ReactNode,
 }
 
-const HeroSection = ({ search, setSearch, handleScroll, crops }: HeroSectionProps) => {
-  const [hovered, setHovered] = React.useState(false);
+const HeroSection = ({ searchNode, buttonNode }: HeroSectionProps) => {
   return (
     <HeroSectionBlock>
       <HeroSectionBlock.Navbar />
-      <HeroSectionBlock.Search search={search} setSearch={setSearch} />
-      <HeroSectionBlock.Button crops={crops} hovered={hovered} setHovered={setHovered} handleScroll={handleScroll} />
+      {searchNode}
+      {buttonNode}
     </HeroSectionBlock>
   );
 };

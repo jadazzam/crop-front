@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { PlantsList } from '@/components/plants/List';
 import { searchType } from '@/interfaces/plants/search';
-import Search from '@/components/hero/Search';
+import Search from '@/components/forms/Search';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { handleSearch } from '@/api/actions/plants';
 
@@ -34,9 +34,9 @@ export default function PlantsPage() {
   return (
     <>
       <Search search={search} setSearch={getPlantsByName} />
-      {plants?.data.length && <PlantsList
+      <PlantsList
         search={plants}
-      ></PlantsList>}
+      ></PlantsList>
     </>
   );
 }

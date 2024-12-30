@@ -36,7 +36,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
     duration: theme.transitions.duration.shortest
   })
 }));
-export default function Crop({ crop, deleteCrop }: cropProps) {
+export default function CropCard({ crop, deleteCrop }: cropProps) {
   const { id, name, perenual } = crop;
   let default_image,
     common_name,
@@ -49,23 +49,11 @@ export default function Crop({ crop, deleteCrop }: cropProps) {
     watering = perenual.watering;
   }
   const [expanded, setExpanded] = useState(false);
-  const [width, setWidth] = useState(0);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const updateWidth = () => {
-    setWidth(window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', updateWidth);
-    updateWidth();
-
-    // Cleanup event listener on component unmount
-    return () => window.removeEventListener('resize', updateWidth);
-  }, []);
 
   return (
     <Card sx={{ maxWidth: 345, borderRadius: 10 }}>
@@ -90,9 +78,6 @@ export default function Crop({ crop, deleteCrop }: cropProps) {
       </Link>
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
           {crop.description || 'No description available for this crop.'}
         </Typography>
       </CardContent>
