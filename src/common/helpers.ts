@@ -1,6 +1,9 @@
 import InfoIcon from '@mui/icons-material/Info';
 import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import LoginIcon from '@mui/icons-material/Login';
+import { ListItemProps } from '@/components/menu/MenuBurger';
 
 export const plantsTitles: string[] = [
   'Plants purify the air by absorbing toxins',
@@ -33,19 +36,32 @@ export const Logout = 'Logout';
 export const MyCrops = 'My crops';
 export const Home = 'Home';
 export const Profile = 'Profile';
-export const navbarSections = [{ title: 'My crops', icon: LocalFloristIcon, link: '/crops' }, {
-  title: 'Plants',
-  icon: ShoppingCartCheckoutIcon,
-  link: '/plants'
-}, {
-  title: 'About Us',
-  icon: InfoIcon,
-  link: '/about'
-}];
+export const navbarItems: ListItemProps[] = [
+  {
+    title: 'My crops',
+    link: '/crops',
+    IconSvg: LocalFloristIcon,
+    index: 1
+  }, {
+    title: 'Plants',
+    link: '/plants',
+    IconSvg: ShoppingCartCheckoutIcon,
+    index: 2
+  }, {
+    title: 'About Us',
+    link: '/about',
+    IconSvg: InfoIcon,
+    index: 3
+  }];
+export const loginItems: ListItemProps[] = [
+
+  { title: 'Sign in', link: '/api/auth/login', IconSvg: LoginIcon, index: 1 },
+  { title: 'Sign up', link: '/api/auth/login', IconSvg: PersonAddIcon, index: 2 }
+];
 export const userSettings = [Profile, MyCrops, Logout];
 export const ManyPlants = 'yard';
 export const OnePlant = 'plant';
-export const HomeIcon = 'home';
+export const Homeon = 'home';
 
 const Sunlight = {
   FullSun: 'full sun',
