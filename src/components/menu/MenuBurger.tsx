@@ -43,6 +43,20 @@ export const DrawerBlock = ({ open, toggleDrawer, anchor, children }: DrawerBloc
   );
 };
 
+DrawerBlock.Lists = function DrawerBlockLists() {
+  return (
+    <>
+      <DrawerBlock.List>
+        <DrawerBlock.Items items={navbarItems} />
+      </DrawerBlock.List>
+      <Divider />
+      <DrawerBlock.List>
+        <DrawerBlock.Items items={loginItems} />
+      </DrawerBlock.List>
+    </>
+  );
+};
+
 DrawerBlock.List = function DrawerBlockList({ children }: { children: ReactNode }) {
   return (
     <List>
@@ -88,23 +102,12 @@ export default function MenuBurger() {
 
   const toggleDrawer = () => setOpen(prevState => !prevState);
 
-  const DrawerList = (
-    <>
-      <DrawerBlock.List>
-        <DrawerBlock.Items items={navbarItems} />
-      </DrawerBlock.List>
-      <Divider />
-      <DrawerBlock.List>
-        <DrawerBlock.Items items={loginItems} />
-      </DrawerBlock.List>
-    </>
-  );
 
   return (
     <>
       <Burger toggleDrawer={toggleDrawer} />
       <DrawerBlock open={open} toggleDrawer={toggleDrawer} anchor="right">
-        {DrawerList}
+        <DrawerBlock.Lists />
       </DrawerBlock>
     </>
   );
