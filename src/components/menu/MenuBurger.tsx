@@ -55,7 +55,7 @@ export type ListItemProps = {
   title: string,
   link: string,
   IconSvg: OverridableComponent<SvgIconTypeMap> & { muiName: string; },
-  index: number
+  index?: number
 }
 DrawerBlock.ListItem = function DrawerBlockListItem({ title, link, IconSvg, index }: ListItemProps) {
   return (
@@ -77,7 +77,7 @@ type DrawerBlockItemsProps = {
 DrawerBlock.Items = function DrawerBlockItems({ items }: DrawerBlockItemsProps) {
   return items.map((_s: ListItemProps, _i: number) => {
     return (
-      <DrawerBlock.ListItem title={_s.title} key={_s.link} link={_s.link} IconSvg={_s.IconSvg} index={_i} />
+      <DrawerBlock.ListItem title={_s.title} key={_i} link={_s.link} IconSvg={_s.IconSvg} index={_i} />
     );
   });
 };

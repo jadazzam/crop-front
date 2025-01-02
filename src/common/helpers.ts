@@ -40,23 +40,20 @@ export const navbarItems: ListItemProps[] = [
   {
     title: 'My crops',
     link: '/crops',
-    IconSvg: LocalFloristIcon,
-    index: 1
+    IconSvg: LocalFloristIcon
   }, {
     title: 'Plants',
     link: '/plants',
-    IconSvg: ShoppingCartCheckoutIcon,
-    index: 2
+    IconSvg: ShoppingCartCheckoutIcon
   }, {
     title: 'About Us',
     link: '/about',
-    IconSvg: InfoIcon,
-    index: 3
+    IconSvg: InfoIcon
   }];
 export const loginItems: ListItemProps[] = [
 
-  { title: 'Sign in', link: '/api/auth/login', IconSvg: LoginIcon, index: 1 },
-  { title: 'Sign up', link: '/api/auth/login', IconSvg: PersonAddIcon, index: 2 }
+  { title: 'Sign in', link: '/api/auth/login', IconSvg: LoginIcon },
+  { title: 'Sign up', link: '/api/auth/login', IconSvg: PersonAddIcon }
 ];
 export const userSettings = [Profile, MyCrops, Logout];
 export const ManyPlants = 'yard';

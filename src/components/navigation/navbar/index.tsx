@@ -7,12 +7,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Image from 'next/image';
-import { navbarSections } from '@/common/helpers';
+import { navbarItems } from '@/common/helpers';
 import Link from 'next/link';
-import MenuBurger from '@/components/menu/MenuBurger';
+import MenuBurger, { ListItemProps } from '@/components/menu/MenuBurger';
 import LoginButton from '@/components/buttons/Login';
-import { OverridableComponent } from '@mui/types';
-import { SvgIconTypeMap } from '@mui/material';
 
 export type NavbarType = {
   bgColor?: 'transparent' | 'primary' | 'secondary',
@@ -27,7 +25,7 @@ function Navbar({ bgColor, position = 'static' }: NavbarType) {
         <Toolbar disableGutters>
           <Link key={'logo'} passHref href="/">
             <Image className="mr-2 mt-2" width={50} height={50} src="/crop-white.svg"
-                   alt="Save My Crop Logo" />
+                   alt="Save My Crop" />
           </Link>
           <div className="block mr-0 ml-auto md:hidden">
 
@@ -53,11 +51,7 @@ function Navbar({ bgColor, position = 'static' }: NavbarType) {
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: 'flex' }}>
-              {navbarSections.map((_s: {
-                title: string,
-                icon: OverridableComponent<SvgIconTypeMap> & { muiName: string; },
-                link: string
-              }, _i: number) => (
+              {navbarItems.map((_s: ListItemProps, _i: number) => (
                 <Button
                   key={_i}
                   onClick={() => location.href = _s.link}
