@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
+import Grid from '@mui/material/Grid';
 import Plant from '@/components/plants/Card';
 import { cropType } from '@/interfaces/crops/crop';
 import { searchType } from '@/interfaces/plants/search';
@@ -7,14 +7,11 @@ import PlantDrawer from '@/components/drawer/Drawer';
 import * as React from 'react';
 import { FormEvent, useState } from 'react';
 import { plantType } from '@/interfaces/plants/plant';
-import { Modal } from '@mui/material';
+import { Modal, Paper } from '@mui/material';
 import CreateCropForm from '@/components/forms/CreateCrop';
 import { withoutAuth } from '@/services/crop-api/headers';
+import Box from '@mui/material/Box';
 
-const Item = styled(Grid)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center'
-}));
 
 export const PlantsList = (props: {
   search: searchType | null;
@@ -75,14 +72,20 @@ export const PlantsList = (props: {
     }
   };
   return (
-    <Grid container spacing={{ xs: 2, md: 3 }} style={{ margin: 0, width: '100%', position: 'relative' }}
-          columns={{ xs: 4, sm: 8, md: 12 }}>
-      {search?.data?.map((_p: plantType, _i) => (
-        <Item xs={2} sm={4} md={4} key={_i}>
-          <Plant expanded={expanded[_p.id]} plant={_p} handleModal={handleModal} handleDrawer={handleDrawer}
-                 handleExpand={handleExpand} />
-        </Item>
-      ))}
+    <Box>
+      <Grid container
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            rowSpacing={{ xs: 1, sm: 2, md: 3 }}
+            direction="row"
+            alignItems="normal"
+            sx={{ minHeight: '100vh' }}>
+        {search?.data?.map((_p: plantType, _i) => (
+          <Grid item xs={12} sm={6} md={3} key={_i}>
+            <Plant expanded={expanded[_p.id]} plant={_p} handleModal={handleModal} handleDrawer={handleDrawer}
+                   handleExpand={handleExpand} />
+          </Grid>
+        ))}
+      </Grid>
       {selected &&
         <PlantDrawer open={openDrawer} handleDrawer={handleDrawer} plant={selected} handleModal={handleModal} />}
       <Modal
@@ -94,6 +97,6 @@ export const PlantsList = (props: {
         <CreateCropForm handleModal={handleModal} defaultValues={{ name: selected?.common_name }}
                         onSubmit={onSubmit} />
       </Modal>
-    </Grid>
+    </Box>
   );
 };

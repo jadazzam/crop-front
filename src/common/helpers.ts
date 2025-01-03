@@ -58,7 +58,7 @@ export const loginItems: ListItemProps[] = [
 export const userSettings = [Profile, MyCrops, Logout];
 export const ManyPlants = 'yard';
 export const OnePlant = 'plant';
-export const Homeon = 'home';
+export const HomeIcon = 'home';
 
 const Sunlight = {
   FullSun: 'full sun',
