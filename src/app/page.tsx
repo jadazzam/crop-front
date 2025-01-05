@@ -3,22 +3,19 @@ import { TwoColumns } from '../layouts/blocks/TwoColumns';
 import { FindMyPlantButton } from './page.buttons';
 import { CropsListBlock } from './crops/List';
 import { HeroSectionBlockSearch } from '@/components/hero/Search';
-import { HeroSectionBlockButton } from '@/components/hero/Button';
 
 export default function Page() {
   return <>
     <HeroSection searchNode={
       <HeroSectionBlockSearch />
-    } buttonNode={
-      <HeroSectionBlockButton />
     } />
     {/* TODO : the div below must become a template for all pages*/}
     {/*in order to have homogenous padding*/}
     <CropsListBlock />
-    <TwoColumns title="Outdoor ? Indoor ? Pick your plants accordingly"
+    <TwoColumns title="Outdoor? Indoor? Pick your plants accordingly"
                 description={'Choosing the right plant for your space is essential for both its growth and\n' +
                   '          visual\n' +
-                  '          appeal. Whether you&apos;re enhancing the ambiance of your indoor space or adding vibrance to your outdoor\n' +
+                  '          appeal. Whether you\'re enhancing the ambiance of your indoor space or adding vibrance to your outdoor\n' +
                   '          garden, selecting the right plants can make all the difference.\n' +
                   '\n' +
                   '          Save your crop offers expert guidance to help you choose plants that thrive in your specific\n' +
@@ -30,6 +27,14 @@ export default function Page() {
                   <FindMyPlantButton />
                 }
                 imageDisplay="left"
+    />
+    <TwoColumns title="Help Your Crop Thrive with Expert Blooming Tips"
+                description={'To encourage your crops to flower, start by ensuring they get enough sunlight, as most flowering plants require ample light. Use a phosphorus-rich fertilizer to boost blooming, and avoid overwatering, which can stress plants. Regular pruning improves airflow and directs energy toward budding flowers. Keep an eye out for pests or diseases that may delay flowering. With these simple adjustments, your crop will be on its way to producing vibrant blooms.'}
+                src="/watering-couple-indoor-block2.jpg" alt="watering couple indoor block2"
+                Cta={
+                  <FindMyPlantButton />
+                }
+                imageDisplay="right"
     />
   </>;
 }

@@ -1,13 +1,12 @@
 import React, { ReactNode } from 'react';
 import Search, { SearchProps } from '../forms/Search';
 import Image from 'next/image';
-import { cropType } from '@/interfaces/crops/crop';
 import Navbar from '@/components/navigation/navbar';
 
 export const HeroSectionBlock = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="bg-cover bg-center h-screen flex items-end opacity-95"
-         style={{ backgroundImage: 'url(/home.jpg)' }}>
+    <div style={{ backgroundImage: 'url(/home.jpg)' }}
+         className="h-[90vh] md:h-[85vh] xl:h-[85vh] bg-cover bg-center flex items-end opacity-95">
       {children}
     </div>
   );
@@ -19,7 +18,7 @@ HeroSectionBlock.Navbar = function HeroSectionBlockNavbar() {
 
 HeroSectionBlock.Search = function HeroSectionBlockSearch({ search, setSearch }: SearchProps) {
   return (
-    <div className="absolute inset-0 opacity-100 flex mt-5">
+    <div className="absolute inset-0 opacity-100 flex mt-10 xl:mt-0">
       <Search search={search} setSearch={setSearch} />
     </div>
   );

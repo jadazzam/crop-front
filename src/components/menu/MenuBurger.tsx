@@ -9,10 +9,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { loginItems, navbarItems } from '@/common/helpers';
+import { loginItem, logoutItem, navbarItems } from '@/common/helpers';
 import { OverridableComponent } from '@mui/types';
 import { SvgIconTypeMap } from '@mui/material';
 import { ReactNode } from 'react';
+import { Claims } from '@auth0/nextjs-auth0';
 
 const Burger = ({ toggleDrawer }: { toggleDrawer: () => void }) => (
   <IconButton
@@ -43,7 +44,7 @@ export const DrawerBlock = ({ open, toggleDrawer, anchor, children }: DrawerBloc
   );
 };
 
-DrawerBlock.Lists = function DrawerBlockLists() {
+DrawerBlock.Lists = function DrawerBlockLists({ user }: { user: Claims | undefined }) {
   return (
     <>
       <DrawerBlock.List>
@@ -51,7 +52,18 @@ DrawerBlock.Lists = function DrawerBlockLists() {
       </DrawerBlock.List>
       <Divider />
       <DrawerBlock.List>
-        <DrawerBlock.Items items={loginItems} />
+        {user ? (<>
+            <ListItem key={98}>
+              <span className="mx-auto">{user.email}</span>
+            </ListItem>
+            <DrawerBlock.ListItem title={logoutItem.title} key={99} link={logoutItem.link} IconSvg={logoutItem.IconSvg}
+                                  index={99} />
+          </>
+        ) : (
+          <DrawerBlock.ListItem title={loginItem.title} key={99} link={loginItem.link} IconSvg={loginItem.IconSvg}
+                                index={97} />
+        )
+        }
       </DrawerBlock.List>
     </>
   );
@@ -97,7 +109,7 @@ DrawerBlock.Items = function DrawerBlockItems({ items }: DrawerBlockItemsProps) 
 };
 
 
-export default function MenuBurger() {
+export default function MenuBurger({ user }: { user: Claims | undefined }) {
   const [open, setOpen] = React.useState<boolean>(false);
 
   const toggleDrawer = () => setOpen(prevState => !prevState);
@@ -107,7 +119,7 @@ export default function MenuBurger() {
     <>
       <Burger toggleDrawer={toggleDrawer} />
       <DrawerBlock open={open} toggleDrawer={toggleDrawer} anchor="right">
-        <DrawerBlock.Lists />
+        <DrawerBlock.Lists user={user} />
       </DrawerBlock>
     </>
   );

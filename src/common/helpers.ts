@@ -1,7 +1,7 @@
 import InfoIcon from '@mui/icons-material/Info';
 import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 import { ListItemProps } from '@/components/menu/MenuBurger';
 
@@ -31,7 +31,6 @@ const cropsTitles: string[] = [
   'Sharing homegrown produce strengthens community bonds'
 ];
 export const cropsTitle = cropsTitles[Math.floor(Math.random() * cropsTitles.length)];
-
 export const Logout = 'Logout';
 export const MyCrops = 'My crops';
 export const Home = 'Home';
@@ -50,22 +49,17 @@ export const navbarItems: ListItemProps[] = [
     link: '/about',
     IconSvg: InfoIcon
   }];
-export const loginItems: ListItemProps[] = [
-
-  { title: 'Sign in', link: '/api/auth/login', IconSvg: LoginIcon },
-  { title: 'Sign up', link: '/api/auth/login', IconSvg: PersonAddIcon }
-];
+export const loginItem: ListItemProps = { title: 'Sign in', link: '/api/auth/login', IconSvg: LoginIcon };
+export const logoutItem: ListItemProps = { title: 'Sign out', link: '/api/auth/logout', IconSvg: LogoutIcon };
 export const userSettings = [Profile, MyCrops, Logout];
 export const ManyPlants = 'yard';
 export const OnePlant = 'plant';
 export const HomeIcon = 'home';
-
 const Sunlight = {
   FullSun: 'full sun',
   PartShade: 'part shade',
   FullShade: 'full_shade', SunPartShade: 'sun-part_shade'
 };
-
 export const renderSunCondition = (conditions?: string[]) => {
   if (conditions?.includes(Sunlight.FullSun)) {
     return {
@@ -99,7 +93,6 @@ export const renderSunCondition = (conditions?: string[]) => {
     };
   }
 };
-
 export const renderWatering = (watering: string) => {
   switch (watering) {
     case 'Minimum':

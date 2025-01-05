@@ -1,5 +1,6 @@
 'use client';
 import * as React from 'react';
+import { useUser } from '@auth0/nextjs-auth0/client';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -18,6 +19,7 @@ export type NavbarType = {
 }
 
 function Navbar({ bgColor, position = 'static' }: NavbarType) {
+  const { user } = useUser();
 
   return (
     <AppBar sx={{ boxShadow: 'none' }} color={bgColor || 'primary'} position={position}>
@@ -29,7 +31,7 @@ function Navbar({ bgColor, position = 'static' }: NavbarType) {
           </Link>
           <div className="block mr-0 ml-auto md:hidden">
 
-            <MenuBurger />
+            <MenuBurger user={user} />
           </div>
           <div className="max-md:hidden flex w-full">
             <Typography
@@ -62,7 +64,7 @@ function Navbar({ bgColor, position = 'static' }: NavbarType) {
               ))}
             </Box>
 
-            <LoginButton />
+            <LoginButton user={user} />
           </div>
         </Toolbar>
       </Container>
