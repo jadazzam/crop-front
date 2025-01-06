@@ -42,7 +42,7 @@ HeroSectionBlock.Button = function HeroSectionBlockButton({
     <div className="mx-auto relative rounded-full bottom-4" onMouseEnter={() => setHovered(true)}
          onMouseLeave={() => setHovered(false)}>
       <button
-        className={`lg:h-36 lg:w-36 md:h-24 md:w-12 sm:h-7 sm:w-7 hover:backdrop-blur-sm rounded-full border-8 hover:border-secondary-500 border-primary-900 transform`}
+        className={`lg:h-36 lg:w-36 md:h-24 md:w-12 sm:h-7 sm:w-7 hover:backdrop-blur-sm rounded-full border-8 hover:border-secondary-500 border-primary-800 transform`}
         // onClick={handleScroll}
         // loading={loading}
       >

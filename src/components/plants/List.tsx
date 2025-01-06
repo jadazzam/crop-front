@@ -2,12 +2,11 @@ import Grid from '@mui/material/Grid';
 import Plant from '@/components/plants/Card';
 import { cropType } from '@/interfaces/crops/crop';
 import { searchType } from '@/interfaces/plants/search';
-import { styled } from '@mui/system';
 import PlantDrawer from '@/components/drawer/Drawer';
 import * as React from 'react';
 import { FormEvent, useState } from 'react';
 import { plantType } from '@/interfaces/plants/plant';
-import { Modal, Paper } from '@mui/material';
+import { Modal } from '@mui/material';
 import CreateCropForm from '@/components/forms/CreateCrop';
 import { withoutAuth } from '@/services/crop-api/headers';
 import Box from '@mui/material/Box';
@@ -77,8 +76,7 @@ export const PlantsList = (props: {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             rowSpacing={{ xs: 1, sm: 2, md: 3 }}
             direction="row"
-            alignItems="normal"
-            sx={{ minHeight: '100vh' }}>
+            alignItems="normal">
         {search?.data?.map((_p: plantType, _i) => (
           <Grid item xs={12} sm={6} md={3} key={_i}>
             <Plant expanded={expanded[_p.id]} plant={_p} handleModal={handleModal} handleDrawer={handleDrawer}

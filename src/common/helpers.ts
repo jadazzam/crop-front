@@ -4,6 +4,7 @@ import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 import { ListItemProps } from '@/components/menu/MenuBurger';
+import { capitalize } from '@mui/material';
 
 export const plantsTitles: string[] = [
   'Plants purify the air by absorbing toxins',
@@ -127,4 +128,38 @@ export const renderWatering = (watering: string) => {
       };
   }
 
+};
+
+
+type descriptionOptionsProps = {
+  common_name: string,
+  scientific_name: string[],
+  cycle: string,
+  sunlight: string[],
+  watering: string,
+  other_name: string[],
+}
+export const descriptionOptions = ({
+                                     common_name,
+                                     scientific_name,
+                                     cycle,
+                                     sunlight,
+                                     watering,
+                                     other_name
+                                   }: descriptionOptionsProps): string => {
+  const formatArray = (arr: string[] | undefined) => {
+    if (!arr || arr.length === 0) return '';
+    return arr.map((item) => capitalize(item)).join(', ');
+  };
+
+  const templates = [
+    `Explore the beauty of the ${common_name} (${formatArray(scientific_name)}), a charming ${cycle.toLowerCase()} that flourishes in ${sunlight?.length ? sunlight.join(', ').toLowerCase() : 'varied light conditions'}. ${other_name?.length ? `Also known as ${formatArray(other_name)}, it` : 'It'} thrives with ${watering.toLowerCase()} watering and showcases stunning flowers that attract pollinators to your garden.`,
+    `Meet the delightful ${common_name} (${formatArray(scientific_name)}), an elegant ${cycle.toLowerCase()} perfect for gardens with ${sunlight?.length ? sunlight.join(', ').toLowerCase() : 'all light levels'}. ${other_name?.length ? `Often called ${formatArray(other_name)}, it` : 'It'} demands ${watering.toLowerCase()} watering and adds vibrant color to any outdoor space.`,
+    `Introducing the ${common_name} (${formatArray(scientific_name)}), a graceful ${cycle.toLowerCase()} that thrives in ${sunlight?.length ? sunlight.join(', ').toLowerCase() : 'suitable light conditions'}. ${other_name?.length ? `Commonly referred to as ${formatArray(other_name)}, this plant` : 'This plant'} enjoys ${watering.toLowerCase()} watering and delights pollinators with its captivating blossoms.`,
+    `Say hello to the stunning ${common_name} (${formatArray(scientific_name)}), a resilient ${cycle.toLowerCase()} that loves ${sunlight?.length ? sunlight.join(', ').toLowerCase() : 'ample light'}. ${other_name?.length ? `Nicknamed ${formatArray(other_name)}, it` : 'It'} flourishes with ${watering.toLowerCase()} watering and makes a statement with its breathtaking flowers.`,
+    `Discover the ${common_name} (${formatArray(scientific_name)}), an enchanting ${cycle.toLowerCase()} that prospers under ${sunlight?.length ? sunlight.join(', ').toLowerCase() : 'ideal light conditions'}. ${other_name?.length ? `Known as ${formatArray(other_name)}, it` : 'It'} requires ${watering.toLowerCase()} watering and is a favorite among pollinators for its lovely blooms.`
+  ];
+
+  const randomIndex = Math.floor(Math.random() * templates.length);
+  return templates[randomIndex];
 };
