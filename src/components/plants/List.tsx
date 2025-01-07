@@ -78,7 +78,7 @@ export const PlantsList = (props: {
             direction="row"
             alignItems="normal">
         {search?.data?.map((_p: plantType, _i) => (
-          <Grid item xs={12} sm={6} md={3} key={_i}>
+          <Grid item xs={12} sm={6} md={4} xl={2} key={_i}>
             <Plant expanded={expanded[_p.id]} plant={_p} handleModal={handleModal} handleDrawer={handleDrawer}
                    handleExpand={handleExpand} />
           </Grid>

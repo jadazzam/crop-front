@@ -15,7 +15,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import Image from 'next/image';
 import { descriptionOptions, renderSunCondition, renderWatering } from '@/common/helpers';
-import { capitalize } from '@mui/material';
+import { capitalize, Tooltip } from '@mui/material';
 
 type plantProps = {
   plant: plantType;
@@ -34,7 +34,6 @@ export default function Plant({ plant, handleModal, handleDrawer, handleExpand, 
   //update the size of the card when the size of the screen changes
   const { id, default_image, scientific_name, common_name, sunlight, watering, cycle, other_name } = plant;
 
-
   const ExpandMore = styled((props: ExpandMoreProps) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
@@ -49,22 +48,34 @@ export default function Plant({ plant, handleModal, handleDrawer, handleExpand, 
   return (
     <Card className={'h-full'}>
       <CardHeader
-        className="min-h-[7rem]"
+        sx={{
+          padding: '0.5em',
+          height: '6rem'
+        }}
         action={<IconButton onClick={() => handleModal(plant)} aria-label="add crop">
           <AddOutlinedIcon color="secondary" />
         </IconButton>}
+        titleTypographyProps={{
+          color: 'primary.dark'
+        }}
+        subheaderTypographyProps={{
+          textOverflow: 'ellipsis',
+          width: '95%',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden'
+        }}
         title={
-          <span
-            className="whitespace-nowrap overflow-ellipsis text-primary-800">{capitalize(common_name)}</span>
+          <span>{capitalize(common_name)}</span>
         }
-        subheader={scientific_name[0]} />
+        subheader={<Tooltip title={scientific_name[0]}><span>{scientific_name[0]}</span></Tooltip>}
+      />
       <CardMedia
         component="img"
-        sx={{ height: '14em', objectFit: 'cover' }}
+        sx={{ height: '14em', objectFit: 'cover', marginTop: 'auto' }}
         image={default_image?.regular_url || default_image?.original_url || `/coming-soon.jpg`}
         alt={common_name}
         onClick={() => handleDrawer(plant)} />
-      <CardActions disableSpacing>
+      <CardActions disableSpacing className={`${!expanded ? 'mt-auto' : ''}`}>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon color="secondary" />
         </IconButton>
