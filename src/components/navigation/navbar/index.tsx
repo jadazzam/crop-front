@@ -18,11 +18,11 @@ export type NavbarType = {
   position?: 'static' | 'absolute' | 'relative'
 }
 
-function Navbar({ bgColor, position = 'static' }: NavbarType) {
+function Navbar({ bgColor = 'primary', position = 'static' }: NavbarType) {
   const { user } = useUser();
 
   return (
-    <AppBar sx={{ boxShadow: 'none' }} color={bgColor || 'primary'} position={position}>
+    <AppBar sx={{ boxShadow: 'none' }} color={bgColor} position={position}>
       <Container maxWidth={false}>
         <Toolbar disableGutters>
           <Link key={'logo'} passHref href="/">

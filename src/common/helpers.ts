@@ -152,7 +152,7 @@ export const descriptionOptions = ({
     return arr.map((item) => capitalize(item)).join(', ');
   };
 
-  const templates = [
+  const templates: string[] = [
     `Explore the beauty of the ${common_name} (${formatArray(scientific_name)}), a charming ${cycle.toLowerCase()} that flourishes in ${sunlight?.length ? sunlight.join(', ').toLowerCase() : 'varied light conditions'}. ${other_name?.length ? `Also known as ${formatArray(other_name)}, it` : 'It'} thrives with ${watering.toLowerCase()} watering and showcases stunning flowers that attract pollinators to your garden.`,
     `Meet the delightful ${common_name} (${formatArray(scientific_name)}), an elegant ${cycle.toLowerCase()} perfect for gardens with ${sunlight?.length ? sunlight.join(', ').toLowerCase() : 'all light levels'}. ${other_name?.length ? `Often called ${formatArray(other_name)}, it` : 'It'} demands ${watering.toLowerCase()} watering and adds vibrant color to any outdoor space.`,
     `Introducing the ${common_name} (${formatArray(scientific_name)}), a graceful ${cycle.toLowerCase()} that thrives in ${sunlight?.length ? sunlight.join(', ').toLowerCase() : 'suitable light conditions'}. ${other_name?.length ? `Commonly referred to as ${formatArray(other_name)}, this plant` : 'This plant'} enjoys ${watering.toLowerCase()} watering and delights pollinators with its captivating blossoms.`,
@@ -162,4 +162,20 @@ export const descriptionOptions = ({
 
   const randomIndex = Math.floor(Math.random() * templates.length);
   return templates[randomIndex];
+};
+
+export const socialsOptions = {
+  instagram: {
+    src: 'socials/instagram.svg',
+    href: 'https://www.instagram.com/savemycrop',
+    alt: 'social-instagram'
+  }, facebook: {
+    src: 'socials/facebook.svg',
+    href: 'https://www.facebook.com/savemycrop',
+    alt: 'social-facebook'
+  }, x: {
+    src: 'socials/x.svg',
+    href: 'https://www.x.com/savemycrop',
+    alt: 'social-x'
+  }
 };

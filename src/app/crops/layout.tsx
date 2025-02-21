@@ -7,8 +7,9 @@ export default function PlantsLayout({
 }) {
   return (
     <section>
-      <Navigation />
-      {children}
+      <Navigation>
+        {children}
+      </Navigation>
     </section>
   );
 }
