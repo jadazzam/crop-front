@@ -13,7 +13,7 @@ export default function Page() {
     {/* TODO : the div below must become a template for all pages*/}
     {/*in order to have homogenous padding*/}
     <CropsListBlock />
-    <TwoColumns title="Outdoor? Indoor? Pick your plants accordingly"
+    <TwoColumns className="my-20" title="Outdoor? Indoor? Pick your plants accordingly"
                 description={'Choosing the right plant for your space is essential for both its growth and\n' +
                   '          visual\n' +
                   '          appeal. Whether you\'re enhancing the ambiance of your indoor space or adding vibrance to your outdoor\n' +
@@ -29,7 +29,7 @@ export default function Page() {
                 }
                 imageDisplay="left"
     />
-    <TwoColumns className="my-5" title="Help Your Crop Thrive with Expert Blooming Tips"
+    <TwoColumns className="my-20" title="Help Your Crop Thrive with Expert Blooming Tips"
                 description={'To encourage your crops to flower, start by ensuring they get enough sunlight, as most flowering plants require ample light. Use a phosphorus-rich fertilizer to boost blooming, and avoid overwatering, which can stress plants. Regular pruning improves airflow and directs energy toward budding flowers. Keep an eye out for pests or diseases that may delay flowering. With these simple adjustments, your crop will be on its way to producing vibrant blooms.'}
                 src="/watering-couple-indoor-block2.jpg" alt="watering couple indoor block2"
                 Cta={

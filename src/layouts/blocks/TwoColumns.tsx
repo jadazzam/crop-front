@@ -24,7 +24,7 @@ TwoColumnsContent.Title = function TwoColumnsTitle({ title }: { title: string })
 
 TwoColumnsContent.Description = function TwoColumnsDescription({ children }: { children: string }) {
   return (
-    <div className="mb-5">{children}</div>
+    <div className="mb-5 text-justify">{children}</div>
   );
 };
 
@@ -38,9 +38,13 @@ TwoColumnsContent.Image = function TwoColumnsImage({ src, alt }: { src: string, 
 };
 
 TwoColumnsContent.Button = function TwoColumnsButton({ onClick }: { onClick: () => void }) {
-  return <PrimaryButton onClick={onClick}
-                        SxProps={{ marginY: '10px' }}>Find my
-    plant</PrimaryButton>;
+  return (
+    <div className="w-full flex justify-center">
+      <PrimaryButton onClick={onClick}
+                     SxProps={{ marginY: '10px', width: '50%' }}>Find my
+        plant</PrimaryButton>
+    </div>
+  );
 };
 
 type TwoColumnsProps = {
@@ -64,7 +68,7 @@ export const TwoColumns: React.FC<TwoColumnsProps> = ({
                                                       }: TwoColumnsProps) => {
   return (
     <TwoColumnsContent className={className} imageDisplay={imageDisplay}>
-      <div className="md:w-1/2">
+      <div className="md:w-1/2 mx-5 md:mx-10 lg:mx-20 2xl:mx-52">
         <TwoColumnsContent.Title title={title} />
         <TwoColumnsContent.Description>{description}</TwoColumnsContent.Description>
         {Cta}
