@@ -3,9 +3,13 @@ import PrimaryButton from '@/components/buttons/Primary';
 import Image from 'next/image';
 import React, { ReactNode } from 'react';
 
-export const TwoColumnsContent = ({ children, imageDisplay }: { children: ReactNode, imageDisplay: string }) => {
+export const TwoColumnsContent = ({ children, imageDisplay, className }: {
+  children: ReactNode,
+  imageDisplay: string,
+  className?: string
+}) => {
   return (
-    <div className={`md:flex md:items-center ${imageDisplay === 'left' && 'md:flex-row-reverse'}`}>
+    <div className={`md:flex md:items-center ${imageDisplay === 'left' && 'md:flex-row-reverse'} ${className}`}>
       {children}
     </div>
   );
@@ -45,6 +49,7 @@ type TwoColumnsProps = {
   Cta?: ReactNode,
   src: string,
   alt: string,
+  className?: string,
   imageDisplay: 'right' | 'left'
 }
 
@@ -54,10 +59,11 @@ export const TwoColumns: React.FC<TwoColumnsProps> = ({
                                                         Cta,
                                                         src,
                                                         alt,
+                                                        className,
                                                         imageDisplay = 'left'
                                                       }: TwoColumnsProps) => {
   return (
-    <TwoColumnsContent imageDisplay={imageDisplay}>
+    <TwoColumnsContent className={className} imageDisplay={imageDisplay}>
       <div className="md:w-1/2">
         <TwoColumnsContent.Title title={title} />
         <TwoColumnsContent.Description>{description}</TwoColumnsContent.Description>

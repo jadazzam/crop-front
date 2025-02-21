@@ -10,11 +10,13 @@ interface NavigationProps extends NavbarType {
 
 const Navigation = ({ position, bgColor, children }: NavigationProps) => {
   return (
-    <>
+    <div className={`min-h-screen flex flex-col`}>
       <Navbar position={position} bgColor={bgColor} />
-      {children}
+      <div className="flex-1 my-5">
+        {children}
+      </div>
       <Footer />
-    </>
+    </div>
 
   );
 

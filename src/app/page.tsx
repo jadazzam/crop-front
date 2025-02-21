@@ -29,7 +29,7 @@ export default function Page() {
                 }
                 imageDisplay="left"
     />
-    <TwoColumns title="Help Your Crop Thrive with Expert Blooming Tips"
+    <TwoColumns className="my-5" title="Help Your Crop Thrive with Expert Blooming Tips"
                 description={'To encourage your crops to flower, start by ensuring they get enough sunlight, as most flowering plants require ample light. Use a phosphorus-rich fertilizer to boost blooming, and avoid overwatering, which can stress plants. Regular pruning improves airflow and directs energy toward budding flowers. Keep an eye out for pests or diseases that may delay flowering. With these simple adjustments, your crop will be on its way to producing vibrant blooms.'}
                 src="/watering-couple-indoor-block2.jpg" alt="watering couple indoor block2"
                 Cta={
