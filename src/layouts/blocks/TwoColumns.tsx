@@ -5,7 +5,7 @@ import React, { ReactNode } from 'react';
 
 export const TwoColumnsContent = ({ children, imageDisplay }: { children: ReactNode, imageDisplay: string }) => {
   return (
-    <div className={`my-10 md:flex md:items-center ${imageDisplay === 'left' && 'md:flex-row-reverse'}`}>
+    <div className={`md:flex md:items-center ${imageDisplay === 'left' && 'md:flex-row-reverse'}`}>
       {children}
     </div>
   );

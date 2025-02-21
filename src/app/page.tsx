@@ -3,6 +3,7 @@ import { TwoColumns } from '../layouts/blocks/TwoColumns';
 import { FindMyPlantButton } from './page.buttons';
 import { CropsListBlock } from './crops/List';
 import { HeroSectionBlockSearch } from '@/components/hero/Search';
+import { Footer } from '@/components/navigation/footer/Footer';
 
 export default function Page() {
   return <>
@@ -36,5 +37,6 @@ export default function Page() {
                 }
                 imageDisplay="right"
     />
+    <Footer />
   </>;
 }
