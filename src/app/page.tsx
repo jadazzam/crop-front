@@ -12,7 +12,7 @@ export default function Page() {
     } />
     {/* TODO : the div below must become a template for all pages*/}
     {/*in order to have homogenous padding*/}
-    <CropsListBlock />
+    <CropsListBlock displayError={false} />
     <TwoColumns className="my-20" title="Outdoor? Indoor? Pick your plants accordingly"
                 description={'Choosing the right plant for your space is essential for both its growth and\n' +
                   '          visual\n' +
