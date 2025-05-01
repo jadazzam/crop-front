@@ -20,15 +20,23 @@ export default function PlantsPage() {
   };
 
   useEffect(() => {
-    if (param) {
-      getPlantsByName(param);
-      if (param) router.replace('/plants');
-    } else
-      fetch('/api/plants')
-        .then((res: Response) => res.json())
-        .then(res => {
-          if (!res.error && res.data?.length) setPlants(res);
-        });
+    const fetchPlants = async () => {
+      try {
+        if (param) {
+          getPlantsByName(param);
+          if (param) router.replace('/plants');
+        } else {
+          const res = await fetch('/api/plants');
+          if (!res.ok) throw new Error(`Server error: ${res.status}`);
+          const data = await res.json();
+          if (data.error) throw new Error(data.error);
+          if (data.data?.length) setPlants(data);
+        }
+      } catch (err) {
+        console.error('Fetch error:', err);
+      }
+    };
+    fetchPlants();
   }, [param]);
 
   return (
