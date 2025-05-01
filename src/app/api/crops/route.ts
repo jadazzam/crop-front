@@ -9,7 +9,6 @@ export const GET = withApiAuthRequired(async function fetchCrops() {
       headers: { 'Content-Type': 'application/json' }
     });
   } catch (e) {
-    console.error('Something went wrong : getAllCrops');
     throw new Error('GET crops error', { cause: e });
   }
 });

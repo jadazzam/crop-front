@@ -7,12 +7,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import Tooltip from '@mui/material/Tooltip';
-import { useUser } from '@auth0/nextjs-auth0/client';
 import Box from '@mui/material/Box';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import { Claims } from '@auth0/nextjs-auth0';
 
-const LoginButton = () => {
-  const { user } = useUser();
+const LoginButton = ({ user }: { user: Claims | undefined }) => {
   const SignInButton = styled(Button)<ButtonProps>(({ theme }) => ({
     color: '#FFFFFF',
     backgroundColor: theme.palette.primary.main,

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import * as React from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
 import MenuBreadcrumbs from '@/components/breadcrumbs';
-import { Crops, Home, HomeIcon, ManyPlants, OnePlant } from '@/common/helpers';
+import { MyCrops, Home, HomeIcon, ManyPlants, OnePlant } from '@/common/helpers';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -24,7 +24,7 @@ export default function CropPage({ params }: { params: { id: string } }) {
       icon: HomeIcon
     },
     {
-      label: Crops,
+      label: MyCrops,
       href: './',
       icon: ManyPlants
     },

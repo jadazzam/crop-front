@@ -1,48 +1,66 @@
-import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
+import Grid from '@mui/material/Grid';
 import type { cropType } from '@/interfaces/crops/crop';
-import Crop from '@/components/crops/Card';
+import CropCard from '@/components/crops/Card';
 import { styled } from '@mui/system';
+import { cropsTitle } from '@/common/helpers';
+import { FindMyPlantButton } from '../../app/page.buttons';
+import { errors } from '@/common/errors';
+import { redirect } from 'next/navigation';
 
-const Item = styled(Grid)(({ theme }) => ({
+const Item = styled(Grid)(() => ({
   display: 'flex',
   justifyContent: 'center'
 }));
 
-export const CropsList = (props: {
-  data: cropType[];
-  setMyCrop: (crop: cropType) => void;
-}) => {
-  const { data, setMyCrop } = props;
-  const deleteCrop = async (id: string) => {
-    try {
-      const crop = await fetch(`/api/crops/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }).then((res) => res.json());
+type CropsListProps = {
+  displayError: boolean;
+  error: string | undefined;
+  crops: cropType[];
+  deleteCrop: (id: string) => void;
+}
 
-      if (!crop) {
-        console.error('Failed to post crop:');
-        return;
-      }
-      if (crop) {
-        setMyCrop(crop);
-      }
-      return crop;
-    } catch (error) {
-      console.error('Error posting crop:', error);
+export const CropsList = ({ displayError = false, error = undefined, crops, deleteCrop }: CropsListProps) => {
+  if (displayError && error) {
+    if (error === errors.NOT_AUTHENTICATED) {
+      setTimeout(() => {
+        redirect('/api/auth/login');
+      }, 5000);
+    } else {
+      setTimeout(() => {
+        redirect('/dashboard');
+      }, 5000);
     }
-  };
-  return (
-    <Grid container spacing={{ xs: 2, md: 3 }}
-          style={{ margin: 0, width: '100%' }}
-          columns={{ xs: 4, sm: 8, md: 12 }}>
-      {data?.map((_c: cropType, _i: number) => (
-        <Item xs={2} sm={4} md={4} key={_i}>
-          <Crop key={_c.id} crop={_c} deleteCrop={deleteCrop} />
-        </Item>
-      ))}
-    </Grid>
-  );
+
+    return (
+      <>
+        <h4>{`${error === errors.NOT_AUTHENTICATED ? 'Create your own user and search for your plant !' : 'Something went wrong, please come back later :) ...'}`}</h4>
+        <h5>You will be redirected in a moment !</h5>
+      </>
+    );
+  } else if (!crops?.length && displayError) {
+    return (
+      <>
+        <h4>{`You don't have any crops ...`}</h4>
+        <h5>This way to add one ...</h5>
+        <FindMyPlantButton />
+      </>
+    );
+  } else if (!error && crops?.length) {
+    return (
+      <div>
+        <div className="text-center">
+          <h2 className="heading-2">My crops : {cropsTitle}</h2>
+        </div>
+        <Grid container spacing={{ xs: 2, md: 3 }}
+              style={{ margin: 0, width: '100%' }}
+              columns={{ xs: 4, sm: 8, md: 12 }}>
+          {crops?.map((_c: cropType, _i: number) => (
+            <Item xs={2} sm={4} md={4} key={_i}>
+              <CropCard key={_c.id} crop={_c} deleteCrop={deleteCrop} />
+            </Item>
+          ))}
+        </Grid>
+      </div>
+    );
+  }
 };

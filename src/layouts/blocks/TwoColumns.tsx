@@ -3,9 +3,13 @@ import PrimaryButton from '@/components/buttons/Primary';
 import Image from 'next/image';
 import React, { ReactNode } from 'react';
 
-export const TwoColumnsContent = ({ children, imageDisplay }: { children: ReactNode, imageDisplay: string }) => {
+export const TwoColumnsContent = ({ children, imageDisplay, className }: {
+  children: ReactNode,
+  imageDisplay: string,
+  className?: string
+}) => {
   return (
-    <div className={`my-10 md:flex md:items-center ${imageDisplay === 'left' && 'md:flex-row-reverse'}`}>
+    <div className={`md:flex md:items-center ${imageDisplay === 'left' && 'md:flex-row-reverse'} ${className}`}>
       {children}
     </div>
   );
@@ -20,7 +24,7 @@ TwoColumnsContent.Title = function TwoColumnsTitle({ title }: { title: string })
 
 TwoColumnsContent.Description = function TwoColumnsDescription({ children }: { children: string }) {
   return (
-    <div className="mb-5">{children}</div>
+    <div className="mb-5 text-justify">{children}</div>
   );
 };
 
@@ -34,9 +38,13 @@ TwoColumnsContent.Image = function TwoColumnsImage({ src, alt }: { src: string, 
 };
 
 TwoColumnsContent.Button = function TwoColumnsButton({ onClick }: { onClick: () => void }) {
-  return <PrimaryButton onClick={onClick}
-                        SxProps={{ marginY: '10px' }}>Find my
-    plant</PrimaryButton>;
+  return (
+    <div className="w-full flex justify-center">
+      <PrimaryButton onClick={onClick}
+                     SxProps={{ marginY: '10px', width: '50%' }}>Find my
+        plant</PrimaryButton>
+    </div>
+  );
 };
 
 type TwoColumnsProps = {
@@ -45,6 +53,7 @@ type TwoColumnsProps = {
   Cta?: ReactNode,
   src: string,
   alt: string,
+  className?: string,
   imageDisplay: 'right' | 'left'
 }
 
@@ -54,11 +63,12 @@ export const TwoColumns: React.FC<TwoColumnsProps> = ({
                                                         Cta,
                                                         src,
                                                         alt,
+                                                        className,
                                                         imageDisplay = 'left'
                                                       }: TwoColumnsProps) => {
   return (
-    <TwoColumnsContent imageDisplay={imageDisplay}>
-      <div className="md:w-1/2">
+    <TwoColumnsContent className={className} imageDisplay={imageDisplay}>
+      <div className="md:w-1/2 mx-5 md:mx-10 lg:mx-20 2xl:mx-52">
         <TwoColumnsContent.Title title={title} />
         <TwoColumnsContent.Description>{description}</TwoColumnsContent.Description>
         {Cta}

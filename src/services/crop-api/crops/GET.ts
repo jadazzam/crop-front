@@ -11,10 +11,8 @@ export const getCrops = async (
 ): Promise<cropType[]> => {
   try {
     const url = `${CROP_API_GET_CROPS}?complete=${complete}`;
-    const response = await axios.get(url, {
-      headers: await withAuth()
-    });
-    return response.data;
+    const response = await fetch(url, { headers: await withAuth() });
+    return response.json();
   } catch (e) {
     throw new Error('Get crops err', { cause: e });
   }

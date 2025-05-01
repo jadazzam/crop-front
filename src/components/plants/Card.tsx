@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
 import type { plantType } from '@/interfaces/plants/plant';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -15,9 +14,8 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import Image from 'next/image';
-import { renderSunCondition, renderWatering } from '@/common/helpers';
-import { ButtonBase } from '@mui/material';
-import HeadingSecondary from '@/components/titles';
+import { descriptionOptions, renderSunCondition, renderWatering } from '@/common/helpers';
+import { capitalize, Tooltip } from '@mui/material';
 
 type plantProps = {
   plant: plantType;
@@ -34,14 +32,7 @@ interface ExpandMoreProps extends IconButtonProps {
 
 export default function Plant({ plant, handleModal, handleDrawer, handleExpand, expanded }: plantProps) {
   //update the size of the card when the size of the screen changes
-  const { id, default_image, scientific_name, common_name, sunlight, watering } = plant;
-  const [width, setWidth] = useState(0);
-
-  const updateWidth = () => {
-    const newWidth = window.innerWidth;
-    setWidth(newWidth);
-  };
-
+  const { id, default_image, scientific_name, common_name, sunlight, watering, cycle, other_name } = plant;
 
   const ExpandMore = styled((props: ExpandMoreProps) => {
     const { expand, ...other } = props;
@@ -53,74 +44,82 @@ export default function Plant({ plant, handleModal, handleDrawer, handleExpand, 
       duration: theme.transitions.duration.shortest
     })
   }));
-  useEffect(() => {
-    window.addEventListener('resize', updateWidth);
-    updateWidth();
-  }, []);
+
   return (
-    <div>
-      <Card sx={{ maxWidth: 345, borderRadius: 10 }}>
-        <CardHeader
-          action={<IconButton onClick={() => handleModal(plant)} aria-label="add crop">
-            <AddOutlinedIcon color="secondary" />
-          </IconButton>}
-          title={
-            <HeadingSecondary
-              className="overflow-hidden whitespace-nowrap overflow-ellipsis w-96 capitalize">{common_name}</HeadingSecondary>
-          }
-          subheader={scientific_name[0]} />
-        <>
-          <ButtonBase onClick={() => handleDrawer(plant)}>
-            <CardMedia
-              component="img"
-              sx={{ width: 345, height: 345 }}
-              image={default_image?.thumbnail || default_image?.original_url || `/coming-soon.jpg`}
-              alt={common_name} />
-          </ButtonBase>
-        </>
+    <Card className={'h-full'}>
+      <CardHeader
+        sx={{
+          padding: '0.5em',
+          height: '6rem'
+        }}
+        action={<IconButton onClick={() => handleModal(plant)} aria-label="add crop">
+          <AddOutlinedIcon color="secondary" />
+        </IconButton>}
+        titleTypographyProps={{
+          color: 'primary.dark'
+        }}
+        subheaderTypographyProps={{
+          textOverflow: 'ellipsis',
+          width: '95%',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden'
+        }}
+        title={
+          <span>{capitalize(common_name)}</span>
+        }
+        subheader={<Tooltip title={scientific_name[0]}><span>{scientific_name[0]}</span></Tooltip>}
+      />
+      <CardMedia
+        component="img"
+        sx={{ height: '14em', objectFit: 'cover', marginTop: 'auto' }}
+        image={default_image?.regular_url || default_image?.original_url || `/coming-soon.jpg`}
+        alt={common_name}
+        onClick={() => handleDrawer(plant)} />
+      <CardActions disableSpacing className={`${!expanded ? 'mt-auto' : ''}`}>
+        <IconButton aria-label="add to favorites">
+          <FavoriteIcon color="secondary" />
+        </IconButton>
+        <IconButton aria-label="share">
+          <ShareIcon color="secondary" />
+        </IconButton>
+        <ExpandMore
+          expand={expanded}
+          onClick={() => handleExpand(id)}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon color="secondary" />
+        </ExpandMore>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like.
+          <Typography sx={{ fontWeight: 'semi-bold' }}>Description</Typography>
+          <div className="flex mt-4">
+            <div className="mr-4">
+              <Image width={24} height={24} src={renderSunCondition(sunlight).src}
+                     alt={renderSunCondition(sunlight).alt} />
+            </div>
+            <Typography variant="body2" color="text.secondary">{renderSunCondition(sunlight).description}</Typography>
+          </div>
+          <div className="flex mt-5">
+            <div className="mr-4">
+              <Image width={24} height={24} src={renderWatering(watering).src}
+                     alt={renderWatering(watering).alt} />
+            </div>
+            <Typography variant="body2" color="text.secondary">{renderWatering(watering).description}</Typography>
+          </div>
+          <Typography paragraph sx={{ marginTop: 2 }} className="mt-10" variant="body2" color="text.secondary">
+            {descriptionOptions({
+              common_name,
+              scientific_name: scientific_name,
+              cycle,
+              sunlight,
+              other_name: other_name,
+              watering
+            })}
           </Typography>
         </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon color="secondary" />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon color="secondary" />
-          </IconButton>
-          <ExpandMore
-            expand={expanded}
-            onClick={() => handleExpand(id)}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon color="secondary" />
-          </ExpandMore>
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph>Description</Typography>
-            <div className="flex ">
-              <div className="mr-4">
-                <Image width={36} height={36} src={renderSunCondition(sunlight).src}
-                       alt={renderSunCondition(sunlight).alt} />
-              </div>
-              <p>{renderSunCondition(sunlight).description}</p>
-            </div>
-            <div className="flex mt-5">
-              <div className="mr-4">
-                <Image width={36} height={36} src={renderWatering(watering).src}
-                       alt={renderWatering(watering).alt} />
-              </div>
-              <p>{renderWatering(watering).description}</p>
-            </div>
-          </CardContent>
-        </Collapse>
-      </Card>
-    </div>
+      </Collapse>
+    </Card>
   );
 }

@@ -1,4 +1,3 @@
-'use client';
 import Navigation from '@/components/navigation';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 
@@ -10,8 +9,11 @@ export default function PlantsLayout({
   return (
     <UserProvider>
       <section>
-        <Navigation />
-        {children}
+        <Navigation>
+          <div className="px-5 md:px-6 lg:px-8">
+            {children}
+          </div>
+        </Navigation>
       </section>
     </UserProvider>
   );
