@@ -5,7 +5,7 @@ import { styled } from '@mui/system';
 import { cropsTitle } from '@/common/helpers';
 import { FindMyPlantButton } from '../../app/page.buttons';
 import { errors } from '@/common/errors';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const Item = styled(Grid)(() => ({
   display: 'flex',
@@ -20,14 +20,15 @@ type CropsListProps = {
 }
 
 export const CropsList = ({ displayError = false, error = undefined, crops, deleteCrop }: CropsListProps) => {
+  const router = useRouter();
   if (displayError && error) {
     if (error === errors.NOT_AUTHENTICATED) {
       setTimeout(() => {
-        redirect('/api/auth/login');
+        router.push('/api/auth/login');
       }, 5000);
     } else {
       setTimeout(() => {
-        redirect('/dashboard');
+        router.push('dashboard');
       }, 5000);
     }
 

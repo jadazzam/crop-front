@@ -27,13 +27,13 @@ export default function PlantsPage() {
           if (param) router.replace('/plants');
         } else {
           const res = await fetch('/api/plants');
-          if (!res.ok) throw new Error(`Server error: ${res.status}`);
+          if (!res.ok) throw new Error(`${res.status} : ${res.statusText}`);
           const data = await res.json();
           if (data.error) throw new Error(data.error);
           if (data.data?.length) setPlants(data);
         }
       } catch (err) {
-        console.error('Fetch error:', err);
+        console.error('Error get plants list:', err);
       }
     };
     fetchPlants();
